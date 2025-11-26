@@ -3,13 +3,14 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowRight, Play } from 'lucide-react';
-import { TextScramble } from '@/components/ui/text-scramble/text-scramble';
-import GlassBackground from '@/components/glass-background';
-import ImageStructure3D from '@/components/ImageStructure3D';
+import { AuroraFlow } from "@/components/AuroraFlow";
+import { TextScramble } from '@/components/ui/textScramble/index';
+import GlassBackground from '@/components/GlassBackground';
+// import ImageStructure3D from '@/components/ImageStructure3D';
 import { useAppLoader } from '@/components/AppLoaderShell';
 
-export function Hero() {
-    const sectionRef = useRef<HTMLElement | null>(null);
+export default function FirstSection() {
+    const sectionRef = useRef<HTMLDivElement | null>(null);
     const { isInitialLoading } = useAppLoader();
     const [inView, setInView] = useState(false);
     const [hasTriggered, setHasTriggered] = useState(false);
@@ -75,27 +76,25 @@ export function Hero() {
     }, [hasTriggered, isInitialLoading]);
 
     return (
-        <section
+        <AuroraFlow
             id="home"
             ref={sectionRef}
-            className="relative flex min-h-screen w-full items-center justify-start"
+            className="relative min-h-screen w-full"
         >
-            {/* <div className="absolute left-0 top-0 -z-10 h-full w-[50%] bg-[radial-gradient(circle_at_top,rgba(255,77,58,0.18),transparent_55%)]" /> */}
-            <div className="absolute right-0 bottom-0 -z-10 h-full w-[65%] bg-[radial-gradient(circle_at_bottom_right,rgba(255,77,58,0.28),transparent_60%)]" />
-            <div className="pl-[5%] relative flex w-full flex-col gap-16 px-6 ">
-                <div className="relative space-y-16">
-                    <div className="space-y-4">
-                        <div className="flex flex-col gap-2">
+            <div className="pl-[5%] pb-[5%] relative flex w-full h-screen items-start justify-end flex-col gap-16 px-6 ">
+                <div className="relative space-y-12">
+                    <div className="space-y-6">
+                        <div className="flex flex-col gap-6">
                             <TextScramble
                                 as="span"
-                                className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
+                                className="text-md font-extralight uppercase text-primary tracking-[0.2em] mix-blend-difference"
                                 duration={1}
                                 speed={0.03}
                                 trigger={hasTriggered && inView && !isInitialLoading}
                             >
                                 {"[Inteli Junior]"}
                             </TextScramble>
-                            <div className="text-7xl text-balance leading-tight uppercase whitespace-pre-line">
+                            <div className="text-7xl text-balance uppercase whitespace-pre-line">
                                 <TextScramble
                                     as="h1"
                                     className=""
@@ -103,7 +102,7 @@ export function Hero() {
                                     speed={0.03}
                                     trigger={hasTriggered && inView && !isInitialLoading}
                                 >
-                                    {"Já fazemos soluções\ncomo futuramente"}
+                                    {"Já fazemos\nsoluções\ncomo futuramente"}
                                 </TextScramble>
                                 <span
                                     aria-hidden="true"
@@ -116,7 +115,7 @@ export function Hero() {
                         </div>
                         <TextScramble
                             as="span"
-                            className="text-white/85 font-extralight uppercase text-lg tracking-[0.2em] h-[70px]"
+                            className="text-white/85 font-extralight uppercase tracking-[0.2em] h-22 mix-blend-difference"
                             duration={1}
                             speed={0.03}
                             trigger={hasTriggered && inView && !isInitialLoading}
@@ -127,7 +126,7 @@ export function Hero() {
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                         <Link
                             href="#contato"
-                            className="z-10 relative group inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground transition hover:shadow-[0_0_30px_rgba(255,77,58,0.55)]"
+                            className="z-10 border-[0.5px] border-white/20 relative group inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground transition shadow-[var(--shadow-inner-button)] hover:border-none hover:shadow-[var(--shadow-inner-button-hover)]"
                             onMouseEnter={triggerContactScramble}
                             onMouseLeave={resetContactHoverState}
                             onFocus={triggerContactScramble}
@@ -146,13 +145,13 @@ export function Hero() {
                         </Link>
                         <Link
                             href="#cases"
-                            className="z-10 relative inline-flex items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-foreground "
+                            className="z-10 relative inline-flex items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-foreground mix-blend-difference"
                             onMouseEnter={triggerPortfolioScramble}
                             onMouseLeave={resetPortfolioHoverState}
                             onFocus={triggerPortfolioScramble}
                             onBlur={resetPortfolioHoverState}
                         >
-                            <GlassBackground cn='px-8 py-3 flex items-center justify-center group hover:border-primary/20 hover:bg-primary/6 hover:text-primary'>
+                            <GlassBackground cn='px-8 py-4 flex items-center justify-center group hover:border-primary/20 hover:bg-primary/6 hover:text-primary'>
                                 <TextScramble
                                     as="span"
                                     duration={0.8}
@@ -168,7 +167,6 @@ export function Hero() {
                     </div>
                 </div>
             </div>
-            <ImageStructure3D className="absolute inset-0 h-full w-full" />
-        </section>
+        </AuroraFlow>
     );
 }

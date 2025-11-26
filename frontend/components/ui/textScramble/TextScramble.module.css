@@ -1,7 +1,7 @@
 .wrapper {
 	position: relative;
 	display: inline;
-	white-space: pre-wrap;
+	white-space: nowrap;
 }
 
 .wrapperActive {

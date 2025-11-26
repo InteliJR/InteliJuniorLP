@@ -42,12 +42,59 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  
+  --shadow-inner-glass: inset 0 2px 15px rgba(255,255,255,0.1), inset 0 0 50px rgba(255,255,255,0.03);
+  --shadow-inner-primary: inset 0 2px 20px rgba(255,77,58,0.35), inset 0 0 60px rgba(255,77,58,0.12);
+  --shadow-inner-glass-premium: inset 0 2px 30px rgba(255,255,255,0.08), inset 0 -2px 30px rgba(0,0,0,0.3), inset 0 0 80px rgba(255,77,58,0.1);
+  --shadow-inner-primary-premium: inset 0 3px 40px rgba(255,77,58,0.25), inset 0 -3px 40px rgba(0,0,0,0.4), inset 0 0 100px rgba(255,150,130,0.15);
+  --shadow-inner-button: inset 0 3px 20px rgba(255,255,255,0.4), inset 0 -3px 15px rgba(0,0,0,0.35), inset 0 0 40px rgba(255,150,130,0.25);
+  --shadow-inner-button-hover: inset 0 3px 25px rgba(255,255,255,0.5), inset 0 -3px 20px rgba(0,0,0,0.4), inset 0 0 50px rgba(255,150,130,0.35), 0 0 40px rgba(255,77,58,0.6);
+  
   @keyframes moveBackground {
   from {
     background-position: 0% 0%;
     }
   to {
     background-position: 0% -1000%;
+    }
+  }
+  @keyframes aurora-glow {
+  0%, 100% {
+    text-shadow: 0 0 40px rgba(0, 200, 200, 0.5);
+    }
+  50% {
+    text-shadow: 0 0 60px rgba(0, 255, 153, 0.7);
+    }
+  }
+  @keyframes sparkle {
+  0%, 100% {
+    opacity: 0.7;
+    }
+  50% {
+    opacity: 1;
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  --animate-marquee: marquee 25s linear infinite;
+  --beam-right: var(----beam-right);
+  --beam-left: var(----beam-left);
+  --color-accent-2: var(----accent-2);
+  --color-accent-1: var(----accent-1);
+  @keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
     }
   }
 }
@@ -93,6 +140,10 @@
     rgba(228, 234, 255, 0.94) 75%,
     rgba(200, 210, 232, 0.92) 100%
   );
+  --accent-1: hsl(280 80% 60%);
+  --accent-2: hsl(320 85% 60%);
+  --beam-left: 270deg;
+  --beam-right: 290deg;
 }
 
 .dark {
@@ -147,12 +198,8 @@
        The class from the loader (jetBrainsMono.variable) sets --font-jetbrains-mono. */
     font-family: var(--font-jetbrains-mono), ui-sans-serif, system-ui, -apple-system,
       "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
-}
 
-.text-silver-gradient {
-  background-image: var(--gradient-silver);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--primary), transparent 50%) 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
+  }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import Loading from "@/components/loading/loading";
+import Loading from "@/components/loading/Loading";
 
 type AppLoaderShellProps = {
     children: ReactNode;

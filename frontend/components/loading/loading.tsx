@@ -2,8 +2,8 @@
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import "./loading.css";
-import { TextScramble } from "../ui/text-scramble";
+import "./Loading.css";
+import { TextScramble } from "../ui/textScramble";
 
 const VERTICES = [
     { x: 0, y: 2.2 },
@@ -43,18 +43,18 @@ const LOADING_DURATION = 4200;
 const LINE_HEIGHT = 28;
 
 const LOADER_LINES = [
-    "Initializing web search",
-    "Scanning web pages",
-    "Visiting key knowledge bases",
-    "Analyzing content",
-    "Generating summary",
-    "Checking accessibility compliance",
-    "Optimizing user interactions",
-    "Running performance tests",
-    "Configuring caching strategies",
-    "Validating color contrast",
-    "Syncing design tokens",
-    "Finalizing UI improvements",
+    "Inicializando protocolos de inovação",
+    "Extraindo excelência técnica",
+    "Otimizando experiência do usuário",
+    "Carregando módulos de alta performance",
+    "Validando integridade dos dados",
+    "Renderizando interfaces responsivas",
+    "Aplicando diretrizes de acessibilidade",
+    "Sincronizando design system",
+    "Configurando estratégias de cache",
+    "Finalizando otimizações de SEO",
+    "Preparando ambiente de impacto",
+    "Sistema pronto para decolar.",
 ];
 
 const MAX_VISIBLE_LINES = 12;
@@ -120,7 +120,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
     useEffect(() => {
         if (!totalLines) return;
 
-        const initialVisibleCount = Math.min(5, totalLines);
+        const initialVisibleCount = 1;
         const initialLines = Array.from({ length: initialVisibleCount }, (_, idx) => ({
             text: LOADER_LINES[idx],
             number: idx + 1,
@@ -157,7 +157,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
             });
 
             setScrollPosition((prevPosition) => prevPosition + LINE_HEIGHT);
-        }, 2000);
+        }, 600);
 
         return () => window.clearInterval(advanceTimer);
     }, [totalLines]);
@@ -213,7 +213,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                 {"[INTELI JUNIOR]"}
             </TextScramble>
             <div className="mt-12 w-full flex flex-col items-center justify-center">
-                <div className="-mb-2 flex gap-2 text-sm uppercase tracking-[0.2em] text-muted-foreground">
+                <div className="flex gap-2 text-sm uppercase tracking-[0.2em] text-muted-foreground">
                     <span className="">
                         CARREGANDO
                         <span aria-hidden="true" className="inline-flex w-6 justify-start tracking-normal">
@@ -221,7 +221,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                         </span>
                     </span>
                 </div>
-                <div className="relative mt-3 overflow-hidden rounded-lg bg-black/70 text-muted-foreground">
+                <div className="relative mt-3 overflow-hidden rounded-lg text-muted-foreground">
                     <div
                         ref={codeContainerRef}
                         className="h-40 overflow-hidden font-mono text-xs leading-7"
@@ -238,7 +238,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                             ))}
                         </div>
                     </div>
-                    <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black via-black/40 to-black/0" />
+                    <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/0" />
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 import { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, MotionProps } from 'framer-motion';
-import styles from './text-scramble.module.css';
+import styles from './TextScramble.module.css';
 
 type TextScrambleProps = {
     children: string;

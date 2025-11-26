@@ -99,24 +99,24 @@ const ImageStructure3D = ({ className = "" }) => {
         mountElement.appendChild(renderer.domElement);
         rendererRef.current = renderer;
 
-        const ambientLight = new THREE.AmbientLight(0x000, 0.25);
+        const ambientLight = new THREE.AmbientLight(0x000000, 0.45);
         scene.add(ambientLight);
 
-        const mainLight = new THREE.DirectionalLight(0x000, 1.25);
+        const mainLight = new THREE.DirectionalLight(0xff4d3a, 1.4);
         mainLight.position.set(6.5, 7, 5.2);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.set(2048, 2048);
         scene.add(mainLight);
 
-        const warmFill = new THREE.DirectionalLight(0xff6f9b, 0.6);
+        const warmFill = new THREE.DirectionalLight(0xff8655, 0.7);
         warmFill.position.set(-5, -2.5, -4.5);
         scene.add(warmFill);
 
-        const coolFill = new THREE.DirectionalLight(0x6aa6ff, 0.75);
+        const coolFill = new THREE.DirectionalLight(0x3b82f6, 0.4);
         coolFill.position.set(4.5, 3.2, 6);
         scene.add(coolFill);
 
-        const rimLight = new THREE.DirectionalLight(0xd7e1ff, 0.55);
+        const rimLight = new THREE.DirectionalLight(0xfff7ed, 0.65);
         rimLight.position.set(-7.5, 4.5, 3.5);
         scene.add(rimLight);
 
@@ -142,35 +142,108 @@ const ImageStructure3D = ({ className = "" }) => {
         const cylinderRadius = 0.08;
 
         const sphereMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0xf5f5ff,
-            metalness: 0.15,
-            roughness: 0.25,
-            clearcoat: 0.85,
-            clearcoatRoughness: 0.1,
-            reflectivity: 0.8,
-            transmission: 0.08,
-            thickness: 0.08,
+            color: 0xffd0c7,
+            metalness: 0.05,
+            roughness: 0.18,
+            clearcoat: 0.9,
+            clearcoatRoughness: 0.08,
+            reflectivity: 0.9,
+            transmission: 0.35,
+            thickness: 0.22,
+            emissive: 0x2f0b08,
+            emissiveIntensity: 0.6,
         });
 
         const largeSphereMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff,
-            metalness: 0.07,
-            roughness: 0.12,
+            color: 0xff4d3a,
+            metalness: 0.02,
+            roughness: 0.08,
             clearcoat: 1,
-            clearcoatRoughness: 0.05,
-            reflectivity: 0.95,
-            emissive: 0x1a1a1a,
-            emissiveIntensity: 0.12,
+            clearcoatRoughness: 0.03,
+            reflectivity: 1,
+            transmission: 0.45,
+            thickness: 0.35,
+            emissive: 0x3c0e0a,
+            emissiveIntensity: 1.1,
         });
 
         const cylinderMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0xe6e6f2,
-            metalness: 0.35,
-            roughness: 0.38,
-            clearcoat: 0.65,
-            clearcoatRoughness: 0.2,
-            reflectivity: 0.75,
+            color: 0xffb9a8,
+            metalness: 0.2,
+            roughness: 0.28,
+            clearcoat: 0.7,
+            clearcoatRoughness: 0.15,
+            reflectivity: 0.85,
+            transmission: 0.25,
+            thickness: 0.18,
+            emissive: 0x220806,
+            emissiveIntensity: 0.45,
         });
+
+        // Setup Post-Processing for Fuzzy Effect
+        const renderTarget = new THREE.WebGLRenderTarget(
+            mountElement.clientWidth,
+            mountElement.clientHeight,
+            {
+                minFilter: THREE.LinearFilter,
+                magFilter: THREE.LinearFilter,
+                format: THREE.RGBAFormat,
+            }
+        );
+
+        const postCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const postScene = new THREE.Scene();
+
+        const postMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                tDiffuse: { value: null },
+                uTime: { value: 0 },
+                uIntensity: { value: 0.015 } // Intensidade do efeito fuzzy
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform sampler2D tDiffuse;
+                uniform float uTime;
+                uniform float uIntensity;
+                varying vec2 vUv;
+
+                float random(vec2 st) {
+                    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+                }
+
+                void main() {
+                    // Cria linhas horizontais aleatórias (efeito fuzzy)
+                    float segment = floor(vUv.y * 80.0); // Quantidade de "fatias" horizontais
+                    float noise = random(vec2(segment, floor(uTime * 30.0))); // Noise muda com o tempo
+                    
+                    float offset = (noise - 0.5) * uIntensity;
+                    
+                    // Aplica o deslocamento horizontal
+                    vec4 color = texture2D(tDiffuse, vec2(vUv.x - offset, vUv.y));
+                    
+                    // Opcional: leve aberração cromática nas bordas do glitch
+                    if (abs(offset) > 0.005) {
+                        float r = texture2D(tDiffuse, vec2(vUv.x - offset - 0.003, vUv.y)).r;
+                        float b = texture2D(tDiffuse, vec2(vUv.x - offset + 0.003, vUv.y)).b;
+                        color.r = r;
+                        color.b = b;
+                        color.a = max(color.a, max(r, b)); // Mantém alpha se houver cor
+                    }
+                    
+                    gl_FragColor = color;
+                }
+            `,
+            transparent: true
+        });
+
+        const postQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), postMaterial);
+        postScene.add(postQuad);
 
         const vertices = [
             new THREE.Vector3(0, 2.2, 0.4),
@@ -339,6 +412,7 @@ const ImageStructure3D = ({ className = "" }) => {
             const { clientWidth, clientHeight } = mountRef.current;
 
             rendererRef.current.setSize(clientWidth, clientHeight);
+            renderTarget.setSize(clientWidth, clientHeight);
             cameraRef.current.aspect = clientWidth / clientHeight;
             cameraRef.current.updateProjectionMatrix();
             cameraRef.current.lookAt(
@@ -365,6 +439,10 @@ const ImageStructure3D = ({ className = "" }) => {
             const structureGroup = structureRef.current;
 
             if (structureGroup && isRotatingRef.current) {
+                // Atualiza uniform de tempo para o efeito fuzzy
+                const time = performance.now() * 0.001;
+                postMaterial.uniforms.uTime.value = time;
+
                 if (pointerActiveRef.current) {
                     pointerRotationRef.current.x +=
                         (pointerTargetRef.current.x - pointerRotationRef.current.x) * POINTER_SMOOTHING;
@@ -388,7 +466,15 @@ const ImageStructure3D = ({ className = "" }) => {
 
             }
 
+            // Renderiza a cena para o renderTarget
+            rendererRef.current.setRenderTarget(renderTarget);
+            rendererRef.current.clear(); // Limpa o target
             rendererRef.current.render(sceneRef.current, cameraRef.current);
+
+            // Renderiza o efeito fuzzy na tela
+            rendererRef.current.setRenderTarget(null);
+            postMaterial.uniforms.tDiffuse.value = renderTarget.texture;
+            rendererRef.current.render(postScene, postCamera);
         };
 
         animate();
