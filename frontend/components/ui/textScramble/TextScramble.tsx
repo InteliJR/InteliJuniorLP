@@ -44,7 +44,7 @@ export function TextScramble({
     const [displayText, setDisplayText] = useState(children);
     const [isContainerActive, setIsContainerActive] = useState(false);
     const [activeSegmentIndex, setActiveSegmentIndex] = useState<number | null>(null);
-    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const rafRef = useRef<number | null>(null);
     const isAnimatingRef = useRef(false);
     const glitchStartTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const glitchStopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -90,6 +90,17 @@ export function TextScramble({
         }
     }, []);
 
+    const cancelAnimation = useCallback(() => {
+        if (rafRef.current !== null) {
+            cancelAnimationFrame(rafRef.current);
+            rafRef.current = null;
+        }
+
+        isAnimatingRef.current = false;
+        setIsContainerActive(false);
+        setActiveSegmentIndex(null);
+    }, []);
+
     const scheduleGlitchCycle = useCallback(() => {
         if (!idleGlitch) return;
         const delay = 1200 + Math.random() * 2000;
@@ -126,64 +137,64 @@ export function TextScramble({
     scheduleGlitchRef.current = scheduleGlitchCycle;
 
     const scramble = useCallback(() => {
-        if (isAnimatingRef.current) return;
+        if (isAnimatingRef.current || text.length === 0) return;
 
         clearGlitchTimers();
+        cancelAnimation();
         setActiveSegmentIndex(null);
         setIsContainerActive(true);
         isAnimatingRef.current = true;
 
-        const steps = duration / speed;
-        let step = 0;
+        const totalDurationMs = duration * 1000;
+        const stepMs = speed * 1000;
+        const start = performance.now();
+        let lastUpdate = start;
 
-        const interval = setInterval(() => {
-            let scrambled = '';
-            const progress = step / steps;
+        const tick = (now: number) => {
+            if (now - lastUpdate >= stepMs) {
+                const progress = Math.min((now - start) / totalDurationMs, 1);
+                let scrambled = '';
 
-            for (let i = 0; i < text.length; i++) {
-                if (text[i] === ' ') {
-                    scrambled += ' ';
-                    continue;
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    if (char === ' ') {
+                        scrambled += ' ';
+                        continue;
+                    }
+
+                    scrambled += progress * text.length > i
+                        ? char
+                        : characterSet[Math.floor(Math.random() * characterSet.length)];
                 }
 
-                if (progress * text.length > i) {
-                    scrambled += text[i];
-                } else {
-                    scrambled +=
-                        characterSet[Math.floor(Math.random() * characterSet.length)];
-                }
+                setDisplayText(scrambled);
+                lastUpdate = now;
             }
 
-            setDisplayText(scrambled);
-            step++;
-
-            if (step > steps) {
-                clearInterval(interval);
-                setDisplayText(text);
-                isAnimatingRef.current = false;
-                setIsContainerActive(false);
-                setActiveSegmentIndex(null);
-
-                if (trigger && idleGlitch) {
-                    scheduleGlitchRef.current();
-                }
-
-                onScrambleComplete?.();
-            }
-        }, speed * 1000);
-        intervalRef.current = interval;
-    }, [characterSet, clearGlitchTimers, duration, idleGlitch, onScrambleComplete, scheduleGlitchCycle, speed, text, trigger]);
-
-    useEffect(() => {
-        if (!trigger) {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-                intervalRef.current = null;
+            if (now - start < totalDurationMs) {
+                rafRef.current = requestAnimationFrame(tick);
+                return;
             }
 
+            rafRef.current = null;
+            setDisplayText(text);
             isAnimatingRef.current = false;
             setIsContainerActive(false);
             setActiveSegmentIndex(null);
+
+            if (trigger && idleGlitch) {
+                scheduleGlitchRef.current();
+            }
+
+            onScrambleComplete?.();
+        };
+
+        rafRef.current = requestAnimationFrame(tick);
+    }, [cancelAnimation, characterSet, clearGlitchTimers, duration, idleGlitch, onScrambleComplete, scheduleGlitchCycle, speed, text, trigger]);
+
+    useEffect(() => {
+        if (!trigger) {
+            cancelAnimation();
             clearGlitchTimers();
             return;
         }
@@ -191,17 +202,10 @@ export function TextScramble({
         scramble();
 
         return () => {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-                intervalRef.current = null;
-            }
-
-            isAnimatingRef.current = false;
-            setIsContainerActive(false);
-            setActiveSegmentIndex(null);
+            cancelAnimation();
             clearGlitchTimers();
         };
-    }, [scramble, trigger, clearGlitchTimers, playId]);
+    }, [scramble, trigger, clearGlitchTimers, playId, cancelAnimation]);
 
     const wrapperClassName = [styles.wrapper, className, isContainerActive ? styles.wrapperActive : '']
         .filter(Boolean)
