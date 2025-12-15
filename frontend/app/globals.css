@@ -49,7 +49,8 @@
   --shadow-inner-primary-premium: inset 0 3px 40px rgba(255,77,58,0.25), inset 0 -3px 40px rgba(0,0,0,0.4), inset 0 0 100px rgba(255,150,130,0.15);
   --shadow-inner-button: inset 0 3px 20px rgba(255,255,255,0.4), inset 0 -3px 15px rgba(0,0,0,0.35), inset 0 0 40px rgba(255,150,130,0.25);
   --shadow-inner-button-hover: inset 0 3px 25px rgba(255,255,255,0.5), inset 0 -3px 20px rgba(0,0,0,0.4), inset 0 0 50px rgba(255,150,130,0.35), 0 0 40px rgba(255,77,58,0.6);
-  
+  --animate-scan-line: scan 2.5s ease-in-out infinite;
+
   @keyframes moveBackground {
   from {
     background-position: 0% 0%;
@@ -96,6 +97,23 @@
     opacity: 1;
     transform: translateY(0);
     }
+  }
+  @keyframes scan {
+    0% { top: 0%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+}
+
+@layer utilities {
+  /* Padrão de Grade Tech para o fundo da seção */
+  .bg-tech-grid {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
   }
 }
 
@@ -201,5 +219,89 @@
 
     background-image: radial-gradient(circle, color-mix(in srgb, var(--primary), transparent 50%) 1.5px, transparent 1.5px);
     background-size: 32px 32px;
+  }
+}
+
+/* Custom Scrollbar - Tech Style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border: 1px solid var(--primary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+  border-color: var(--primary);
+}
+
+/* Glow Effects */
+.glow-text {
+  text-shadow: 0 0 10px rgba(255, 77, 58, 0.6);
+}
+.glow-box {
+  box-shadow: 0 0 20px rgba(255, 77, 58, 0.15);
+}
+
+/* Clip Path for Tech Shapes */
+.clip-tech-card {
+  clip-path: polygon(
+    20px 0, 100% 0, 
+    100% calc(100% - 20px), 
+    calc(100% - 20px) 100%, 
+    0 100%, 0 20px
+  );
+}
+.clip-tech-border {
+  clip-path: polygon(
+    20px 0, 100% 0, 
+    100% calc(100% - 20px), 
+    calc(100% - 20px) 100%, 
+    0 100%, 0 20px
+  );
+}
+
+/* Hero cyber reveal */
+.cyber-title {
+  position: relative;
+  display: block;
+  letter-spacing: 0.08em;
+  color: var(--foreground);
+  text-shadow: 0 0 18px rgba(255, 77, 58, 0.25), 0 0 38px rgba(76, 201, 240, 0.18);
+}
+
+.cyber-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(76, 201, 240, 0.18) 35%, rgba(255, 77, 58, 0.22) 55%, transparent 80%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: skewX(-10deg) translateX(-40%);
+  animation: cyberScan 1.2s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+  pointer-events: none;
+}
+
+@keyframes cyberScan {
+  0% {
+    opacity: 0;
+    transform: skewX(-10deg) translateX(-60%);
+  }
+
+  15% {
+    opacity: 0.6;
+  }
+
+  60% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 0;
+    transform: skewX(-10deg) translateX(120%);
   }
 }

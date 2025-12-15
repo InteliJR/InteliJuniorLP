@@ -1,4 +1,10 @@
 "use client";
+
+/**
+ * AuroraFlow: fundo animado em WebGL para desktop.
+ * - Shader custom de ruído simplex + streaks; atualiza uniform `time` via useFrame.
+ * - Executado apenas no browser (carregado dinamicamente no hero) para não afetar LCP em mobile.
+ */
 import React, { useRef, useMemo, useEffect, useState, forwardRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points } from '@react-three/drei';
@@ -75,7 +81,8 @@ const AuroraBackground = () => {
           float flow3 = snoise(vec2(uv.x * 3.0 + time * 0.12, uv.y * 0.3 + time * 0.07));
           
           // Create streaky patterns like in the image
-          float streaks = sin((uv.x + flow1 * 0.3) * 8.0 + time * 0.2) * 0.5 + 0.5;
+          // Invert the first main streak direction (left -> right) by reversing time phase
+          float streaks = sin((uv.x + flow1 * 0.3) * 8.0 - time * 0.2) * 0.5 + 0.5;
           streaks *= sin((uv.y + flow2 * 0.2) * 12.0 + time * 0.15) * 0.5 + 0.5;
           
           // Combine flows for aurora effect
@@ -190,36 +197,75 @@ export const AuroraFlow = forwardRef<HTMLDivElement, AuroraFlowProps>(({ childre
     <div id={id} ref={localRef} className={`relative overflow-hidden ${className}`}>
       <div className="absolute inset-0 -z-10 p-6">
         <div className="relative w-full h-full">
-          <Canvas
-            frameloop={isInView ? "always" : "never"}
-            className="w-full h-full rounded-xl border border-white/20 shadow-[0_0_60px_rgba(255,77,58,0.35)]"
-            camera={{ position: [0, 0, 30], fov: 50 }}
-            gl={{
-              antialias: true,
-              alpha: false,
-              powerPreference: "high-performance",
+          {/* Tech shape container */}
+          <div
+            className="relative w-full h-full"
+            style={{
+              clipPath: 'polygon(5% 0%, 100% 0%, 100% 92%, 95% 100%, 0% 100%, 0% 8%)'
             }}
           >
-            <AuroraBackground />
-            <CameraController />
-            <ambientLight intensity={0.9} />
-            <pointLight
-              position={[20, 20, 10]}
-              intensity={0.8}
-              color="#ff4d3a"
-              distance={100}
-              decay={2}
-            />
-            <pointLight
-              position={[-20, -10, 5]}
-              intensity={0.6}
-              color="#ff8655"
-              distance={80}
-              decay={2}
-            />
-          </Canvas>
+            <Canvas
+              frameloop={isInView ? "always" : "never"}
+              className="w-full h-full"
+              camera={{ position: [0, 0, 30], fov: 50 }}
+              dpr={[0.1, 0.15]} // Limita o pixel ratio entre 0.1x e 0.15x 
+              gl={{
+                antialias: false, // Desativa antialiasing para ganhar performance
+                alpha: false,
+                powerPreference: "high-performance",
+                precision: "lowp",
+              }}
+            >
+              <AuroraBackground />
+              <CameraController />
+              <ambientLight intensity={0.9} />
+              <pointLight
+                position={[20, 20, 10]}
+                intensity={0.8}
+                color="#ff4d3a"
+                distance={100}
+                decay={2}
+              />
+              <pointLight
+                position={[-20, -10, 5]}
+                intensity={0.6}
+                color="#ff8655"
+                distance={80}
+                decay={2}
+              />
+            </Canvas>
+          </div>
+
+          {/* SVG Tech Border */}
+          <div className="absolute inset-0 pointer-events-none">
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M 5 0 L 100 0 L 100 92 L 95 100 L 0 100 L 0 8 L 5 0 Z"
+                vectorEffect="non-scaling-stroke"
+                className="stroke-1 fill-none stroke-white/20"
+              />
+            </svg>
+
+            {/* Corner Accents */}
+            <svg className="absolute -top-px -left-px w-8 h-8 text-primary opacity-70">
+              <path d="M 0 20 V 0 H 20" fill="none" stroke="currentColor" strokeWidth="2" />
+            </svg>
+            <svg className="absolute -bottom-px -right-px w-8 h-8 text-primary opacity-70">
+              <path d="M 32 12 V 32 H 12" fill="none" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </div>
+
           {/* Efeito elegante de sombra interna */}
-          <div className="absolute inset-0 rounded-xl pointer-events-none shadow-[var(--shadow-inner-glass-premium)]" />
+          <div
+            className="absolute inset-0 pointer-events-none shadow-[0_0_60px_rgba(255,77,58,0.35)]"
+            style={{
+              clipPath: 'polygon(5% 0%, 100% 0%, 100% 92%, 95% 100%, 0% 100%, 0% 8%)'
+            }}
+          />
         </div>
       </div>
       <div className="relative w-full h-full">

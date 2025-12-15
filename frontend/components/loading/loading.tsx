@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * Splash de carregamento.
+ * - Anima SVG com GSAP (bordas e brilho) e lista de mensagens em loop.
+ * - Chama onComplete após animação para liberar o conteúdo (controlado pelo AppLoaderShell).
+ */
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./Loading.css";
@@ -78,6 +83,26 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
         glowPathRefs.current[index] = el;
     }, []);
 
+    // Bloqueia scroll durante o loading
+    useEffect(() => {
+        // Salva o estilo original
+        const originalStyle = document.body.style.overflow;
+        const originalHeight = document.body.style.height;
+        const htmlOverflow = document.documentElement.style.overflow;
+
+        // Bloqueia scroll
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
+        document.documentElement.style.overflow = 'hidden';
+
+        // Restaura quando o componente for desmontado
+        return () => {
+            document.body.style.overflow = originalStyle;
+            document.body.style.height = originalHeight;
+            document.documentElement.style.overflow = htmlOverflow;
+        };
+    }, []); // Evita scroll bleed enquanto o splash está ativo
+
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             if (!loadingRef.current) return;
@@ -107,7 +132,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                     ease: "power2.out",
                     onComplete,
                 });
-            }, LOADING_DURATION);
+            }, LOADING_DURATION); // Call onComplete ao fim da timeline para liberar AppLoaderShell
 
             return () => {
                 window.clearTimeout(exitTimeout);
@@ -208,7 +233,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                 duration={0.8}
                 speed={0.035}
                 trigger={true}
-                className="text-primary text-xl -mt-8"
+                className="text-primary text-xl -mt-8 tracking-[0.2rem]"
             >
                 {"[INTELI JUNIOR]"}
             </TextScramble>

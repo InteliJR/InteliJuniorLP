@@ -1,6 +1,6 @@
 'use client';
 import { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, MotionProps } from 'framer-motion';
+import { m, MotionProps } from 'framer-motion';
 import styles from './TextScramble.module.css';
 
 type TextScrambleProps = {
@@ -13,6 +13,7 @@ type TextScrambleProps = {
     trigger?: boolean;
     playId?: number;
     onScrambleComplete?: () => void;
+    idleGlitch?: boolean;
 } & MotionProps;
 
 type TextSegment = {
@@ -34,9 +35,10 @@ export function TextScramble({
     trigger = true,
     playId = 0,
     onScrambleComplete,
+    idleGlitch = false,
     ...props
 }: TextScrambleProps) {
-    const MotionComponent = motion.create(
+    const MotionComponent = m.create(
         Component as keyof JSX.IntrinsicElements
     );
     const [displayText, setDisplayText] = useState(children);
@@ -89,6 +91,7 @@ export function TextScramble({
     }, []);
 
     const scheduleGlitchCycle = useCallback(() => {
+        if (!idleGlitch) return;
         const delay = 1200 + Math.random() * 2000;
 
         glitchStartTimeoutRef.current = setTimeout(() => {
@@ -113,12 +116,12 @@ export function TextScramble({
                 setActiveSegmentIndex(null);
                 setIsContainerActive(false);
 
-                if (trigger && !isAnimatingRef.current) {
+                if (trigger && idleGlitch && !isAnimatingRef.current) {
                     scheduleGlitchRef.current();
                 }
             }, activeDuration);
         }, delay);
-    }, [trigger, wordSegmentIndices]);
+    }, [idleGlitch, trigger, wordSegmentIndices]);
 
     scheduleGlitchRef.current = scheduleGlitchCycle;
 
@@ -161,7 +164,7 @@ export function TextScramble({
                 setIsContainerActive(false);
                 setActiveSegmentIndex(null);
 
-                if (trigger) {
+                if (trigger && idleGlitch) {
                     scheduleGlitchRef.current();
                 }
 
@@ -169,7 +172,7 @@ export function TextScramble({
             }
         }, speed * 1000);
         intervalRef.current = interval;
-    }, [characterSet, clearGlitchTimers, duration, onScrambleComplete, scheduleGlitchCycle, speed, text, trigger]);
+    }, [characterSet, clearGlitchTimers, duration, idleGlitch, onScrambleComplete, scheduleGlitchCycle, speed, text, trigger]);
 
     useEffect(() => {
         if (!trigger) {
