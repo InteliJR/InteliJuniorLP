@@ -81,7 +81,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 											</div>
 										)}
 										{description && (
-											<p className="rounded-sm text-sm text-gray-200 font-light tracking-wide translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+											<p className="rounded-sm text-sm text-gray-200 font-light tracking-wide bg-black/50 px-2 py-1 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
 												{description}
 											</p>
 										)}
