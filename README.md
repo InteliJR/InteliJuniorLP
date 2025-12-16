@@ -1,4 +1,4 @@
-# 📘 Landing Page Oficial da Inteli Junior
+# 📘 Landing Page Oficial da Inteli Júnior
 
 <!--
 Breve descrição do projeto, incluindo o objetivo, nome do cliente e o setor envolvido.
@@ -14,7 +14,7 @@ Acesse a solução por meio deste [🔗 Link](https://www.nasa.gov/)
 
 A documentação completa do projeto pode ser acessada através do link abaixo:  
 
-**[Landing Page oficial da Inteli Junior](https://intelijr.github.io/InteliJuniorLP/)**
+**[Landing Page oficial da Inteli Júnior](https://intelijr.github.io/InteliJuniorLP/)**
 
 > A documentação é mantida utilizando o [Docusaurus](https://docusaurus.io/). Para informações sobre como configurar e manter a documentação, consulte o [guia de configuração](./docs/README.md).
 

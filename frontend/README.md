@@ -1,6 +1,6 @@
-# Inteli Junior - Landing Page
+# Inteli Júnior - Landing Page
 
-Landing page institucional da Inteli Junior, empresa junior do Instituto de Tecnologia e Lideranca (Inteli).
+Landing page institucional da Inteli Júnior, empresa junior do Instituto de Tecnologia e Lideranca (Inteli).
 
 > **Status do projeto:** Em desenvolvimento
 
@@ -23,7 +23,7 @@ Landing page institucional da Inteli Junior, empresa junior do Instituto de Tecn
 
 ## Visao Geral
 
-Este projeto e uma landing page moderna desenvolvida para apresentar a Inteli Junior. O design utiliza efeitos de glass-morphism (vidro fosco), animacoes fluidas e um visual premium com foco em tecnologia e inovacao.
+Este projeto e uma landing page moderna desenvolvida para apresentar a Inteli Júnior. O design utiliza efeitos de glass-morphism (vidro fosco), animacoes fluidas e um visual premium com foco em tecnologia e inovacao.
 
 ### Caracteristicas principais
 
@@ -420,7 +420,7 @@ O carrossel usa a animacao CSS `animate-marquee` definida em `globals.css`. A ve
 
 **Localizacao:** `components/sections/ThirdSection.tsx`
 
-**Descricao:** Timeline interativa mostrando a trajetoria da Inteli Junior.
+**Descricao:** Timeline interativa mostrando a trajetoria da Inteli Júnior.
 
 **Funcionalidades:**
 
@@ -439,7 +439,7 @@ O carrossel usa a animacao CSS `animate-marquee` definida em `globals.css`. A ve
 
 **Localizacao:** `components/sections/FourthSection.tsx`
 
-**Descricao:** Apresentacao dos servicos oferecidos pela Inteli Junior.
+**Descricao:** Apresentacao dos servicos oferecidos pela Inteli Júnior.
 
 **Funcionalidades:**
 

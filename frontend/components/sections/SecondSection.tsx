@@ -179,7 +179,7 @@ export default function DefaultDemo() {
     },
     {
       src: "/images/foto.webp",
-      alt: "Imagem do primeiro time da Inteli Junior",
+      alt: "Imagem do primeiro time da Inteli Júnior",
       date: "2023",
       description: "Fundação da EJ",
     },
@@ -299,7 +299,7 @@ export default function DefaultDemo() {
               </h3>
             </div>
             <p className="text-muted-foreground text-md w-full">
-              Nascemos no Inteli para transformar o ecossistema universitário e{" "}
+              Nascemos no <a href="https://www.inteli.edu.br/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Inteli</a> para transformar o ecossistema universitário e{" "}
               <span className="text-white/70 font-semibold">
                 gerar valor real para a sociedade
               </span>
@@ -393,8 +393,8 @@ export default function DefaultDemo() {
                     </h4>
                     <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
                        Somos uma
-                      empresa júnior fundada e mantida pelos alunos do Instituto
-                      de Tecnologia e Liderança. Nosso propósito é elevar a
+                      empresa júnior fundada e mantida pelos alunos do <a href="https://www.inteli.edu.br/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Instituto
+                      de Tecnologia e Liderança</a>. Nosso propósito é elevar a
                       maturidade dos universitários, conectando aprendizado e
                       inovação.
                     </p>

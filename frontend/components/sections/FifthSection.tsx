@@ -18,7 +18,7 @@ export default function FifthSection() {
     );
 }
 
-// Projetos da Inteli Junior - Cases de Sucesso
+// Projetos da Inteli Júnior - Cases de Sucesso
 const projects = [
     {
         title: "BTG Pactual - Dashboard Financeiro",

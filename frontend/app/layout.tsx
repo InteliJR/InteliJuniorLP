@@ -23,7 +23,7 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Inteli Junior",
+  title: "Inteli Júnior",
   description: "Criando soluções como futuramente",
   icons: {
     icon: "/images/logo.svg",
