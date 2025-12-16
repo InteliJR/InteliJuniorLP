@@ -122,15 +122,7 @@ export default function FirstSection() {
             <div ref={heroRef} className="pl-[5%] pb-[5%] relative flex w-full h-screen items-start justify-end flex-col gap-16 px-6 ">
                 <div className="relative flex flex-col items-start justify-end">
                     <div className="">
-                        <div className="flex flex-col gap-4 -mb-10">
-                            <m.span
-                                initial={{ opacity: 0, y: 12, letterSpacing: '0.12em' }}
-                                animate={hasTriggered && inView && !isInitialLoading ? { opacity: 1, y: 0, letterSpacing: '0.08em' } : { opacity: 1, y: 0, letterSpacing: '0.08em' }}
-                                transition={{ duration: 0.6, ease: 'easeOut' }}
-                                className="text-md font-extralight uppercase text-primary tracking-[0.18em] mix-blend-difference pb-2"
-                            >
-                                [Inteli Junior]
-                            </m.span>
+                        <div className="flex flex-col gap-4 mb-10">
                             <div className="text-7xl text-balance uppercase">
                                 <h1 className="">já fazemos<br />soluções<br />como
                                     <TextScramble
