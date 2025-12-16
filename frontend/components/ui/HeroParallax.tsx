@@ -98,7 +98,7 @@ export const HeroParallax = ({
     <>
       <div
         ref={ref}
-        className="h-[265vh] py-40 overflow-hidden antialiased relative flex flex-col self-auto bg-transparent"
+        className="h-[205vh] py-40 overflow-hidden antialiased relative flex flex-col self-auto bg-transparent"
         style={{ perspective: '1000px' }}
       >
         {/* Fundo tech/cyberphonk */}
