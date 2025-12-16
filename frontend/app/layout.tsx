@@ -10,7 +10,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import AppLoaderShell from "@/components/AppLoaderShell";
-import Header from "@/components/ui/Header";
+import Header from "@/components/ui/Headerr";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import ClientCursor from "@/components/ClientCursor";
 import LazyMotionProvider from "@/components/LazyMotionProvider";
