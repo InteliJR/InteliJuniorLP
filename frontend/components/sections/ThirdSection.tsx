@@ -294,7 +294,7 @@ export default function ThirdSection() {
                                 </div>
                                 <div className="flex-1 text-center md:text-left">
                                     <h5 className="text-xl font-bold text-primary mb-2 uppercase tracking-wider">
-                                        3 Clusters em 3 Anos
+                                        4 Clusters em 3 Anos
                                     </h5>
                                     <p className="text-gray-400 mb-4 md:mb-0 max-w-2xl text-sm">
                                         Um marco histórico de maturidade e resultados. Somos a prova de que agilidade e responsabilidade caminham juntas.

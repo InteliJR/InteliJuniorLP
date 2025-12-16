@@ -44,39 +44,14 @@ const EDGE_PATH = EDGE_SEGMENTS.map(([from, to]) => {
     return `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
 }).join(" ");
 
-const LOADING_DURATION = 4200;
-const LINE_HEIGHT = 28;
-
-const LOADER_LINES = [
-    "Inicializando protocolos de inovação",
-    "Extraindo excelência técnica",
-    "Otimizando experiência do usuário",
-    "Carregando módulos de alta performance",
-    "Validando integridade dos dados",
-    "Renderizando interfaces responsivas",
-    "Aplicando diretrizes de acessibilidade",
-    "Sincronizando design system",
-    "Configurando estratégias de cache",
-    "Finalizando otimizações de SEO",
-    "Preparando ambiente de impacto",
-    "Sistema pronto para decolar.",
-];
-
-const MAX_VISIBLE_LINES = 12;
+const LOADING_DURATION = 3000;
 
 const Loading = ({ onComplete }: { onComplete: () => void }) => {
+
     const loadingRef = useRef<HTMLDivElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
     const glowPathRefs = useRef<SVGPathElement[]>([]);
-    const codeContainerRef = useRef<HTMLDivElement>(null);
-    const lineCursorRef = useRef(0);
-    const lineNumberRef = useRef(1);
-
-    const [visibleLines, setVisibleLines] = useState<Array<{ text: string; number: number }>>([]);
-    const [scrollPosition, setScrollPosition] = useState(0);
     const [dotCount, setDotCount] = useState(0);
-
-    const totalLines = LOADER_LINES.length;
 
     const registerGlowPathRef = useCallback((el: SVGPathElement | null, index: number) => {
         if (!el) return;
@@ -142,62 +117,12 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
         return () => ctx.revert();
     }, [onComplete]);
 
-    useEffect(() => {
-        if (!totalLines) return;
 
-        const initialVisibleCount = 1;
-        const initialLines = Array.from({ length: initialVisibleCount }, (_, idx) => ({
-            text: LOADER_LINES[idx],
-            number: idx + 1,
-        }));
-
-        setVisibleLines(initialLines);
-        setScrollPosition(0);
-
-        lineCursorRef.current = initialVisibleCount % totalLines;
-        lineNumberRef.current = initialVisibleCount + 1;
-
-        if (codeContainerRef.current) {
-            codeContainerRef.current.scrollTop = 0;
-        }
-    }, [totalLines]);
-
-    useEffect(() => {
-        if (!totalLines) return undefined;
-
-        const advanceTimer = window.setInterval(() => {
-            setVisibleLines((prevLines) => {
-                const nextLine = LOADER_LINES[lineCursorRef.current];
-                const nextNumber = lineNumberRef.current;
-
-                lineCursorRef.current = (lineCursorRef.current + 1) % totalLines;
-                lineNumberRef.current += 1;
-
-                const updated = [...prevLines, { text: nextLine, number: nextNumber }];
-                if (updated.length > MAX_VISIBLE_LINES) {
-                    return updated.slice(updated.length - MAX_VISIBLE_LINES);
-                }
-
-                return updated;
-            });
-
-            setScrollPosition((prevPosition) => prevPosition + LINE_HEIGHT);
-        }, 600);
-
-        return () => window.clearInterval(advanceTimer);
-    }, [totalLines]);
-
-    useEffect(() => {
-        if (codeContainerRef.current) {
-            codeContainerRef.current.scrollTop = scrollPosition;
-        }
-    }, [scrollPosition]);
 
     useEffect(() => {
         const dotsTimer = window.setInterval(() => {
             setDotCount((prev) => (prev + 1) % 4);
         }, 500);
-
         return () => window.clearInterval(dotsTimer);
     }, []);
 
@@ -245,25 +170,6 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                             {".".repeat(dotCount)}
                         </span>
                     </span>
-                </div>
-                <div className="relative mt-3 overflow-hidden rounded-lg text-muted-foreground">
-                    <div
-                        ref={codeContainerRef}
-                        className="h-40 overflow-hidden font-mono text-xs leading-7"
-                        style={{ scrollBehavior: "smooth" }}
-                    >
-                        <div>
-                            {visibleLines.map((line) => (
-                                <div key={`${line.number}-${line.text}`} className="flex h-7 items-center gap-3 px-3">
-                                    <span className="w-6 shrink-0 text-right">
-                                        {line.number.toString().padStart(2, "0")}
-                                    </span>
-                                    <span className="whitespace-nowrap">{line.text}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/0" />
                 </div>
             </div>
         </div>

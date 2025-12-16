@@ -142,13 +142,6 @@ export default function FirstSection() {
                                     > futuramente
                                     </TextScramble>
                                 </h1>
-                                <span
-                                    aria-hidden="true"
-                                    className={`ml-2 inline-block align-baseline font-extralight text-foreground transition-opacity duration-150 ${showCursor && hasTriggered ? "opacity-90" : "opacity-0"
-                                        }`}
-                                >
-                                    |
-                                </span>
                             </div>
                         </div>
                         <m.p

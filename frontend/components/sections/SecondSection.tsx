@@ -169,7 +169,7 @@ export default function DefaultDemo() {
                             trigger={hasTriggered}
                             playId={playId}
                         >
-                            {'3 clusters em 3 anos.'}
+                            {'4 clusters em 3 anos.'}
                         </TextScramble>
                         <m.div
                             initial={{ opacity: 0, y: 20 }}

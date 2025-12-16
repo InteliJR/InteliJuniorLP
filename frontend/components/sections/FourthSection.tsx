@@ -6,7 +6,7 @@
  * - Constantes de clip-path e SVG são memoizadas para reduzir re-render.
  * - Ícones e cores vêm de config local; animações usam framer-motion.
  */
-import { useState, useCallback, useRef, memo, useEffect } from "react";
+import { useState, useCallback, useRef, memo } from "react";
 import { m, useScroll, useSpring, useMotionValueEvent, MotionValue } from "framer-motion";
 import { useScrambleTrigger } from "@/hooks/useScrambleTrigger";
 import { TextScramble } from "../ui/textScramble";

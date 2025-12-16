@@ -7,7 +7,7 @@
  * - Expõe contexto para que seções saibam se ainda é loading (útil para atrasar animações pesadas).
  */
 import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import Loading from "@/components/loading/Loadingg";
+import Loading from "@/components/loading/Loading";
 
 type AppLoaderShellProps = {
     children: ReactNode;
