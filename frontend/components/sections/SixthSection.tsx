@@ -161,24 +161,24 @@ export default function SixthSection() {
             <div className="relative z-10 mx-[5%] space-y-12 shadow-inner-primary">
 
                 {/* Container do Console */}
-                <div className=" relative w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+                <div className=" relative w-full overflow-hidden border border-white/20 bg-[#050505] shadow-[0_0_50px_rgba(0,0,0,0.8)]">
                     {/* Barra de Cabeçalho do Console */}
-                    <div className="h-10 w-full bg-white/5 border-b border-white/10 flex items-center justify-between px-4">
+                    <div className="h-10 w-full bg-white/10 border-b border-white/20 flex items-center justify-between px-4">
                         <div className="flex items-center gap-2">
                             <div className="flex gap-1.5">
                                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                                 <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                             </div>
-                            <div className="h-4 w-px bg-white/10 mx-2" />
-                            <span className="text-[10px] font-mono text-white/75 uppercase tracking-widest flex items-center gap-2">
+                            <div className="h-4 w-px bg-white/20 mx-2" />
+                            <span className="text-[10px] font-mono text-white/90 uppercase tracking-widest flex items-center gap-2 font-semibold">
                                 <Terminal className="w-3 h-3" />
                                 BASE_MEMBROS.exe
                             </span>
                         </div>
-                        <div className="flex items-center gap-4 text-[10px] font-mono text-white/70">
-                            <span className={cn("flex items-center gap-1.5", paused ? "text-yellow-500" : "text-green-500")}>
-                                <div className={cn("w-1.5 h-1.5 rounded-full", paused ? "bg-yellow-500" : "bg-green-500 animate-pulse")} />
+                        <div className="flex items-center gap-4 text-[10px] font-mono text-white/88">
+                            <span className={cn("flex items-center gap-1.5 font-semibold", paused ? "text-yellow-400" : "text-emerald-300")}>
+                                <div className={cn("w-1.5 h-1.5 rounded-full", paused ? "bg-yellow-400" : "bg-emerald-300 animate-pulse")} />
                                 {paused ? "MODO MANUAL" : "MODO AUTOMATICO"}
                             </span>
                         </div>
@@ -204,8 +204,8 @@ export default function SixthSection() {
                         />
 
                         {/* DIVISOR CENTRAL (Apenas Desktop) */}
-                        <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 z-20">
-                            <div className="absolute top-1/2 -translate-y-1/2 -left-[3px] w-[7px] h-16 bg-black border-y border-white/20" />
+                        <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-white/20 z-20">
+                            <div className="absolute top-1/2 -translate-y-1/2 -left-[3px] w-[7px] h-16 bg-black border-y border-white/25" />
                         </div>
 
                         {/* PAINEL DIREITO: MEMBROS ATUAIS */}
@@ -229,18 +229,18 @@ export default function SixthSection() {
                     </div>
 
                     {/* Status do Rodapé do Console */}
-                    <div className="h-8 w-full bg-black border-t border-white/10 flex items-center justify-between px-4">
+                    <div className="h-8 w-full bg-black border-t border-white/20 flex items-center justify-between px-4 text-white/85">
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => setPaused(!paused)}
                                 type="button"
                                 aria-label={paused ? "Retomar rotação automática" : "Pausar rotação automática"}
-                                className="hover:text-white text-white/50 transition-colors"
+                                className="hover:text-white text-white/85 transition-colors"
                             >
                                 {paused ? <Play className="w-3 h-3" /> : <Pause className="w-3 h-3" />}
                             </button>
-                            <div className="h-3 w-px bg-white/10" />
-                            <div className="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-3 w-px bg-white/20" />
+                            <div className="w-32 h-1 bg-white/20 rounded-full overflow-hidden">
                                 {isInView && (
                                     <motion.div
                                         className="h-full bg-primary"
@@ -330,8 +330,8 @@ function Header() {
                         <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
                     </motion.div>
                 </div>
-                <p className="text-muted-foreground text-md whitespace-normal">
-                    Mais do que um troféu, esse marco representa a <span className="text-white/70 font-semibold">velocidade da nossa evolução</span>. Em apenas 3 anos, atingimos níveis de maturidade que levam tempo para serem construídos, provando que <span className="text-white/70 font-semibold">unimos a agilidade de uma startup com a responsabilidade de uma grande empresa</span>.
+                <p className="text-md whitespace-normal text-white/88">
+                    Mais do que um troféu, esse marco representa a <span className="text-white/95 font-semibold">velocidade da nossa evolução</span>. Em apenas 3 anos, atingimos níveis de maturidade que levam tempo para serem construídos, provando que <span className="text-white/95 font-semibold">unimos a agilidade de uma startup com a responsabilidade de uma grande empresa</span>.
                 </p>
             </div>
             <div className="h-px w-1/9 bg-primary" />
@@ -378,7 +378,7 @@ function ConsoleWindow({
                 "relative h-full flex flex-col transition-all duration-700 p-6 md:p-10 group overflow-hidden border",
                 isActive
                     ? "opacity-100 border-transparent"
-                    : "bg-transparent opacity-60 grayscale-[0.8] hover:opacity-80 hover:grayscale-[0.4] hover:border-primary/40 hover:bg-white/5 border-transparent"
+                    : "bg-transparent opacity-60 grayscale-[0.8] hover:opacity-80 hover:grayscale-[0.4] hover:border-primary/40 hover:bg-white/8 border-transparent"
             )}
             onClick={!isActive ? onActivate : undefined}
         >
@@ -396,7 +396,7 @@ function ConsoleWindow({
                     className={cn(
                         "absolute inset-0 transition-colors duration-500",
                         isActive
-                            ? "bg-linear-to-b from-black/80 via-primary/12 to-black/90"
+                            ? "bg-linear-to-b from-black/80 via-primary/20 to-black/90"
                             : "bg-linear-to-b from-black/85 via-black/75 to-black/90"
                     )}
                 />
@@ -414,7 +414,7 @@ function ConsoleWindow({
                     <span className={cn("text-xs font-mono uppercase tracking-[0.2em] mb-1", primaryColor)}>
                         {variant === "ex" ? "[EX MEMBRO]" : "[MEMBRO ATUAL]"}
                     </span>
-                    <span className="text-[10px] text-white/30 font-mono">
+                    <span className="text-[10px] text-white/60 font-mono">
                         ID: {variant === "ex" ? "EX-" : "CUR-"}{currentIndex.toString().padStart(3, '0')}
                     </span>
                 </div>
@@ -424,8 +424,8 @@ function ConsoleWindow({
                     className={cn(
                         "flex items-center gap-2 px-3 py-1.5 border transition-all duration-300 cursor-pointer",
                         "text-[10px] uppercase tracking-widest font-bold",
-                        "hover:bg-white/5",
-                        isActive ? "border-white/20 text-white" : "border-white/5 text-white/30"
+                        "hover:bg-white/20",
+                        isActive ? "border-white/30 text-white" : "border-white/20 text-white/85"
                     )}
                 >
                     <List className="w-3 h-3" />
@@ -449,7 +449,7 @@ function ConsoleWindow({
                             <div className={cn(
                                 "relative w-24 h-24 md:w-32 md:h-32 shrink-0 border-2 overflow-hidden",
                                 primaryBorder,
-                                isActive ? shadowColor + " shadow-[0_0_20px]" : "border-white/10"
+                                isActive ? shadowColor + " shadow-[0_0_20px]" : "border-white/20"
                             )}>
                                 <img
                                     src={member.photo}
@@ -484,14 +484,14 @@ function ConsoleWindow({
                                     ) : member.name}
                                 </h3>
                                 <div className="flex flex-wrap gap-2 text-[10px] md:text-xs font-mono uppercase tracking-wider text-white/50">
-                                    <span className="px-1.5 py-0.5 bg-white/5 border border-white/10">{member.role}</span>
-                                    {member.course && <span className="px-1.5 py-0.5 bg-white/5 border border-white/10">{member.course}</span>}
+                                    <span className="px-1.5 py-0.5 bg-white/10 border border-white/20">{member.role}</span>
+                                    {member.course && <span className="px-1.5 py-0.5 bg-white/10 border border-white/20">{member.course}</span>}
                                 </div>
                             </div>
                         </div>
 
                         {/* Seção de Citação */}
-                        <div className="relative pl-4 border-l-2 border-white/10 min-h-[120px] md:min-h-[140px]">
+                        <div className="relative pl-4 border-l-2 border-white/20 min-h-[120px] md:min-h-[140px]">
                             <p className={cn(
                                 "text-base md:text-lg leading-relaxed italic",
                                 isActive ? "text-white/90" : "text-white/40"
@@ -502,7 +502,7 @@ function ConsoleWindow({
                                 <span className={cn("text-xs font-bold uppercase tracking-widest", primaryColor)}>
                                     Agora em:
                                 </span>
-                                <span className="text-sm text-white/70 border-b border-white/10 pb-0.5">
+                                <span className="text-sm text-white/90 border-b border-white/20 pb-0.5">
                                     {member.company}
                                 </span>
                             </div>
@@ -512,7 +512,7 @@ function ConsoleWindow({
             </div>
 
             {/* Controles Inferiores */}
-            <div className="relative z-10 mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+            <div className="relative z-10 mt-8 pt-6 border-t border-white/20 flex items-center justify-between">
                 <div className="flex gap-1">
                     {Array.from({ length: totalItems }).map((_, idx) => (
                         <button
@@ -523,7 +523,7 @@ function ConsoleWindow({
                                 "w-8 h-1 transition-all duration-300",
                                 idx === currentIndex
                                     ? primaryBg
-                                    : "bg-white/10 hover:bg-white/30"
+                                    : "bg-white/20 hover:bg-white/30"
                             )}
                         />
                     ))}
@@ -533,14 +533,14 @@ function ConsoleWindow({
                     <button
                         onClick={(e) => { e.stopPropagation(); onPrev(); }}
                         aria-label="Ver depoimento anterior"
-                        className="p-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer"
+                        className="p-2 border border-white/20 bg-white/10 hover:bg-white/20 text-white/85 hover:text-white transition-colors cursor-pointer"
                     >
                         <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onNext(); }}
                         aria-label="Ver próximo depoimento"
-                        className="p-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer"
+                        className="p-2 border border-white/20 bg-white/10 hover:bg-white/20 text-white/85 hover:text-white transition-colors cursor-pointer"
                     >
                         <ChevronRight className="w-4 h-4" />
                     </button>
@@ -564,10 +564,10 @@ function ConsoleWindow({
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: 12, opacity: 0 }}
                             transition={{ duration: 0.22, ease: "easeOut" }}
-                            className="absolute inset-0 p-6 border border-white/10 bg-[#0c0c0c]/95 flex flex-col"
+                            className="absolute inset-0 p-6 border border-white/20 bg-[#0c0c0c]/95 flex flex-col"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
+                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/20">
                                 <span className={cn("text-xs font-mono uppercase tracking-widest flex items-center gap-2", primaryColor)}>
                                     <Search className="w-3 h-3" />
                                     SELECTION_MENU
@@ -575,7 +575,7 @@ function ConsoleWindow({
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(false); }}
                                     aria-label="Fechar lista de membros"
-                                    className="text-white/65 hover:text-white transition-colors"
+                                    className="text-white/85 hover:text-white transition-colors"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>
@@ -593,24 +593,24 @@ function ConsoleWindow({
                                         className={cn(
                                             "w-full flex items-center gap-4 p-3 border transition-all duration-200 text-left group/item",
                                             idx === currentIndex
-                                                ? "border-primary/40 bg-white/5"
-                                                : "border-transparent hover:bg-white/5 hover:border-primary/30"
+                                                ? "border-primary/50 bg-white/10"
+                                                : "border-white/20 hover:bg-white/20 hover:border-primary/30"
                                         )}
                                     >
                                         <span className={cn(
-                                            "font-mono text-[10px] opacity-50",
-                                            idx === currentIndex ? primaryColor : "text-white/30"
+                                            "font-mono text-[10px] opacity-80",
+                                            idx === currentIndex ? primaryColor : "text-white/60"
                                         )}>
                                             {idx.toString().padStart(2, '0')}
                                         </span>
                                         <div>
                                             <div className={cn(
                                                 "text-sm font-bold uppercase",
-                                                idx === currentIndex ? "text-white" : "text-white/60 group-hover/item:text-white"
+                                                idx === currentIndex ? "text-white" : "text-white/85 group-hover/item:text-white"
                                             )}>
                                                 {item.name}
                                             </div>
-                                            <div className="text-[10px] uppercase tracking-wider text-white/30">
+                                            <div className="text-[10px] uppercase tracking-wider text-white/60">
                                                 {item.role}
                                             </div>
                                         </div>

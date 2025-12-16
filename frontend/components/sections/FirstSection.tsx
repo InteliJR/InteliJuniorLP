@@ -63,6 +63,7 @@ export default function FirstSection() {
     const [inView, setInView] = useState(false);
     const [hasTriggered, setHasTriggered] = useState(false);
     const headerTriggered = heroTriggered;
+    const [shouldRenderAurora, setShouldRenderAurora] = useState(false);
     const [showCursor, setShowCursor] = useState(false);
     const [contactPlayId, setContactPlayId] = useState(0);
     const [portfolioPlayId, setPortfolioPlayId] = useState(0);
@@ -111,8 +112,53 @@ export default function FirstSection() {
         };
     }, [hasTriggered, isInitialLoading]); // Blinking cursor só começa após loader para evitar jank
 
+    // Liga o AuroraFlow apenas quando o hero entra em viewport (desktop) e após o loader
+    useEffect(() => {
+        if (isMobile || shouldRenderAurora) return;
+
+        const target = heroRef.current;
+        if (!target) return;
+
+        const enable = () => setShouldRenderAurora(true);
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        enable();
+                        observer.disconnect();
+                    }
+                });
+            },
+            { threshold: 0.25 }
+        );
+
+        observer.observe(target);
+
+        // Fallback: se nada triggar, habilita após idle
+        const hasIdleCallback = typeof window !== "undefined" && "requestIdleCallback" in window;
+        let timeoutId: ReturnType<typeof setTimeout> | undefined;
+        let idleCallbackId: number | undefined;
+
+        if (hasIdleCallback) {
+            idleCallbackId = (window as any).requestIdleCallback(() => setShouldRenderAurora(true), { timeout: 2200 });
+        } else {
+            timeoutId = setTimeout(() => setShouldRenderAurora(true), 2200);
+        }
+
+        return () => {
+            observer.disconnect();
+            if (idleCallbackId !== undefined && typeof window !== "undefined" && (window as any).cancelIdleCallback) {
+                (window as any).cancelIdleCallback(idleCallbackId);
+            }
+            if (timeoutId !== undefined) {
+                clearTimeout(timeoutId);
+            }
+        };
+    }, [isMobile, shouldRenderAurora]);
+
     // Wrapper condicional: Mobile usa CSS puro, Desktop usa Three.js
-    const BackgroundWrapper = isMobile ? MobileBackground : AuroraFlow;
+    const BackgroundWrapper = isMobile || !shouldRenderAurora ? MobileBackground : AuroraFlow;
 
     return (
         <BackgroundWrapper
@@ -122,7 +168,7 @@ export default function FirstSection() {
             <div ref={heroRef} className="pl-[5%] pb-[5%] relative flex w-full h-screen items-start justify-end flex-col gap-16 px-6 ">
                 <div className="relative flex flex-col items-start justify-end">
                     <div className="">
-                        <div className="flex flex-col gap-4 -mb-10">
+                        <div className="flex flex-col gap-4 mb-4">
                             <m.span
                                 initial={{ opacity: 0, y: 12, letterSpacing: '0.12em' }}
                                 animate={hasTriggered && inView && !isInitialLoading ? { opacity: 1, y: 0, letterSpacing: '0.08em' } : { opacity: 1, y: 0, letterSpacing: '0.08em' }}
@@ -131,7 +177,7 @@ export default function FirstSection() {
                             >
                                 [Inteli Junior]
                             </m.span>
-                            <div className="text-7xl text-balance uppercase">
+                            <div className="text-7xl text-balance uppercase flex items-end">
                                 <h1 className="">já fazemos<br />soluções<br />como
                                     <TextScramble
                                         className=""

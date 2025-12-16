@@ -158,7 +158,7 @@ export default function Footer() {
                                 <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
                             </motion.div>
                         </div>
-                        <p className="text-white/70 text-md whitespace-normal">
+                        <p className="text-white/88 text-md whitespace-normal">
                             Nossa equipe está pronta para decodificar seus desafios e programar soluções.
                             Preencha o formulário ou acesse nossa rede neural de especialistas.
                         </p>
@@ -168,25 +168,25 @@ export default function Footer() {
 
                 {/* MAIN CONTENT GRID - Terminal Style Switcher */}
                 <div className="relative mb-20 px-[5%]">
-                    <div className="relative w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_0_50px_rgba(0,0,0,0.7)]">
+                    <div className="relative w-full overflow-hidden border border-white/20 bg-[#050505] shadow-[0_0_50px_rgba(0,0,0,0.7)]">
                         {/* Top bar */}
-                        <div className="h-11 w-full bg-white/5 border-b border-white/10 flex items-center justify-between px-4">
+                        <div className="h-11 w-full bg-white/10 border-b border-white/20 flex items-center justify-between px-4">
                             <div className="flex items-center gap-3">
                                 <div className="flex gap-1.5">
                                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                                 </div>
-                                <div className="h-4 w-px bg-white/10" />
-                                <span className="text-[11px] font-mono text-white/70 uppercase tracking-[0.16em] flex gap-2">
+                                <div className="h-4 w-px bg-white/20" />
+                                <span className="text-[11px] font-mono text-white/90 font-semibold uppercase tracking-[0.16em] flex gap-2">
                                     <Terminal className="w-3 h-3" />
                                     Transmissão_Projeto.exe
                                 </span>
                             </div>
-                            <div className="flex items-center gap-3 text-[10px] font-mono text-white/70">
-                                <span className="flex items-center gap-1 text-green-400">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                                    ONLINE
+                            <div className="flex items-center gap-3 text-[10px] font-mono text-white/90">
+                                <span className="flex items-center gap-1 font-semibold text-emerald-300">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                                    Online
                                 </span>
                             </div>
                         </div>
@@ -199,7 +199,7 @@ export default function Footer() {
                         </div> */}
 
                         {/* Tab bar */}
-                        <div className="flex items-center justify-between bg-white/5 border-b border-white/10 px-4 py-3">
+                        <div className="flex items-center justify-between bg-white/10 border-b border-white/20 px-4 py-3">
                             <div className="flex gap-3">
                                 <button
                                     type="button"
@@ -208,7 +208,7 @@ export default function Footer() {
                                         "px-3 py-2 text-xs font-bold uppercase tracking-widest border transition-all duration-300",
                                         activePanel === "form"
                                             ? "bg-primary text-black border-primary shadow-[0_0_20px_rgba(255,77,58,0.35)]"
-                                            : "text-white/70 border-white/10 hover:text-white hover:border-white/30"
+                                            : "text-white/88 border-white/20 hover:text-white hover:border-white/30 hover:bg-white/10"
                                     )}
                                     aria-pressed={activePanel === "form"}
                                 >
@@ -221,7 +221,7 @@ export default function Footer() {
                                         "px-3 py-2 text-xs font-bold uppercase tracking-widest border transition-all duration-300",
                                         activePanel === "agents"
                                             ? "bg-primary text-black border-primary shadow-[0_0_20px_rgba(255,77,58,0.35)]"
-                                            : "text-white/70 border-white/10 hover:text-white hover:border-white/30"
+                                            : "text-white/88 border-white/20 hover:text-white hover:border-white/30 hover:bg-white/10"
                                     )}
                                     aria-pressed={activePanel === "agents"}
                                 >
@@ -244,8 +244,8 @@ export default function Footer() {
                                         transition={{ duration: 0.35 }}
                                         className="relative z-10"
                                     >
-                                        <div className="relative overflow-hidden border border-white/10 bg-linear-to-b from-black/80 via-primary/10 to-black/90 shadow-[0_0_35px_rgba(255,77,58,0.2)]">
-                                            <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_30%_20%,rgba(255,77,58,0.16),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(255,255,255,0.06),transparent_30%)]" />
+                                        <div className="relative overflow-hidden border border-white/20 bg-linear-to-b from-black/80 via-primary/20 to-black/90 shadow-[0_0_35px_rgba(255,77,58,0.2)]">
+                                            <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_30%_20%,rgba(255,77,58,0.2),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(255,255,255,0.08),transparent_30%)]" />
                                             <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
                                             <div className="absolute inset-10 blur-3xl bg-primary/25 opacity-40" />
 
@@ -258,7 +258,7 @@ export default function Footer() {
                                                         </div>
                                                         <div className="space-y-2">
                                                             <h3 className="text-xl md:text-2xl font-bold text-white uppercase tracking-wider">Protocolo Enviado</h3>
-                                                            <p className="text-white/70 max-w-md mx-auto">
+                                                            <p className="text-white/88 max-w-md mx-auto">
                                                                 Sua mensagem foi recebida pela nossa base. Um de nossos agentes entrará em contato em breve.
                                                             </p>
                                                         </div>
@@ -273,29 +273,29 @@ export default function Footer() {
                                                     <form onSubmit={handleSubmit} className="space-y-6">
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                             <div className="space-y-2">
-                                                                <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Nome Completo *</label>
+                                                                <label className="text-[10px] uppercase text-primary/85 font-bold tracking-widest ml-1">Nome Completo *</label>
                                                                 <div className="relative group">
-                                                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-primary transition-colors" />
+                                                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/80 group-focus-within:text-primary transition-colors" />
                                                                     <input
                                                                         name="name"
                                                                         value={formData.name}
                                                                         onChange={handleInputChange}
                                                                         required
                                                                         placeholder="Seu nome"
-                                                                        className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
+                                                                        className="w-full bg-white/10 border border-white/20 focus:border-primary/60 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/40"
                                                                     />
                                                                 </div>
                                                             </div>
                                                             <div className="space-y-2">
-                                                                <label className="text-[10px] uppercase text-white/70 font-bold tracking-widest ml-1">Empresa (Opcional)</label>
+                                                                <label className="text-[10px] uppercase text-white/88 font-bold tracking-widest ml-1">Empresa (Opcional)</label>
                                                                 <div className="relative group">
-                                                                    <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-primary transition-colors" />
+                                                                    <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/80 group-focus-within:text-primary transition-colors" />
                                                                     <input
                                                                         name="company"
                                                                         value={formData.company}
                                                                         onChange={handleInputChange}
                                                                         placeholder="Sua empresa"
-                                                                        className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
+                                                                        className="w-full bg-white/10 border border-white/20 focus:border-primary/60 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/40"
                                                                     />
                                                                 </div>
                                                             </div>
@@ -303,40 +303,40 @@ export default function Footer() {
 
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                             <div className="space-y-2">
-                                                                <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Email</label>
+                                                                <label className="text-[10px] uppercase text-primary/85 font-bold tracking-widest ml-1">Email</label>
                                                                 <div className="relative group">
-                                                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-primary transition-colors" />
+                                                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/80 group-focus-within:text-primary transition-colors" />
                                                                     <input
                                                                         name="email"
                                                                         type="email"
                                                                         value={formData.email}
                                                                         onChange={handleInputChange}
                                                                         placeholder="seu@email.com"
-                                                                        className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
+                                                                        className="w-full bg-white/10 border border-white/20 focus:border-primary/60 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/40"
                                                                     />
                                                                 </div>
                                                             </div>
                                                             <div className="space-y-2">
-                                                                <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Telefone / WhatsApp</label>
+                                                                <label className="text-[10px] uppercase text-primary/85 font-bold tracking-widest ml-1">Telefone / WhatsApp</label>
                                                                 <div className="relative group">
-                                                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-primary transition-colors" />
+                                                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/80 group-focus-within:text-primary transition-colors" />
                                                                     <input
                                                                         name="phone"
                                                                         value={formData.phone}
                                                                         onChange={handleInputChange}
                                                                         placeholder="(00) 00000-0000"
-                                                                        className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
+                                                                        className="w-full bg-white/10 border border-white/20 focus:border-primary/60 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/40"
                                                                     />
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div className="text-[10px] text-white/70 -mt-4 ml-1">
+                                                        <div className="text-[10px] text-white/88 -mt-4 ml-1">
                                                             * Preencha pelo menos um campo de contato.
                                                         </div>
 
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Produto de Interesse *</label>
+                                                            <label className="text-[10px] uppercase text-primary/85 font-bold tracking-widest ml-1">Produto de Interesse *</label>
                                                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                                                                 {products.map((prod) => (
                                                                     <button
@@ -350,7 +350,7 @@ export default function Footer() {
                                                                             "px-3 py-2 text-xs border transition-all duration-300 text-left",
                                                                             formData.product === prod
                                                                                 ? "bg-primary text-black border-primary font-bold"
-                                                                                : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
+                                                                                : "bg-white/10 border-white/20 text-white/88 hover:bg-white/20 hover:border-white/30"
                                                                         )}
                                                                     >
                                                                         {prod}
@@ -360,14 +360,14 @@ export default function Footer() {
                                                         </div>
 
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] uppercase text-white/70 font-bold tracking-widest ml-1">Mensagem</label>
+                                                            <label className="text-[10px] uppercase text-white/88 font-bold tracking-widest ml-1">Mensagem</label>
                                                             <textarea
                                                                 name="message"
                                                                 value={formData.message}
                                                                 onChange={handleInputChange}
                                                                 rows={4}
                                                                 placeholder="Detalhes do projeto, dúvidas ou briefing inicial..."
-                                                                className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white p-4 text-sm outline-none transition-all placeholder:text-white/20 resize-none"
+                                                                className="w-full bg-white/10 border border-white/20 focus:border-primary/60 text-white p-4 text-sm outline-none transition-all placeholder:text-white/40 resize-none"
                                                             />
                                                         </div>
 
@@ -399,10 +399,10 @@ export default function Footer() {
                                                                         className="stroke-1 fill-none stroke-white/25 group-hover:stroke-white/40 transition-all duration-300"
                                                                     />
                                                                 </svg>
-                                                                <svg className="absolute -top-px -left-px w-3 h-3 text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                                <svg className="absolute -top-px -left-px w-3 h-3 text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                                                     <path d="M 0 9 V 0 H 9" fill="none" stroke="currentColor" strokeWidth="2" />
                                                                 </svg>
-                                                                <svg className="absolute -bottom-px -right-px w-3 h-3 text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                                <svg className="absolute -bottom-px -right-px w-3 h-3 text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                                                     <path d="M 12 3 V 12 H 3" fill="none" stroke="currentColor" strokeWidth="2" />
                                                                 </svg>
                                                             </div>
@@ -445,30 +445,30 @@ export default function Footer() {
                                         className="relative z-10"
                                     >
                                         <div className="space-y-4">
-                                            <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                                            <div className="flex items-center justify-between border-b border-white/20 pb-2">
                                                 <div className="flex items-center gap-2">
                                                     <div className="w-1.5 h-1.5 bg-primary rounded-full" />
                                                     <h3 className="text-sm font-bold text-white uppercase tracking-widest">Operadores Comerciais</h3>
                                                 </div>
-                                                <span className="text-[10px] text-white/70 font-mono">STATUS: ONLINE</span>
+                                                <span className="text-[10px] text-white/88 font-mono font-semibold">STATUS: ONLINE</span>
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                                                 {commercialTeam.map((member, idx) => (
-                                                    <TechCard key={idx} className="bg-white/2 hover:bg-white/4 transition-all group/member h-full">
+                                                    <TechCard key={idx} className="bg-white/8 hover:bg-white/20 transition-all group/member h-full">
                                                         <div className="flex flex-col h-full justify-between gap-3">
                                                             <div className="space-y-1">
                                                                 <p className="text-white font-bold text-sm uppercase tracking-wide group-hover/member:text-primary transition-colors">
                                                                     {member.name}
                                                                 </p>
-                                                                <p className="text-white/70 text-[10px] font-mono">Sales Rep.</p>
+                                                                <p className="text-white/88 text-[10px] font-mono">Sales Rep.</p>
                                                             </div>
                                                             <div className="space-y-1">
                                                                 <a
                                                                     href={`https://wa.me/55${member.phone.replace(/\D/g, '')}`}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="inline-flex items-center gap-2 text-xs text-white/70 hover:text-green-400 transition-colors px-2 py-2 min-h-11"
+                                                                    className="inline-flex items-center gap-2 text-xs text-white/90 hover:text-emerald-300 transition-colors px-2 py-2 min-h-11"
                                                                     aria-label={`Chamar ${member.name} no WhatsApp em ${member.phone}`}
                                                                 >
                                                                     <Phone className="w-3 h-3" />
@@ -476,7 +476,7 @@ export default function Footer() {
                                                                 </a>
                                                                 <a
                                                                     href={`mailto:${member.email}`}
-                                                                    className="inline-flex items-center gap-2 text-[11px] text-white/70 hover:text-white transition-colors truncate px-2 py-2 min-h-11"
+                                                                    className="inline-flex items-center gap-2 text-[11px] text-white/90 hover:text-white transition-colors truncate px-2 py-2 min-h-11"
                                                                     aria-label={`Enviar email para ${member.name} em ${member.email}`}
                                                                 >
                                                                     <Mail className="w-3 h-3" />
@@ -496,7 +496,7 @@ export default function Footer() {
                         </div>
 
                         {/* Bottom status bar */}
-                        <div className="h-9 w-full bg-black/80 border-t border-white/10 flex items-center justify-between px-4 text-[10px] font-mono text-white/70">
+                        <div className="h-9 w-full bg-black/80 border-t border-white/20 flex items-center justify-between px-4 text-[10px] font-mono text-white/88">
                             <span>SECURE_CHANNEL_ESTABLISHED</span>
                             <span>{activePanel === "form" ? "INPUT_MODE: TRANSMISSÃO" : "INPUT_MODE: OPERADORES"}</span>
                         </div>
@@ -513,20 +513,20 @@ export default function Footer() {
                                 <img src="/images/logo.svg" alt="Logo Inteli Júnior" className="h-10 w-auto" />
                                 <div className="flex flex-col">
                                     <span className="text-xs font-bold text-primary tracking-[0.18em] uppercase">Inteli</span>
-                                    <span className="text-[10px] text-white/70 font-mono tracking-widest">JÚNIOR</span>
+                                    <span className="text-[10px] text-white/90 font-mono tracking-widest">JÚNIOR</span>
                                 </div>
                             </Link>
-                            <p className="text-sm text-white/70 leading-relaxed">
+                            <p className="text-sm text-white/88 leading-relaxed">
                                 Consultoria universitária com excelência e entrega de alto nível. Transformamos desafios complexos em soluções digitais que performam.
                             </p>
-                            <ul className="flex items-center space-x-4 text-white/70">
+                            <ul className="flex items-center space-x-4 text-white/88">
                                 <li>
                                     <a
                                         href="https://www.instagram.com/inteli.jr/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label="Instagram da Inteli Júnior"
-                                        className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-white/10 bg-white/5 hover:bg-primary/20 hover:border-primary/40 hover:text-white transition-colors"
+                                        className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-white/20 bg-white/10 hover:bg-primary/20 hover:border-primary/40 hover:text-white transition-colors"
                                     >
                                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                             <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Zm0 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H7Zm9.75 1.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0ZM12 8.5A3.5 3.5 0 1 1 8.5 12A3.5 3.5 0 0 1 12 8.5Zm0 2a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 12 10.5Z" />
@@ -539,7 +539,7 @@ export default function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label="LinkedIn da Inteli Júnior"
-                                        className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-white/10 bg-white/5 hover:bg-primary/20 hover:border-primary/40 hover:text-white transition-colors"
+                                        className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-white/20 bg-white/10 hover:bg-primary/20 hover:border-primary/40 hover:text-white transition-colors"
                                     >
                                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                             <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5S1.12 1 2.5 1S4.98 2.12 4.98 3.5zM.22 8.01h4.56V24H.22zM8.79 8.01h4.37v2.18h.06c.61-1.16 2.11-2.38 4.34-2.38c4.64 0 5.5 3.05 5.5 7.02V24h-4.56v-7.1c0-1.69-.03-3.87-2.36-3.87c-2.36 0-2.72 1.84-2.72 3.74V24H8.79z" />
@@ -552,7 +552,7 @@ export default function Footer() {
                         <div className="grid w-full gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Mapa do site</h3>
-                                <ul className="space-y-3 text-sm text-white/70">
+                                <ul className="space-y-3 text-sm text-white/88">
                                     <li><a className="hover:text-primary transition-colors" href="#home">Início</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#quem-somos">Quem somos</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#trajetoria">Trajetória</a></li>
@@ -564,7 +564,7 @@ export default function Footer() {
                             </div>
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Serviços</h3>
-                                <ul className="space-y-3 text-sm text-white/70">
+                                <ul className="space-y-3 text-sm text-white/88">
                                     <li><a className="hover:text-primary transition-colors" href="#servicos">Análise de Dados</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#servicos">Aplicações Completas</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#servicos">Landing Pages</a></li>
@@ -573,7 +573,7 @@ export default function Footer() {
                             </div>
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Contato</h3>
-                                <ul className="space-y-3 text-sm text-white/70">
+                                <ul className="space-y-3 text-sm text-white/88">
                                     <li><a className="hover:text-primary transition-colors" href="https://wa.me/5511947005421" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp comercial">WhatsApp Comercial</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="mailto:contato@intelijunior.com" aria-label="Email de contato">contato@intelijunior.com</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#contato">Formulário de contato</a></li>
@@ -581,19 +581,19 @@ export default function Footer() {
                             </div>
                         </div>
                     </div>
-                    <div className="mx-auto w-full px-[5%] pb-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/70 md:flex-row md:items-center md:justify-between relative z-10">
+                    <div className="mx-auto w-full px-[5%] pb-10 flex flex-col gap-4 border-t border-white/20 pt-6 text-xs text-white/88 md:flex-row md:items-center md:justify-between relative z-10">
                         <p className="uppercase tracking-[0.12em]">© 2025 Inteli Júnior. Todos os direitos reservados.</p>
                         <a
                             href="https://github.com/souzajv"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-white/70 hover:text-primary transition-colors"
+                            className="inline-flex items-center gap-2 text-white/88 hover:text-primary transition-colors"
                             aria-label="GitHub de João Campos"
                         >
                             <Github className="w-4 h-4" />
                             Made by João Campos
                         </a>
-                        <div className="flex gap-4 text-white/70">
+                        <div className="flex gap-4 text-white/88">
                             <a className="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
                             <a className="hover:text-primary transition-colors" href="#">Termos de Uso</a>
                         </div>

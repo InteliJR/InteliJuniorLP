@@ -109,37 +109,43 @@ export default function DefaultDemo() {
             src: '/images/foto11.webp',
             alt: 'Urban cityscape at sunset',
             date: '2024',
-            description: 'Cluster 3 Conquistado'
+            description: 'Cluster 3 Conquistado',
+            srcSet: '/images/foto11-640.webp 640w, /images/foto11.webp 993w'
         },
         {
             src: '/images/foto8.webp',
             alt: 'Abstract geometric pattern',
             date: '2023',
-            description: 'Crescimento Acelerado'
+            description: 'Crescimento Acelerado',
+            srcSet: '/images/foto8-640.webp 405w, /images/foto8.webp 377w'
         },
         {
             src: '/images/foto5.webp',
             alt: 'Mountain landscape',
             date: '2023',
-            description: 'Certificados que alcançamos no primeiro ano de atuação'
+            description: 'Certificados que alcançamos no primeiro ano de atuação',
+            srcSet: '/images/foto5-640.webp 640w, /images/foto5.webp 783w'
         },
         {
             src: '/images/foto.webp',
             alt: 'Minimalist design elements',
             date: '2021',
-            description: 'Fundação da EJ'
+            description: 'Fundação da EJ',
+            srcSet: '/images/foto-640.webp 640w, /images/foto.webp 681w'
         },
         {
             src: '/images/foto4.webp',
             alt: 'Ocean waves and beach',
             date: '2020',
-            description: 'Planejamento'
+            description: 'Planejamento',
+            srcSet: '/images/foto4-640.webp 640w, /images/foto4.webp 818w'
         },
         {
             src: '/images/foto9.webp',
             alt: 'Forest trees and sunlight',
             date: '2019',
-            description: 'Ideação'
+            description: 'Ideação',
+            srcSet: '/images/foto9-640.webp 640w, /images/foto9.webp 860w'
         },
     ];
     return (

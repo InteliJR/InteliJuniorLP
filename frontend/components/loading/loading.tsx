@@ -73,7 +73,6 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
     const lineNumberRef = useRef(1);
 
     const [visibleLines, setVisibleLines] = useState<Array<{ text: string; number: number }>>([]);
-    const [scrollPosition, setScrollPosition] = useState(0);
     const [dotCount, setDotCount] = useState(0);
 
     const totalLines = LOADER_LINES.length;
@@ -152,8 +151,6 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
         }));
 
         setVisibleLines(initialLines);
-        setScrollPosition(0);
-
         lineCursorRef.current = initialVisibleCount % totalLines;
         lineNumberRef.current = initialVisibleCount + 1;
 
@@ -181,17 +178,21 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                 return updated;
             });
 
-            setScrollPosition((prevPosition) => prevPosition + LINE_HEIGHT);
         }, 600);
 
         return () => window.clearInterval(advanceTimer);
     }, [totalLines]);
 
     useEffect(() => {
-        if (codeContainerRef.current) {
-            codeContainerRef.current.scrollTop = scrollPosition;
-        }
-    }, [scrollPosition]);
+        if (!codeContainerRef.current) return;
+        // Scrolla apenas quando novas linhas aparecem, evitando um setState extra por frame
+        const target = Math.max(0, visibleLines.length - MAX_VISIBLE_LINES) * LINE_HEIGHT;
+        requestAnimationFrame(() => {
+            if (codeContainerRef.current) {
+                codeContainerRef.current.scrollTop = target;
+            }
+        });
+    }, [visibleLines]);
 
     useEffect(() => {
         const dotsTimer = window.setInterval(() => {
@@ -263,7 +264,7 @@ const Loading = ({ onComplete }: { onComplete: () => void }) => {
                             ))}
                         </div>
                     </div>
-                    <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black/0" />
+                    <div className="pointer-events-none absolute inset-0" />
                 </div>
             </div>
         </div>
