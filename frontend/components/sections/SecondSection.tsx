@@ -12,14 +12,15 @@ import { TextScramble } from "../ui/textScramble";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Award,
-  Cpu,
+  GraduationCap,
   Trophy,
   ArrowRight,
-  Users,
   ArrowUpRight,
+  GitBranch,
+  Cloud,
 } from "lucide-react";
 import { CompaniesCarousel } from "../CompaniesCarousel";
+import { TiltCard } from "../TiltCard";
 
 // Dynamic import do ZoomParallax - componente pesado com Framer Motion
 const ZoomParallax = dynamic(
@@ -268,9 +269,9 @@ export default function DefaultDemo() {
               headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
             }
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full flex flex-col md:flex-row justify-start items-center gap-18"
+            className="w-full flex flex-col md:flex-row justify-start items-center gap-12"
           >
-            <div className="h-[0.1px] w-1/9 bg-primary"></div>
+            <div className="h-[0.1px] w-1/12 bg-primary"></div>
             <div className="space-y-4">
               <TextScramble
                 as="span"
@@ -283,7 +284,7 @@ export default function DefaultDemo() {
                 {"[2. Quem somos]"}
               </TextScramble>
               <h3 className="text-4xl md:text-5xl font-light uppercase leading-tight whitespace-nowrap">
-                Elevando a
+                Tecnologia de
                 <TextScramble
                   className="text-primary font-semibold"
                   duration={1}
@@ -291,31 +292,40 @@ export default function DefaultDemo() {
                   trigger={headerTriggered}
                   playId={headerPlayId}
                 >
-                  {" "}
-                  maturidade
+                  {" verdade"}
                 </TextScramble>
                 <br />
-                através da tecnologia
+                feita por quem vive o mercado
               </h3>
             </div>
-            <p className="text-muted-foreground text-md w-full">
-              Nascemos no <a href="https://www.inteli.edu.br/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Inteli</a> para transformar o ecossistema universitário e{" "}
-              <span className="text-white/70 font-semibold">
-                gerar valor real para a sociedade
-              </span>
-              .
+            <p className="text-white/80 text-md w-full max-w-lg leading-relaxed">
+              Nascemos no{" "}
+              <a
+                href="https://www.inteli.edu.br/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+              >
+                Inteli
+              </a>
+              , uma faculdade de ponta com metodologia inovadora. Nossos membros desenvolvem{" "}
+              <span className="text-white font-semibold">
+                4 projetos reais por ano
+              </span>{" "}
+              para grandes empresas, usando tecnologias de ponta — de Blockchain a IoT.
             </p>
-            <div className="h-[0.1px] w-1/9 bg-primary"></div>
+            <div className="h-[0.1px] w-1/12 bg-primary"></div>
           </m.div>
-          <div className="grid w-full grid-cols-1 md:grid-cols-3 md:grid-rows-[12rem_14rem_12rem] gap-4 px-24">
-            {/* Coluna 1, Row 1+2 - Card Grande (topo esquerdo) ~70% */}
-            <m.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="md:col-start-1 md:row-start-1 md:row-span-2 relative group overflow-visible"
-            >
+          <div className="grid w-full grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-8 md:px-16 lg:px-32">
+            {/* Card 1 - Quem Somos / Inteli Júnior */}
+            <TiltCard className="md:col-span-2" intensity={14} hoverScale={1.01}>
+              <m.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="min-h-[360px] relative group overflow-visible h-full"
+              >
               {/* SVG Tech Border - diagonal cuts */}
               <div className="absolute inset-0 pointer-events-none z-30">
                 <svg
@@ -324,182 +334,128 @@ export default function DefaultDemo() {
                   preserveAspectRatio="none"
                 >
                   <path
-                    d="M 8 0 L 100 0 L 100 92 L 92 100 L 0 100 L 0 8 L 8 0 Z"
+                    d="M 4 0 L 100 0 L 100 96 L 96 100 L 0 100 L 0 4 L 4 0 Z"
                     vectorEffect="non-scaling-stroke"
                     className="stroke-1 fill-none stroke-white/25 transition-all duration-300 group-hover:stroke-primary"
                   />
                 </svg>
               </div>
-              {/* Decorative HUD Elements */}
-              <div className="absolute top-3 right-3 z-40 pointer-events-none">
-                <div className="w-2 h-2 bg-white/40 group-hover:bg-primary rounded-full transition-colors duration-300" />
-              </div>
               {/* Corner Accents */}
               <svg className="absolute -top-px -left-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 0 16 V 0 H 16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 0 16 V 0 H 16" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               <svg className="absolute -bottom-px -right-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 24 8 V 24 H 8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 24 8 V 24 H 8" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               {/* Clipped content */}
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{
-                  clipPath:
-                    "polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 8%)",
+                  clipPath: "polygon(4% 0%, 100% 0%, 100% 96%, 96% 100%, 0% 100%, 0% 4%)",
                 }}
               >
-                {/* Background Grid (Scanline effect interno) */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] z-0 pointer-events-none" />
-                {/* Imagem de fundo */}
                 <div className="absolute inset-0">
                   <Image
                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&crop=faces&auto=format&q=80"
                     alt="Equipe colaborando"
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, 66vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     quality={75}
                   />
-                  {/* Overlay escuro */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-black/30" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/70 to-black/40" />
                 </div>
-                {/* Brilho interno (inset shadow) */}
                 <div className="absolute inset-0 rounded-sm shadow-(--shadow-inner-glass) pointer-events-none z-20" />
-                {/* Conteúdo */}
                 <div className="relative z-10 h-full flex flex-col justify-between p-8">
-                  {/* Ícone com Container de Vidro */}
                   <div className="w-fit p-3 bg-white/5 border border-white/10 rounded-lg group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors duration-300 backdrop-blur-md">
-                    <img
-                      src="/images/logo.svg"
-                      alt="Inteli Júnior"
-                      className="w-8 h-8"
-                    />
+                    <img src="/images/logo.svg" alt="Inteli Júnior" className="w-8 h-8" />
                   </div>
                   <div className="transform transition-all duration-500 group-hover:translate-x-1">
-                    <h4 className="text-xl font-semibold mb-2 text-primary uppercase tracking-[0.2em]">
+                    <h4 className="text-xl font-semibold mb-3 text-primary uppercase tracking-[0.15em]">
                       Inteli Júnior
                     </h4>
-                    <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
-                       Somos uma
-                      empresa júnior fundada e mantida pelos alunos do <a href="https://www.inteli.edu.br/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Instituto
-                      de Tecnologia e Liderança</a>. Nosso propósito é elevar a
-                      maturidade dos universitários, conectando aprendizado e
-                      inovação.
+                    <p className="text-white/90 text-sm leading-relaxed max-w-xl group-hover:text-white transition-colors">
+                      Somos a empresa júnior do{" "}
+                      <a href="https://www.inteli.edu.br/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">
+                        Instituto de Tecnologia e Liderança
+                      </a>
+                      . Enquanto no Inteli desenvolvemos MVPs para empresas parceiras, na Inteli Júnior{" "}
+                      <span className="text-white font-semibold">
+                        entregamos o produto completo
+                      </span>
+                      : do diagnóstico do problema à implantação robusta em produção.
                     </p>
                   </div>
                 </div>
               </div>
-              {/* Laser Scan Animation */}
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
-            </m.div>
+              </m.div>
+            </TiltCard>
 
-            {/* Coluna 1, Row 3 - Card Pequeno (embaixo esquerdo) ~30% */}
-            <m.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-              className="md:col-start-1 md:row-start-3 relative group overflow-visible"
-            >
-              {/* SVG Tech Border - diagonal cuts */}
+            {/* Card 2 - Metodologia PBL */}
+            <TiltCard intensity={12} hoverScale={1.02}>
+              <m.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+                className="min-h-[420px] relative group overflow-visible h-full"
+              >
               <div className="absolute inset-0 pointer-events-none z-30">
-                <svg
-                  className="w-full h-full"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                >
+                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <path
-                    d="M 12 0 L 100 0 L 100 88 L 88 100 L 0 100 L 0 12 L 12 0 Z"
+                    d="M 8 0 L 100 0 L 100 92 L 92 100 L 0 100 L 0 8 L 8 0 Z"
                     vectorEffect="non-scaling-stroke"
                     className="stroke-1 fill-white/5 stroke-white/25 transition-all duration-300 group-hover:stroke-primary"
                   />
                 </svg>
               </div>
-              {/* Decorative HUD Elements */}
-              <div className="absolute top-3 right-3 z-40 pointer-events-none">
-                <div className="w-2 h-2 bg-white/40 group-hover:bg-primary rounded-full transition-colors duration-300" />
-              </div>
-              {/* Corner Accents */}
               <svg className="absolute -top-px -left-px w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 0 14 V 0 H 14"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 0 14 V 0 H 14" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               <svg className="absolute -bottom-px -right-px w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 20 6 V 20 H 6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 20 6 V 20 H 6" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
-              {/* Clipped content */}
               <div
                 className="absolute inset-0 overflow-hidden backdrop-blur-[1.5px]"
                 style={{
-                  clipPath:
-                    "polygon(12% 0%, 100% 0%, 100% 88%, 88% 100%, 0% 100%, 0% 12%)",
+                  clipPath: "polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 8%)",
                 }}
               >
-                {/* Background Grid (Scanline effect interno) */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] z-0 pointer-events-none" />
-                {/* Brilho interno (inset shadow) */}
                 <div className="absolute inset-0 shadow-(--shadow-inner-glass) pointer-events-none" />
-                {/* Overlay no hover */}
                 <div className="pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-white/2" />
               </div>
               <div className="relative z-10 h-full flex flex-col justify-between p-6">
-                {/* Ícone com Container de Vidro */}
                 <div className="w-fit p-3 bg-white/5 border border-white/10 rounded-lg group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors duration-300 backdrop-blur-md">
-                  <Users
-                    className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300"
-                    strokeWidth={1.5}
-                  />
+                  <GraduationCap className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" strokeWidth={1.5} />
                 </div>
                 <div className="transform transition-all duration-500 group-hover:translate-x-1">
-                  <h4 className="text-lg font-semibold mb-1 text-white">
-                    Vivência Ágil
-                  </h4>
-                  <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
-                    Sprints, dailies e retrospectivas. Operamos com os mesmos
-                    frameworks ágeis das big techs.
+                  <h4 className="text-lg font-semibold mb-2 text-white">Metodologia PBL</h4>
+                  <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
+                    No Inteli, cada aluno desenvolve{" "}
+                    <span className="text-primary font-medium">4 projetos por ano</span> para empresas reais. 
+                    De Blockchain a IoT, resolvemos problemas reais com tecnologias de ponta.
                   </p>
                 </div>
               </div>
-              {/* Laser Scan Animation */}
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
-            </m.div>
+              </m.div>
+            </TiltCard>
 
-            {/* Coluna 2, Row 1+2+3 - Card Vertical (ocupa todas as rows) */}
-            <m.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
-              className="md:col-start-2 md:row-start-1 md:row-span-3 relative group overflow-visible"
-            >
-              {/* SVG Tech Border - diagonal cuts */}
+            {/* Card 3 - Ágil na Prática */}
+            <TiltCard intensity={12} hoverScale={1.02}>
+              <m.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
+                className="min-h-[420px] relative group overflow-visible h-full"
+              >
               <div className="absolute inset-0 pointer-events-none z-30">
-                <svg
-                  className="w-full h-full"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                >
+                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <path
                     d="M 6 0 L 100 0 L 100 94 L 94 100 L 0 100 L 0 6 L 6 0 Z"
                     vectorEffect="non-scaling-stroke"
@@ -507,174 +463,121 @@ export default function DefaultDemo() {
                   />
                 </svg>
               </div>
-              {/* Decorative HUD Elements */}
-              <div className="absolute top-3 right-3 z-40 pointer-events-none">
-                <div className="w-2 h-2 bg-white/40 group-hover:bg-primary rounded-full transition-colors duration-300" />
-              </div>
-              {/* Corner Accents */}
               <svg className="absolute -top-px -left-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 0 16 V 0 H 16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 0 16 V 0 H 16" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               <svg className="absolute -bottom-px -right-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 24 8 V 24 H 8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 24 8 V 24 H 8" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
-              {/* Clipped content */}
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{
-                  clipPath:
-                    "polygon(6% 0%, 100% 0%, 100% 94%, 94% 100%, 0% 100%, 0% 6%)",
+                  clipPath: "polygon(6% 0%, 100% 0%, 100% 94%, 94% 100%, 0% 100%, 0% 6%)",
                 }}
               >
-                {/* Background Grid (Scanline effect interno) */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] z-0 pointer-events-none" />
-                {/* Imagem de fundo */}
                 <div className="absolute inset-0">
                   <Image
-                    src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=900&fit=crop&auto=format&q=80"
-                    alt="Código de qualidade"
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=900&fit=crop&auto=format&q=80"
+                    alt="Reunião de sprint"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     quality={75}
                   />
-                  {/* Overlay escuro */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/60 to-black/40" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/70 to-black/50" />
                 </div>
-                {/* Brilho interno (inset shadow) */}
                 <div className="absolute inset-0 rounded-sm shadow-(--shadow-inner-glass) pointer-events-none z-20" />
-                {/* Conteúdo */}
                 <div className="relative z-10 h-full flex flex-col justify-between p-8">
-                  {/* Ícone com Container de Vidro */}
                   <div className="w-fit p-3 bg-white/5 border border-white/10 rounded-lg group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors duration-300 backdrop-blur-md">
-                    <Award
-                      className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300"
-                      strokeWidth={1.5}
-                    />
+                    <GitBranch className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" strokeWidth={1.5} />
                   </div>
                   <div className="transform transition-all duration-500 group-hover:translate-x-1">
-                    <h4 className="text-xl font-semibold mb-2 text-white">
-                      Excelência no Trabalho
-                    </h4>
-                    <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
-                      Comprometimento com a qualidade em cada entrega. Nossos
-                      projetos seguem padrões rigorosos de desenvolvimento,
-                      garantindo soluções robustas e escaláveis que superam as
-                      expectativas.
+                    <h4 className="text-xl font-semibold mb-2 text-white">Ágil na Prática</h4>
+                    <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
+                      Vivemos Scrum de verdade: sprints, dailies, retrospectivas e reviews com os parceiros. 
+                      Git Flow, code review e CI/CD — o que muitos só veem na teoria, nós praticamos desde o primeiro semestre.
                     </p>
                   </div>
                 </div>
               </div>
-              {/* Laser Scan Animation */}
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
-            </m.div>
+              </m.div>
+            </TiltCard>
 
-            {/* Coluna 3, Row 1 - Card Pequeno (topo direito) ~30% */}
-            <m.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-              className="md:col-start-3 md:row-start-1 relative group overflow-visible"
-            >
-              {/* SVG Tech Border - diagonal cuts */}
+            {/* Card 4 - Tecnologia Avançada */}
+            <TiltCard intensity={12} hoverScale={1.02}>
+              <m.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+                className="min-h-[420px] relative group overflow-visible h-full"
+              >
               <div className="absolute inset-0 pointer-events-none z-30">
-                <svg
-                  className="w-full h-full"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                >
+                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <path
-                    d="M 12 0 L 100 0 L 100 88 L 88 100 L 0 100 L 0 12 L 12 0 Z"
+                    d="M 6 0 L 100 0 L 100 94 L 94 100 L 0 100 L 0 6 L 6 0 Z"
                     vectorEffect="non-scaling-stroke"
-                    className="stroke-1 fill-white/5 stroke-white/25 transition-all duration-300 group-hover:stroke-primary"
+                    className="stroke-1 fill-none stroke-white/25 transition-all duration-300 group-hover:stroke-primary"
                   />
                 </svg>
               </div>
-              {/* Decorative HUD Elements */}
-              <div className="absolute top-3 right-3 z-40 pointer-events-none">
-                <div className="w-2 h-2 bg-white/40 group-hover:bg-primary rounded-full transition-colors duration-300" />
-              </div>
-              {/* Corner Accents */}
-              <svg className="absolute -top-px -left-px w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 0 14 V 0 H 14"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+              <svg className="absolute -top-px -left-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
+                <path d="M 0 16 V 0 H 16" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
-              <svg className="absolute -bottom-px -right-px w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 20 6 V 20 H 6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+              <svg className="absolute -bottom-px -right-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
+                <path d="M 24 8 V 24 H 8" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
-              {/* Clipped content */}
               <div
-                className="absolute inset-0 overflow-hidden backdrop-blur-[1.5px]"
+                className="absolute inset-0 overflow-hidden"
                 style={{
-                  clipPath:
-                    "polygon(12% 0%, 100% 0%, 100% 88%, 88% 100%, 0% 100%, 0% 12%)",
+                  clipPath: "polygon(6% 0%, 100% 0%, 100% 94%, 94% 100%, 0% 100%, 0% 6%)",
                 }}
               >
-                {/* Background Grid (Scanline effect interno) */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] z-0 pointer-events-none" />
-                {/* Brilho interno (inset shadow) */}
-                <div className="absolute inset-0 shadow-(--shadow-inner-glass) pointer-events-none" />
-                {/* Overlay no hover */}
-                <div className="pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-white/2" />
-              </div>
-              <div className="relative z-10 h-full flex flex-col justify-between p-6">
-                {/* Ícone com Container de Vidro */}
-                <div className="w-fit p-3 bg-white/5 border border-white/10 rounded-lg group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors duration-300 backdrop-blur-md">
-                  <Cpu
-                    className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300"
-                    strokeWidth={1.5}
+                <div className="absolute inset-0">
+                  <Image
+                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=900&fit=crop&auto=format&q=80"
+                    alt="Tecnologia cloud"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    quality={75}
                   />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/70 to-black/50" />
                 </div>
-                <div className="transform transition-all duration-500 group-hover:translate-x-1">
-                  <h4 className="text-lg font-semibold mb-1 text-white">
-                    Metodologia & Ensino
-                  </h4>
-                  <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
-                    Code review, CI/CD e boas práticas. Padrão de engenharia das
-                    maiores empresas de tecnologia.
-                  </p>
+                <div className="absolute inset-0 rounded-sm shadow-(--shadow-inner-glass) pointer-events-none z-20" />
+                <div className="relative z-10 h-full flex flex-col justify-between p-8">
+                  <div className="w-fit p-3 bg-white/5 border border-white/10 rounded-lg group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors duration-300 backdrop-blur-md">
+                    <Cloud className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" strokeWidth={1.5} />
+                  </div>
+                  <div className="transform transition-all duration-500 group-hover:translate-x-1">
+                    <h4 className="text-xl font-semibold mb-2 text-white">Tecnologia de Verdade</h4>
+                    <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
+                      Enquanto outras EJs usam no-code, nós implantamos soluções do zero de forma robusta em cloud. 
+                      Infraestrutura escalável, arquiteturas modernas e código de qualidade profissional.
+                    </p>
+                  </div>
                 </div>
               </div>
-              {/* Laser Scan Animation */}
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
-            </m.div>
+              </m.div>
+            </TiltCard>
 
-            {/* Coluna 3, Row 2+3 - Card Grande (embaixo direito) ~70% - CTA */}
-            <m.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: 0.25 }}
-              className="md:col-start-3 md:row-start-2 md:row-span-2 relative group overflow-visible"
-            >
-              {/* SVG Tech Border - diagonal cuts */}
+            {/* Card 5 - CTA (ocupa 1 coluna) */}
+            <TiltCard intensity={12} hoverScale={1.02}>
+              <m.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.25 }}
+                className="min-h-[420px] relative group overflow-visible h-full"
+              >
               <div className="absolute inset-0 pointer-events-none z-30">
-                <svg
-                  className="w-full h-full"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                >
+                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <path
                     d="M 8 0 L 100 0 L 100 92 L 92 100 L 0 100 L 0 8 L 8 0 Z"
                     vectorEffect="non-scaling-stroke"
@@ -682,70 +585,39 @@ export default function DefaultDemo() {
                   />
                 </svg>
               </div>
-              {/* Decorative HUD Elements */}
-              <div className="absolute top-3 right-3 z-40 pointer-events-none">
-                <div className="w-2 h-2 bg-white/40 group-hover:bg-primary rounded-full transition-colors duration-300" />
-              </div>
-              {/* Corner Accents */}
               <svg className="absolute -top-px -left-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 0 16 V 0 H 16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 0 16 V 0 H 16" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               <svg className="absolute -bottom-px -right-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
-                <path
-                  d="M 24 8 V 24 H 8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <path d="M 24 8 V 24 H 8" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
-              {/* Clipped content */}
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{
-                  clipPath:
-                    "polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 8%)",
+                  clipPath: "polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 8%)",
                 }}
               >
-                {/* Background Grid (Scanline effect interno) */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] z-0 pointer-events-none" />
-                {/* Imagem de fundo */}
                 <div className="absolute inset-0">
                   <Image
-                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&auto=format&q=80"
-                    alt="Inovação tecnológica"
+                    src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=900&fit=crop&auto=format&q=80"
+                    alt="Inovação"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     quality={75}
                   />
-                  {/* Overlay com tom primário */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/90 via-primary/20 to-black/40" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-primary/30 to-black/50" />
                 </div>
-                {/* Brilho interno (inset shadow) */}
                 <div className="absolute inset-0 rounded-sm shadow-(--shadow-inner-primary) pointer-events-none z-20" />
-                {/* Conteúdo */}
                 <div className="relative z-10 h-full flex flex-col justify-between p-8">
-                  {/* Ícone com Container de Vidro */}
                   <div className="w-fit p-3 bg-white/5 border border-white/10 rounded-lg group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors duration-300 backdrop-blur-md">
-                    <ArrowUpRight
-                      className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300"
-                      strokeWidth={1.5}
-                    />
+                    <ArrowUpRight className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" strokeWidth={1.5} />
                   </div>
                   <div className="space-y-4 transform transition-all duration-500 group-hover:translate-x-1">
                     <div>
-                      <h4 className="text-xl font-semibold mb-2 text-white">
-                        Pronto para inovar?
-                      </h4>
-                      <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
-                        Conheça nossas soluções personalizadas.
-                      </p>
+                      <h4 className="text-xl font-semibold mb-2 text-white bg-black/50 ">Pronto para inovar?</h4>
                     </div>
                     <Link
                       href="#contato"
@@ -755,66 +627,41 @@ export default function DefaultDemo() {
                       onFocus={triggerContactScramble}
                       onBlur={resetContactHoverState}
                     >
-                      {/* Backdrop blur layer */}
                       <div
                         className="absolute inset-0 bg-primary/90 group-hover/btn:bg-primary transition-colors duration-300"
                         style={{
-                          clipPath:
-                            "polygon(8% 0%, 100% 0%, 100% 70%, 92% 100%, 0% 100%, 0% 30%)",
+                          clipPath: "polygon(8% 0%, 100% 0%, 100% 70%, 92% 100%, 0% 100%, 0% 30%)",
                         }}
                       />
-                      {/* Border SVG */}
                       <div className="absolute inset-0 pointer-events-none">
-                        <svg
-                          className="w-full h-full"
-                          viewBox="0 0 100 100"
-                          preserveAspectRatio="none"
-                        >
+                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                           <path
                             d="M 8 0 L 100 0 L 100 70 L 92 100 L 0 100 L 0 30 L 8 0 Z"
                             vectorEffect="non-scaling-stroke"
                             className="stroke-1 fill-none stroke-white/20 group-hover/btn:stroke-white/40 transition-all duration-300"
                           />
                         </svg>
-                        {/* Corner accents */}
-                        <svg className="absolute -top-px -left-px w-4 h-4 text-white/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300">
-                          <path
-                            d="M 0 12 V 0 H 12"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                        </svg>
-                        <svg className="absolute -bottom-px -right-px w-4 h-4 text-white/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300">
-                          <path
-                            d="M 16 4 V 16 H 4"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                        </svg>
                       </div>
-                      {/* Content */}
                       <div className="relative z-10 flex items-center px-8 py-4">
                         <TextScramble
                           as="span"
-                          className="text-sm font-semibold uppercase tracking-[0.2em] text-black"
+                          className="text-sm font-semibold uppercase tracking-[0.2em] text-white text-bold"
                           duration={0.8}
                           speed={0.035}
                           trigger={true}
                           playId={contactPlayId}
                         >
-                          {"iniciar projeto"}
+                          {"Entrar em contato"}
                         </TextScramble>
-                        <ArrowRight className="ml-3 size-4 shrink-0 text-black transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:scale-125" />
+                        <ArrowRight className="ml-3 size-4 shrink-0 text-white transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:scale-125" />
                       </div>
                     </Link>
                   </div>
                 </div>
               </div>
-              {/* Laser Scan Animation */}
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
-            </m.div>
+              </m.div>
+            </TiltCard>
           </div>
           {/* Título empresas com animação */}
           <m.div
@@ -822,7 +669,7 @@ export default function DefaultDemo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex items-center justify-center gap-6 w-fit"
+            className="flex flex-col items-center justify-center gap-4 w-full max-w-4xl text-center px-8"
             onViewportEnter={() => {
               if (!companiesTriggered) {
                 setCompaniesTriggered(true);
@@ -832,27 +679,38 @@ export default function DefaultDemo() {
           >
             <TextScramble
               as="span"
-              className="text-4xl text-white uppercase tracking-[0.2em]"
+              className="text-sm font-extralight uppercase text-primary tracking-[0.2em]"
               duration={1}
               speed={0.03}
               trigger={companiesTriggered}
               playId={companiesPlayId}
             >
-              {"EMPRESAS QUE CONFIAM EM NOSSSOS"}
+              {"[Experiência real com o mercado]"}
             </TextScramble>
-            <TextScramble
-              as="span"
-              className="text-4xl font-semibold text-primary uppercase tracking-[0.2em] border-b-2 border-primary"
-              duration={1}
-              speed={0.03}
-              trigger={companiesTriggered}
-              playId={companiesPlayId}
-            >
-              {"MEMBROS"}
-            </TextScramble>
+            <h3 className="text-3xl md:text-4xl font-light uppercase leading-tight">
+              Nossos membros já{" "}
+              <TextScramble
+                className="text-primary font-semibold"
+                duration={1}
+                speed={0.03}
+                trigger={companiesTriggered}
+                playId={companiesPlayId}
+              >
+                {"desenvolveram soluções"}
+              </TextScramble>
+              <br />
+              para essas empresas
+            </h3>
+            <p className="text-white/70 text-md max-w-2xl leading-relaxed">
+              Durante a formação no Inteli, nossos membros trabalham em projetos reais com grandes empresas do mercado.
+              Essa experiência prática nos diferencia:{" "}
+              <span className="text-white/90 font-medium">
+                chegamos preparados para entregar resultados de verdade
+              </span>.
+            </p>
           </m.div>
           {/* Carrossel de empresas */}
-          <CompaniesCarousel companies={companies} className="-mt-10" />
+          <CompaniesCarousel companies={companies} />
         </div>
       </section>
     </main>
