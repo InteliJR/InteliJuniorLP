@@ -119,6 +119,17 @@ export default function Footer() {
         }
     }, [isTitleInView, hasTriggered]);
 
+    // Auto-reset do formulário após sucesso
+    useEffect(() => {
+        if (formState === "success") {
+            const timer = setTimeout(() => {
+                setFormState("idle");
+                setFormData({ name: "", company: "", email: "", phone: "", products: [], message: "" });
+            }, 5000); // 5 segundos
+            return () => clearTimeout(timer);
+        }
+    }, [formState]);
+
     // Form States
     const [formData, setFormData] = useState({
         name: "",
@@ -411,34 +422,74 @@ export default function Footer() {
                                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                                         exit={{ opacity: 0, y: -12, filter: "blur(6px)" }}
                                         transition={{ duration: 0.35 }}
-                                        className="relative z-10"
+                                        className="relative z-10 h-full"
                                     >
-                                        <div className="relative overflow-hidden border border-white/10 bg-linear-to-b from-black/80 via-primary/10 to-black/90 shadow-[0_0_35px_rgba(255,77,58,0.2)]">
-                                            <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_30%_20%,rgba(255,77,58,0.16),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(255,255,255,0.06),transparent_30%)]" />
-                                            <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
-                                            <div className="absolute inset-10 blur-3xl bg-primary/25 opacity-40" />
+                                        {formState === "success" ? (
+                                            /* Tela de sucesso - ocupa todo o container sem borda interna */
+                                            <div className="relative min-h-[500px] flex flex-col items-center justify-center text-center space-y-6 p-8">
+                                                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.2),transparent_50%)]" />
+                                                
+                                                {/* Barra de progresso do auto-reset */}
+                                                <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 overflow-hidden">
+                                                    <motion.div
+                                                        initial={{ width: "100%" }}
+                                                        animate={{ width: "0%" }}
+                                                        transition={{ duration: 5, ease: "linear" }}
+                                                        className="h-full bg-green-500/60"
+                                                    />
+                                                </div>
+                                                
+                                                <motion.div 
+                                                    initial={{ scale: 0, opacity: 0 }}
+                                                    animate={{ scale: 1, opacity: 1 }}
+                                                    transition={{ type: "spring", duration: 0.5 }}
+                                                    className="relative"
+                                                >
+                                                    <div className="absolute inset-0 bg-green-500/30 blur-2xl rounded-full scale-150" />
+                                                    <CheckCircle2 className="relative w-20 h-20 text-green-500" />
+                                                </motion.div>
+                                                
+                                                <motion.div 
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: 0.2 }}
+                                                    className="space-y-3"
+                                                >
+                                                    <h3 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-wider">
+                                                        Mensagem Enviada
+                                                    </h3>
+                                                    <p className="text-white/60 max-w-md mx-auto text-sm">
+                                                        Sua mensagem foi recebida com sucesso. Nosso time entrará em contato em breve.
+                                                    </p>
+                                                </motion.div>
+                                                
+                                                <motion.button
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    transition={{ delay: 0.4 }}
+                                                    onClick={() => { setFormState("idle"); setFormData({ name: "", company: "", email: "", phone: "", products: [], message: "" }); }}
+                                                    className="text-xs text-primary hover:text-white uppercase tracking-widest border-b border-primary/30 hover:border-white transition-colors mt-4"
+                                                >
+                                                    Enviar nova mensagem
+                                                </motion.button>
+                                                
+                                                <motion.p
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    transition={{ delay: 0.6 }}
+                                                    className="text-[10px] text-white/30 font-mono"
+                                                >
+                                                    Retornando ao formulário em 5s...
+                                                </motion.p>
+                                            </div>
+                                        ) : (
+                                            /* Formulário */
+                                            <div className="relative overflow-hidden border border-white/10 bg-linear-to-b from-black/80 via-primary/10 to-black/90 shadow-[0_0_35px_rgba(255,77,58,0.2)]">
+                                                <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_30%_20%,rgba(255,77,58,0.16),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(255,255,255,0.06),transparent_30%)]" />
+                                                <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
+                                                <div className="absolute inset-10 blur-3xl bg-primary/25 opacity-40" />
 
-                                            <div className="relative z-10 p-6 md:p-8 space-y-6">
-                                                {formState === "success" ? (
-                                                    <div className="h-full flex flex-col items-center justify-center text-center space-y-6 py-10">
-                                                        <div className="relative">
-                                                            <div className="absolute inset-0 bg-green-500/20 blur-xl rounded-full" />
-                                                            <CheckCircle2 className="relative w-16 h-16 text-green-500" />
-                                                        </div>
-                                                        <div className="space-y-2">
-                                                            <h3 className="text-xl md:text-2xl font-bold text-white uppercase tracking-wider">Protocolo Enviado</h3>
-                                                            <p className="text-white/70 max-w-md mx-auto">
-                                                                Sua mensagem foi recebida pela nossa base. Um de nossos agentes entrará em contato em breve.
-                                                            </p>
-                                                        </div>
-                                                        <button
-                                                            onClick={() => { setFormState("idle"); setFormData({ name: "", company: "", email: "", phone: "", products: [], message: "" }); }}
-                                                            className="text-xs text-primary hover:text-white uppercase tracking-widest border-b border-primary/30 hover:border-white transition-colors"
-                                                        >
-                                                            Enviar nova mensagem
-                                                        </button>
-                                                    </div>
-                                                ) : (
+                                                <div className="relative z-10 p-6 md:p-8 space-y-6">
                                                     <form onSubmit={handleSubmit} className="space-y-6">
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                             <div className="space-y-2">
@@ -628,9 +679,9 @@ export default function Footer() {
                                                             </div>
                                                         </button>
                                                     </form>
-                                                )}
+                                                </div>
                                             </div>
-                                        </div>
+                                        )}
                                     </motion.div>
                                 ) : (
                                     <motion.div
