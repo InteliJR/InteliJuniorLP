@@ -32,12 +32,54 @@ import Link from "next/link";
 // --- DADOS ---
 
 const commercialTeam = [
-    { name: "Luisa Mangini", phone: "(11) 94700-5421", email: "luisa.mangini@sou.inteli.edu.br" },
-    { name: "Danilo Neto", phone: "(31) 99638-9166", email: "danilo.neto@sou.inteli.edu.br" },
-    { name: "Rafael Cabral", phone: "(12) 99143-5535", email: "Rafael.Silva2@sou.inteli.edu.br" },
-    { name: "Rodrigo Ferraz", phone: "(44) 98805-0272", email: "rodrigo.ferraz@sou.inteli.edu.br" },
-    { name: "Isadora Gatto", phone: "(11) 91022-1822", email: "isadora.gatto@sou.inteli.edu.br" },
-    { name: "Livia Negrini", phone: "(11) 94373-2417", email: "livia.negrini@sou.inteli.edu.br" },
+    {
+        name: "Danilo Neto",
+        phone: "(31) 99638-9166",
+        email: "danilo.neto@intelijunior.com",
+        role: "Diretor de Vendas",
+        linkedin: "https://www.linkedin.com/in/danilo-de-castro-neto/",
+        image: "/images/members/danilo_castro.webp",
+    },
+    {
+        name: "Rafael Cabral",
+        phone: "(12) 99143-5535",
+        email: "rafael.cabral@intelijunior.com",
+        role: "Representante de Vendas",
+        linkedin: "https://www.linkedin.com/in/-rafael-cabral/",
+        image: "/images/members/rafael_cabral.webp",
+    },
+    {
+        name: "Rodrigo Ferraz",
+        phone: "(44) 98805-0272",
+        email: "rodrigo.ferraz@intelijunior.com",
+        role: "Representante de Vendas",
+        linkedin: "https://www.linkedin.com/in/rodrigo-ferraz-b8a946244/",
+        image: "/images/members/rodrigo_ferraz.webp",
+    },
+    {
+        name: "Livia Negrini",
+        phone: "(11) 94373-2417",
+        email: "livia.negrini@intelijunior.com",
+        role: "Representante de Vendas",
+        linkedin: "https://www.linkedin.com/in/livianegrini/",
+        image: "/images/members/livia_negrini.webp",
+    },
+    {
+        name: "Ana Júlia Ribeiro",
+        phone: "(11) 98637-2353",
+        email: "ana.ribeiro@intelijunior.com",
+        role: "Representante de Vendas",
+        linkedin: "https://www.linkedin.com/in/ana-j%C3%BAlia-ribeiro/",
+        image: "/images/members/ana_julia.webp",
+    },
+    {
+        name: "Luísa Mangini",
+        phone: "(11) 94700-5421",
+        email: "luisa.mangini@intelijunior.com",
+        role: "Representante de Vendas",
+        linkedin: "https://www.linkedin.com/in/lu%C3%ADsa-mangini/",
+        image: "/images/members/luisa_mangini.jpg",
+    },
 ];
 
 const partners = [
@@ -83,34 +125,161 @@ export default function Footer() {
         company: "",
         email: "",
         phone: "",
-        product: "",
+        products: [] as string[],
         message: ""
     });
 
+    // Máscara de telefone brasileiro
+    const formatPhone = (value: string): string => {
+        const digits = value.replace(/\D/g, '').slice(0, 11);
+        if (digits.length <= 2) return digits;
+        if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+        if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+        return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+    };
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+        const { name, value } = e.target;
+        
+        if (name === 'phone') {
+            setFormData(prev => ({ ...prev, phone: formatPhone(value) }));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
+        
+        if (formError) setFormError(null);
+    };
+
+    const toggleProduct = (product: string) => {
+        setFormData(prev => ({
+            ...prev,
+            products: prev.products.includes(product)
+                ? prev.products.filter(p => p !== product)
+                : [...prev.products, product]
+        }));
         if (formError) setFormError(null);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validação: Email OU Telefone obrigatórios
-        if (!formData.email && !formData.phone) {
+        // Helper para verificar se string tem conteúdo real (não só espaços)
+        const hasContent = (str: string) => str.trim().length > 0;
+
+        // Limites de caracteres
+        const LIMITS = {
+            name: { min: 3, max: 100 },
+            company: { max: 100 },
+            email: { max: 100 },
+            message: { max: 1000 }
+        };
+
+        // Validação: Nome obrigatório e limites
+        const nameTrimmed = formData.name.trim();
+        if (!hasContent(formData.name)) {
+            setFormError("Por favor, informe seu nome.");
+            return;
+        }
+        if (nameTrimmed.length < LIMITS.name.min) {
+            setFormError(`O nome deve ter pelo menos ${LIMITS.name.min} caracteres.`);
+            return;
+        }
+        if (nameTrimmed.length > LIMITS.name.max) {
+            setFormError(`O nome deve ter no máximo ${LIMITS.name.max} caracteres.`);
+            return;
+        }
+
+        // Validação: Empresa (opcional, mas com limite)
+        if (formData.company.trim().length > LIMITS.company.max) {
+            setFormError(`O nome da empresa deve ter no máximo ${LIMITS.company.max} caracteres.`);
+            return;
+        }
+
+        // Validação: Email OU Telefone obrigatórios (com conteúdo real)
+        const hasEmail = hasContent(formData.email);
+        const hasPhone = hasContent(formData.phone);
+        
+        if (!hasEmail && !hasPhone) {
             setFormError("É necessário informar ao menos um contato (Email ou Telefone).");
             return;
         }
 
-        if (!formData.product) {
-            setFormError("Por favor, selecione um produto de interesse.");
+        // Validação: Email válido (se preenchido)
+        if (hasEmail) {
+            const emailTrimmed = formData.email.trim();
+            if (emailTrimmed.length > LIMITS.email.max) {
+                setFormError(`O email deve ter no máximo ${LIMITS.email.max} caracteres.`);
+                return;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailTrimmed)) {
+                setFormError("Por favor, informe um email válido.");
+                return;
+            }
+        }
+
+        // Validação: Telefone válido (se preenchido) - mínimo 10 dígitos
+        if (hasPhone) {
+            const phoneDigits = formData.phone.replace(/\D/g, '');
+            if (phoneDigits.length < 10) {
+                setFormError("Por favor, informe um telefone válido (mínimo 10 dígitos).");
+                return;
+            }
+        }
+
+        // Validação: Pelo menos um produto selecionado
+        if (formData.products.length === 0) {
+            setFormError("Por favor, selecione pelo menos um produto de interesse.");
+            return;
+        }
+
+        // Validação: Mensagem (opcional, mas com limite)
+        if (formData.message.trim().length > LIMITS.message.max) {
+            setFormError(`A mensagem deve ter no máximo ${LIMITS.message.max} caracteres.`);
             return;
         }
 
         setFormState("submitting");
+        setFormError(null);
 
-        // Simulação de envio
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        setFormState("success");
+        const apiUrl = process.env.NEXT_PUBLIC_CONTACT_API_URL;
+        const apiKey = process.env.NEXT_PUBLIC_CONTACT_API_KEY;
+
+        if (!apiUrl || !apiKey) {
+            console.error('Variáveis de ambiente da API não configuradas');
+            setFormError("Erro de configuração. Tente novamente mais tarde.");
+            setFormState("idle");
+            return;
+        }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey,
+                },
+                body: JSON.stringify({
+                    name: formData.name.trim(),
+                    company: formData.company.trim() || null,
+                    email: formData.email.trim() || null,
+                    phone: formData.phone.replace(/\D/g, '') || null,
+                    product: formData.products.join(', '),
+                    message: formData.message.trim() || null,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || errorData.error || 'Falha ao enviar formulário');
+            }
+
+            setFormState("success");
+        } catch (error) {
+            console.error('Erro ao enviar formulário:', error);
+            setFormError("Ocorreu um erro ao enviar sua mensagem. Tente novamente.");
+            setFormState("idle");
+        }
     };
 
     return (
@@ -159,8 +328,8 @@ export default function Footer() {
                             </motion.div>
                         </div>
                         <p className="text-white/70 text-md whitespace-normal">
-                            Nossa equipe está pronta para decodificar seus desafios e programar soluções.
-                            Preencha o formulário ou acesse nossa rede neural de especialistas.
+                            Nosso time está pronto para entender o seu desafio e construir, junto com você, a melhor solução.
+                            Preencha o formulário ou fale direto com o nosso time de vendas.
                         </p>
                     </div>
                     <div className="h-px w-1/9 bg-primary" />
@@ -225,7 +394,7 @@ export default function Footer() {
                                     )}
                                     aria-pressed={activePanel === "agents"}
                                 >
-                                    Agentes
+                                    Time de vendas
                                 </button>
                             </div>
                         </div>
@@ -263,7 +432,7 @@ export default function Footer() {
                                                             </p>
                                                         </div>
                                                         <button
-                                                            onClick={() => { setFormState("idle"); setFormData({ name: "", company: "", email: "", phone: "", product: "", message: "" }); }}
+                                                            onClick={() => { setFormState("idle"); setFormData({ name: "", company: "", email: "", phone: "", products: [], message: "" }); }}
                                                             className="text-xs text-primary hover:text-white uppercase tracking-widest border-b border-primary/30 hover:border-white transition-colors"
                                                         >
                                                             Enviar nova mensagem
@@ -273,27 +442,35 @@ export default function Footer() {
                                                     <form onSubmit={handleSubmit} className="space-y-6">
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                             <div className="space-y-2">
-                                                                <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Nome Completo *</label>
+                                                                <div className="flex justify-between items-center">
+                                                                    <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Nome Completo *</label>
+                                                                    <span className="text-[9px] text-white/40 font-mono">{formData.name.length}/100</span>
+                                                                </div>
                                                                 <div className="relative group">
                                                                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-primary transition-colors" />
                                                                     <input
                                                                         name="name"
                                                                         value={formData.name}
                                                                         onChange={handleInputChange}
+                                                                        maxLength={100}
                                                                         required
-                                                                        placeholder="Seu nome"
+                                                                        placeholder="Seu nome (mín. 3 caracteres)"
                                                                         className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
                                                                     />
                                                                 </div>
                                                             </div>
                                                             <div className="space-y-2">
-                                                                <label className="text-[10px] uppercase text-white/70 font-bold tracking-widest ml-1">Empresa (Opcional)</label>
+                                                                <div className="flex justify-between items-center">
+                                                                    <label className="text-[10px] uppercase text-white/70 font-bold tracking-widest ml-1">Empresa (Opcional)</label>
+                                                                    <span className="text-[9px] text-white/40 font-mono">{formData.company.length}/100</span>
+                                                                </div>
                                                                 <div className="relative group">
                                                                     <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-primary transition-colors" />
                                                                     <input
                                                                         name="company"
                                                                         value={formData.company}
                                                                         onChange={handleInputChange}
+                                                                        maxLength={100}
                                                                         placeholder="Sua empresa"
                                                                         className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
                                                                     />
@@ -311,6 +488,7 @@ export default function Footer() {
                                                                         type="email"
                                                                         value={formData.email}
                                                                         onChange={handleInputChange}
+                                                                        maxLength={100}
                                                                         placeholder="seu@email.com"
                                                                         className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
                                                                     />
@@ -322,10 +500,12 @@ export default function Footer() {
                                                                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-primary transition-colors" />
                                                                     <input
                                                                         name="phone"
+                                                                        type="tel"
                                                                         value={formData.phone}
                                                                         onChange={handleInputChange}
-                                                                        placeholder="(00) 00000-0000"
-                                                                        className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20"
+                                                                        maxLength={15}
+                                                                        placeholder="(11) 99999-9999"
+                                                                        className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white pl-10 pr-4 py-3 text-sm outline-none transition-all placeholder:text-white/20 font-mono"
                                                                     />
                                                                 </div>
                                                             </div>
@@ -336,35 +516,52 @@ export default function Footer() {
                                                         </div>
 
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Produto de Interesse *</label>
+                                                            <div className="flex justify-between items-center">
+                                                                <label className="text-[10px] uppercase text-primary/70 font-bold tracking-widest ml-1">Produtos de Interesse * (selecione um ou mais)</label>
+                                                                <span className="text-[9px] text-white/40 font-mono">{formData.products.length} selecionado(s)</span>
+                                                            </div>
                                                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                                                {products.map((prod) => (
-                                                                    <button
-                                                                        key={prod}
-                                                                        type="button"
-                                                                        onClick={() => {
-                                                                            setFormData(prev => ({ ...prev, product: prod }));
-                                                                            if (formError) setFormError(null);
-                                                                        }}
-                                                                        className={cn(
-                                                                            "px-3 py-2 text-xs border transition-all duration-300 text-left",
-                                                                            formData.product === prod
-                                                                                ? "bg-primary text-black border-primary font-bold"
-                                                                                : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
-                                                                        )}
-                                                                    >
-                                                                        {prod}
-                                                                    </button>
-                                                                ))}
+                                                                {products.map((prod) => {
+                                                                    const isSelected = formData.products.includes(prod);
+                                                                    return (
+                                                                        <button
+                                                                            key={prod}
+                                                                            type="button"
+                                                                            onClick={() => toggleProduct(prod)}
+                                                                            className={cn(
+                                                                                "px-3 py-2 text-xs border transition-all duration-300 text-left flex items-center gap-2",
+                                                                                isSelected
+                                                                                    ? "bg-primary text-black border-primary font-bold"
+                                                                                    : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
+                                                                            )}
+                                                                        >
+                                                                            <div className={cn(
+                                                                                "w-3.5 h-3.5 rounded-sm border flex items-center justify-center flex-shrink-0 transition-all",
+                                                                                isSelected ? "bg-black/20 border-black/30" : "border-white/30"
+                                                                            )}>
+                                                                                {isSelected && (
+                                                                                    <svg className="w-2.5 h-2.5" viewBox="0 0 12 12" fill="none">
+                                                                                        <path d="M2 6L5 9L10 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                                    </svg>
+                                                                                )}
+                                                                            </div>
+                                                                            {prod}
+                                                                        </button>
+                                                                    );
+                                                                })}
                                                             </div>
                                                         </div>
 
                                                         <div className="space-y-2">
-                                                            <label className="text-[10px] uppercase text-white/70 font-bold tracking-widest ml-1">Mensagem</label>
+                                                            <div className="flex justify-between items-center">
+                                                                <label className="text-[10px] uppercase text-white/70 font-bold tracking-widest ml-1">Mensagem (Opcional)</label>
+                                                                <span className="text-[9px] text-white/40 font-mono">{formData.message.length}/1000</span>
+                                                            </div>
                                                             <textarea
                                                                 name="message"
                                                                 value={formData.message}
                                                                 onChange={handleInputChange}
+                                                                maxLength={1000}
                                                                 rows={4}
                                                                 placeholder="Detalhes do projeto, dúvidas ou briefing inicial..."
                                                                 className="w-full bg-white/5 border border-white/10 focus:border-primary/50 text-white p-4 text-sm outline-none transition-all placeholder:text-white/20 resize-none"
@@ -444,49 +641,83 @@ export default function Footer() {
                                         transition={{ duration: 0.35 }}
                                         className="relative z-10"
                                     >
-                                        <div className="space-y-4">
-                                            <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                                                    <h3 className="text-sm font-bold text-white uppercase tracking-widest">Operadores Comerciais</h3>
-                                                </div>
-                                                <span className="text-[10px] text-white/70 font-mono">STATUS: ONLINE</span>
-                                            </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 p-6">
+                                            {commercialTeam.map((member, idx) => (
+                                                <TechCard key={idx} className="bg-white/[0.02] hover:bg-white/[0.05] border-white/[0.06] hover:border-primary/30 transition-all duration-300 group/member">
+                                                    <div className="flex flex-col items-center text-center p-5 gap-4">
+                                                        {/* Avatar */}
+                                                        <div className="relative flex-none">
+                                                            <div className="absolute -inset-1 bg-gradient-to-br from-primary/40 to-transparent rounded-full opacity-0 group-hover/member:opacity-100 blur-md transition-opacity duration-300" />
+                                                            {member.image ? (
+                                                                <div 
+                                                                    className="relative rounded-full overflow-hidden border-2 border-white/10 group-hover/member:border-primary/40 transition-colors duration-300"
+                                                                    style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}
+                                                                >
+                                                                    <img
+                                                                        src={member.image}
+                                                                        alt={`Foto de ${member.name}`}
+                                                                        className="object-cover"
+                                                                        style={{ width: '120px', height: '120px' }}
+                                                                    />
+                                                                </div>
+                                                            ) : (
+                                                                <div 
+                                                                    className="relative rounded-full border-2 border-white/10 bg-white/5 flex items-center justify-center text-lg font-semibold text-white/80 group-hover/member:border-primary/40 transition-colors duration-300"
+                                                                    style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}
+                                                                >
+                                                                    {member.name.split(" ").map((p: string) => p[0]).join("")}
+                                                                </div>
+                                                            )}
+                                                        </div>
 
-                                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                {commercialTeam.map((member, idx) => (
-                                                    <TechCard key={idx} className="bg-white/2 hover:bg-white/4 transition-all group/member h-full">
-                                                        <div className="flex flex-col h-full justify-between gap-3">
-                                                            <div className="space-y-1">
-                                                                <p className="text-white font-bold text-sm uppercase tracking-wide group-hover/member:text-primary transition-colors">
-                                                                    {member.name}
-                                                                </p>
-                                                                <p className="text-white/70 text-[10px] font-mono">Sales Rep.</p>
-                                                            </div>
-                                                            <div className="space-y-1">
+                                                        {/* Info */}
+                                                        <div className="space-y-1">
+                                                            <p className="text-white font-bold text-sm uppercase tracking-wider group-hover/member:text-primary transition-colors duration-300">
+                                                                {member.name}
+                                                            </p>
+                                                            <p className="text-primary/80 text-[11px] font-medium tracking-wide">
+                                                                {member.role}
+                                                            </p>
+                                                        </div>
+
+                                                        {/* Contatos */}
+                                                        <div className="w-full space-y-2 pt-2 border-t border-white/5">
+                                                            {member.phone && (
                                                                 <a
                                                                     href={`https://wa.me/55${member.phone.replace(/\D/g, '')}`}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="inline-flex items-center gap-2 text-xs text-white/70 hover:text-green-400 transition-colors px-2 py-2 min-h-11"
-                                                                    aria-label={`Chamar ${member.name} no WhatsApp em ${member.phone}`}
+                                                                    className="flex items-center justify-center gap-2 text-xs text-white/60 hover:text-green-400 transition-colors py-1.5 rounded-sm hover:bg-green-500/10"
+                                                                    aria-label={`Chamar ${member.name} no WhatsApp`}
                                                                 >
-                                                                    <Phone className="w-3 h-3" />
-                                                                    {member.phone}
+                                                                    <Phone className="w-3.5 h-3.5" />
+                                                                    <span className="font-mono">{member.phone}</span>
                                                                 </a>
-                                                                <a
-                                                                    href={`mailto:${member.email}`}
-                                                                    className="inline-flex items-center gap-2 text-[11px] text-white/70 hover:text-white transition-colors truncate px-2 py-2 min-h-11"
-                                                                    aria-label={`Enviar email para ${member.name} em ${member.email}`}
-                                                                >
-                                                                    <Mail className="w-3 h-3" />
-                                                                    {member.email}
-                                                                </a>
-                                                            </div>
+                                                            )}
+                                                            <a
+                                                                href={`mailto:${member.email}`}
+                                                                className="flex items-center justify-center gap-2 text-xs text-white/60 hover:text-white transition-colors py-1.5 rounded-sm hover:bg-white/5"
+                                                                aria-label={`Email de ${member.name}`}
+                                                            >
+                                                                <Mail className="w-3.5 h-3.5" />
+                                                                <span className="truncate">{member.email}</span>
+                                                            </a>
                                                         </div>
-                                                    </TechCard>
-                                                ))}
-                                            </div>
+
+                                                        {/* LinkedIn Button */}
+                                                        <a
+                                                            href={member.linkedin}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="flex items-center justify-center gap-2 w-full text-[11px] font-medium uppercase tracking-wider text-white/70 hover:text-primary border border-white/10 hover:border-primary/40 py-3.5 rounded-sm transition-all duration-300 hover:bg-primary/5"
+                                                            aria-label={`LinkedIn de ${member.name}`}
+                                                        >
+                                                            <Linkedin className="w-3.5 h-3.5" />
+                                                            Ver Perfil
+                                                        </a>
+                                                    </div>
+                                                </TechCard>
+                                            ))}
                                         </div>
                                     </motion.div>
                                 )}
@@ -495,11 +726,6 @@ export default function Footer() {
                             <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.12)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-size-[100%_2px,3px_100%] opacity-20" />
                         </div>
 
-                        {/* Bottom status bar */}
-                        <div className="h-9 w-full bg-black/80 border-t border-white/10 flex items-center justify-between px-4 text-[10px] font-mono text-white/70">
-                            <span>SECURE_CHANNEL_ESTABLISHED</span>
-                            <span>{activePanel === "form" ? "INPUT_MODE: TRANSMISSÃO" : "INPUT_MODE: OPERADORES"}</span>
-                        </div>
                     </div>
                 </div>
                 <section className="relative">
@@ -574,7 +800,7 @@ export default function Footer() {
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Contato</h3>
                                 <ul className="space-y-3 text-sm text-white/70">
-                                    <li><a className="hover:text-primary transition-colors" href="https://wa.me/5511947005421" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp comercial">WhatsApp Comercial</a></li>
+                                    <li><a className="hover:text-primary transition-colors" href="https://wa.me/5531996389166" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp comercial">WhatsApp Comercial</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="mailto:contato@intelijunior.com" aria-label="Email de contato">contato@intelijunior.com</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#contato">Formulário de contato</a></li>
                                 </ul>
@@ -593,9 +819,19 @@ export default function Footer() {
                             <Github className="w-4 h-4" />
                             Made by João Campos
                         </a>
-                        <div className="flex gap-4 text-white/70">
-                            <a className="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
-                            <a className="hover:text-primary transition-colors" href="#">Termos de Uso</a>
+                        <div className="flex flex-col gap-4 text-white/70 text-[10px] md:text-xs md:items-end">
+                            <a
+                                href="https://share.google/SXZzbHvo95wP7AzUs"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary transition-colors"
+                                aria-label="Endereço da Inteli Júnior no Google Maps"
+                            >
+                                Av. Prof. Almeida Prado, 520 - Butantã, São Paulo - SP, 05508-070
+                            </a>
+                            <span className="hover:text-primary transition-colors">
+                                CNPJ: 48.820.726/0001-05
+                            </span>
                         </div>
                     </div>
                 </section>

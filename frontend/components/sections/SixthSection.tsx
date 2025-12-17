@@ -318,7 +318,7 @@ function Header() {
                     </motion.div>
                 </div>
                 <p className="text-muted-foreground text-md whitespace-normal">
-                    Mais do que um troféu, esse marco representa a <span className="text-white/70 font-semibold">velocidade da nossa evolução</span>. Em apenas 3 anos, atingimos níveis de maturidade que levam tempo para serem construídos, provando que <span className="text-white/70 font-semibold">unimos a agilidade de uma startup com a responsabilidade de uma grande empresa</span>.
+                    Nosso maior ativo são as <span className="text-white/70 font-semibold">pessoas que constroem a Inteli Júnior</span>. Ex-membros que hoje estão em grandes empresas e membros atuais que lideram projetos reais — todos compartilham uma coisa: <span className="text-white/70 font-semibold">a EJ foi o trampolim para suas carreiras</span>.
                 </p>
             </div>
             <div className="h-px w-1/9 bg-primary" />
