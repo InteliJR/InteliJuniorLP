@@ -6,12 +6,12 @@
  * - Usa TextScramble em títulos/CTA e formatação numérica para manter consistência visual.
  */
 import { Timeline } from "../ui/Timeline";
-import { Trophy, Users, Rocket, DollarSign, Award, Target, ExternalLink } from "lucide-react";
+import { Trophy, Users, Rocket, DollarSign, Award, Target } from "lucide-react";
 import { TextScramble } from "../ui/textScramble";
 import { m } from "framer-motion";
 import { TechCard } from "../ui/TechCard";
 import { ImpactCard } from "../ui/ImpactCard";
-import { useCallback, useRef, useState } from "react";
+import { useRef } from "react";
 import { useScrambleTrigger } from "@/hooks/useScrambleTrigger";
 
 export default function ThirdSection() {
@@ -19,25 +19,11 @@ export default function ThirdSection() {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
     };
 
-    // Estado para o TextScramble do botão "Ver Documento"
-    const [docPlayId, setDocPlayId] = useState(0);
-    const docHoveringRef = useRef(false);
-
     const headerRef = useRef<HTMLDivElement | null>(null);
     const { triggered: headerTriggered, playId: headerPlayId } = useScrambleTrigger(headerRef, { threshold: 0.35, once: true });
 
     const resultsRef = useRef<HTMLDivElement | null>(null);
     const { triggered: resultsTriggered, playId: resultsPlayId } = useScrambleTrigger(resultsRef, { threshold: 0.35, once: true });
-
-    const triggerDocScramble = useCallback(() => {
-        if (docHoveringRef.current) return;
-        docHoveringRef.current = true;
-        setDocPlayId((prev) => prev + 1);
-    }, []);
-
-    const resetDocHoverState = useCallback(() => {
-        docHoveringRef.current = false;
-    }, []);
 
     const data = [
         {
@@ -70,19 +56,19 @@ export default function ThirdSection() {
                                 <ul className="space-y-3">
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">Vortex</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex (EJ recém federada)</span>
                                     </li>
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">Embarque</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">2x Embarque</span>
                                     </li>
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">ESP</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">2x Estação São Paulo</span>
                                     </li>
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">Prêmio Fejesp</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">2x Prêmio Fejesp</span>
                                     </li>
                                 </ul>
                             </div>
@@ -101,7 +87,7 @@ export default function ThirdSection() {
                                         <DollarSign className="w-4 h-4 text-primary" />
                                     </div>
                                     <span className="text-2xl lg:text-5xl font-bold text-white truncate">
-                                        10K
+                                        10,1K
                                     </span>
                                 </div>
 
@@ -109,7 +95,7 @@ export default function ThirdSection() {
                                     <div className="space-y-1">
                                         <div className="flex justify-between text-xs text-gray-500 uppercase font-mono">
                                             <span>Progresso</span>
-                                            <span>100%</span>
+                                            <span>2028%</span>
                                         </div>
                                         <div className="h-2 w-full bg-white/5 skew-x-[-20deg] overflow-hidden">
                                             <div
@@ -188,15 +174,15 @@ export default function ThirdSection() {
                                 <ul className="space-y-3">
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">Vortex</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex</span>
                                     </li>
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">Dispare</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">3x Dispare</span>
                                     </li>
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">ESP</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Estação São Paulo</span>
                                     </li>
                                 </ul>
                             </div>
@@ -215,7 +201,7 @@ export default function ThirdSection() {
                                         <DollarSign className="w-4 h-4 text-primary" />
                                     </div>
                                     <span className="text-2xl lg:text-5xl font-bold text-white truncate">
-                                        43k
+                                        43K
                                     </span>
                                 </div>
 
@@ -223,7 +209,7 @@ export default function ThirdSection() {
                                     <div className="space-y-1">
                                         <div className="flex justify-between text-xs text-gray-500 uppercase font-mono">
                                             <span>Progresso</span>
-                                            <span>100%</span>
+                                            <span>326%</span>
                                         </div>
                                         <div className="h-2 w-full bg-white/5 skew-x-[-20deg] overflow-hidden">
                                             <div
@@ -300,55 +286,6 @@ export default function ThirdSection() {
                                         Um marco histórico de maturidade e resultados. Somos a prova de que agilidade e responsabilidade caminham juntas.
                                     </p>
                                 </div>
-                                <a
-                                    href="https://drive.google.com/file/d/1nvpHTWDmKq0rdhbac4WYTE_aKadFaWcR/view"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="relative group inline-flex items-center justify-center"
-                                    onMouseEnter={triggerDocScramble}
-                                    onMouseLeave={resetDocHoverState}
-                                    onFocus={triggerDocScramble}
-                                    onBlur={resetDocHoverState}
-                                >
-                                    {/* Backdrop layer */}
-                                    <div
-                                        className="absolute inset-0 bg-primary/90 group-hover:bg-primary transition-colors duration-300"
-                                        style={{
-                                            clipPath: 'polygon(8% 0%, 100% 0%, 100% 70%, 92% 100%, 0% 100%, 0% 30%)'
-                                        }}
-                                    />
-                                    {/* Border SVG */}
-                                    <div className="absolute inset-0 pointer-events-none">
-                                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                            <path
-                                                d="M 8 0 L 100 0 L 100 70 L 92 100 L 0 100 L 0 30 L 8 0 Z"
-                                                vectorEffect="non-scaling-stroke"
-                                                className="stroke-1 fill-none stroke-white/20 group-hover:stroke-white/40 transition-all duration-300"
-                                            />
-                                        </svg>
-                                        {/* Corner accents */}
-                                        <svg className="absolute -top-px -left-px w-4 h-4 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <path d="M 0 12 V 0 H 12" fill="none" stroke="currentColor" strokeWidth="2" />
-                                        </svg>
-                                        <svg className="absolute -bottom-px -right-px w-4 h-4 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <path d="M 16 4 V 16 H 4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                        </svg>
-                                    </div>
-                                    {/* Content */}
-                                    <div className="relative z-10 flex items-center px-6 py-3">
-                                        <TextScramble
-                                            as="span"
-                                            className="text-sm font-bold uppercase tracking-wider text-black"
-                                            duration={0.8}
-                                            speed={0.035}
-                                            trigger={true}
-                                            playId={docPlayId}
-                                        >
-                                            {"Ver Documento"}
-                                        </TextScramble>
-                                        <ExternalLink className="ml-2 w-4 h-4 text-black transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-110" />
-                                    </div>
-                                </a>
                             </div>
                         </TechCard>
                     </div>
@@ -363,14 +300,18 @@ export default function ThirdSection() {
                             <div className="space-y-4">
                                 <div className="flex items-baseline gap-2">
                                     <span className="text-4xl font-bold text-white">
-                                        01
+                                        02
                                     </span>
                                     <span className="text-sm text-gray-500 uppercase tracking-wider">Conquistas</span>
                                 </div>
                                 <ul className="space-y-3">
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary animate-pulse rotate-45" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">Prêmio Vortex (Atual)</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex (Verde de faturamento)</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary animate-pulse rotate-45" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Estação São Paulo</span>
                                     </li>
                                 </ul>
                             </div>
@@ -389,7 +330,7 @@ export default function ThirdSection() {
                                         <DollarSign className="w-4 h-4 text-primary" />
                                     </div>
                                     <span className="text-2xl lg:text-5xl font-bold text-white truncate">
-                                        29k
+                                        60,7K
                                     </span>
                                 </div>
 
@@ -397,12 +338,12 @@ export default function ThirdSection() {
                                     <div className="space-y-1">
                                         <div className="flex justify-between text-xs text-gray-500 uppercase font-mono">
                                             <span>Progresso</span>
-                                            <span>98%</span>
+                                            <span>200%</span>
                                         </div>
                                         <div className="h-2 w-full bg-white/5 skew-x-[-20deg] overflow-hidden">
                                             <div
                                                 className="h-full bg-primary shadow-[0_0_10px_#ff4d3a] transition-all duration-1000"
-                                                style={{ width: '98%' }}
+                                                style={{ width: '100%' }}
                                             />
                                         </div>
                                     </div>
@@ -526,7 +467,7 @@ export default function ThirdSection() {
                 <div className="relative z-10 px-24 grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Card 1 - Negócios Impactados */}
                     <ImpactCard
-                        value="15+"
+                        value="30+"
                         label="Negócios Impactados"
                         description="Empresas que confiaram em nossas soluções tecnológicas."
                         icon={
@@ -539,7 +480,7 @@ export default function ThirdSection() {
 
                     {/* Card 2 - Universitários Capacitados (Card Central - Destaque) */}
                     <ImpactCard
-                        value="50+"
+                        value="60+"
                         label="Universitários Capacitados"
                         description="Talentos formados com experiência real de mercado em projetos de alto impacto."
                         icon={<Users className="w-8 h-8" strokeWidth={1.5} />}
@@ -550,7 +491,7 @@ export default function ThirdSection() {
 
                     {/* Card 3 - Impacto Econômico */}
                     <ImpactCard
-                        value="100k+"
+                        value="R$ 110K+"
                         label="Impacto Econômico"
                         description="Valor gerado em projetos e soluções entregues ao mercado."
                         icon={<DollarSign className="w-8 h-8" strokeWidth={1.5} />}

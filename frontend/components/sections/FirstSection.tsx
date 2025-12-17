@@ -8,7 +8,7 @@
  */
 import Link from "next/link";
 // import dynamic from 'next/dynamic'; // temporariamente removido para debug
-import { useCallback, useEffect, useRef, useState, MouseEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { TextScramble } from "@/components/ui/textScramble/index";
@@ -19,34 +19,23 @@ import { useScrambleTrigger } from "@/hooks/useScrambleTrigger";
 // Import direto da Logo 3D (WebGL) para debug
 import ImageStructure3D from "@/components/ImageStructure3D";
 
-// Função throttle para otimizar eventos de mouse
-function throttle<T extends (...args: any[]) => any>(
-  func: T,
-  delay: number
-): (...args: Parameters<T>) => void {
-  let lastCall = 0;
-  return (...args: Parameters<T>) => {
-    const now = new Date().getTime();
-    if (now - lastCall < delay) {
-      return;
-    }
-    lastCall = now;
-    return func(...args);
-  };
-}
-
-// Componente de Tilt para o glass panel (baseado no TiltCard)
-function SubtleTiltPanel({ children }: { children: React.ReactNode }) {
+// Hook de tilt 3D para elementos com conteúdo interativo por cima
+function useTilt3D(intensity = 1000, throttleDelay = 30) {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lastCallRef = useRef(0);
 
-  // Intensidade 25 = efeito moderado (menor = mais intenso, TiltCard usa 12)
-  const intensity = 25;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  const onMouseMove = useCallback(
-    throttle((e: MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget;
-      const box = card.getBoundingClientRect();
+    const handleMouseMove = (e: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastCallRef.current < throttleDelay) return;
+      lastCallRef.current = now;
+
+      const box = container.getBoundingClientRect();
       const x = e.clientX - box.left;
       const y = e.clientY - box.top;
       const centerX = box.width / 2;
@@ -55,35 +44,29 @@ function SubtleTiltPanel({ children }: { children: React.ReactNode }) {
       const rotateY = (centerX - x) / intensity;
 
       setRotate({ x: rotateX, y: rotateY });
-    }, 30),
-    []
-  );
+    };
 
-  const onMouseEnter = useCallback(() => {
-    setIsHovered(true);
-  }, []);
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
 
-  const onMouseLeave = useCallback(() => {
-    setRotate({ x: 0, y: 0 });
-    setIsHovered(false);
-  }, []);
+    const handleMouseLeave = () => {
+      setRotate({ x: 0, y: 0 });
+      setIsHovered(false);
+    };
 
-  return (
-    <div
-      className="absolute inset-6 will-change-transform"
-      onMouseMove={onMouseMove}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      style={{
-        transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${
-          rotate.y
-        }deg) scale3d(${isHovered ? 1.008 : 1}, ${isHovered ? 1.008 : 1}, 1)`,
-        transition: "all 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99) 0s",
-      }}
-    >
-      {children}
-    </div>
-  );
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [intensity, throttleDelay]);
+
+  return { containerRef, rotate, isHovered };
 }
 
 // Dynamic import comentado para debug
@@ -109,13 +92,17 @@ function GlassmorphismBackground({
   id?: string;
   className?: string;
 }) {
+  // Hook de tilt 3D para o glass panel - valores mais sutis
+  const { containerRef, rotate, isHovered } = useTilt3D(50, 30);
+  const hoverScale = 1.0001;
+
   return (
-    <section id={id} className={`relative overflow-hidden ${className}`}>
-      {/* Base escura sólida */}
+    <section ref={containerRef} id={id} className={`relative overflow-hidden ${className}`}>
+      {/* Base com degradê vertical */}
       <div
         className="absolute inset-0"
         style={{
-          background: "#08080a",
+          background: "linear-gradient(to bottom, #0b0a0b 0%, #05060f 100%)",
         }}
       />
 
@@ -164,7 +151,13 @@ function GlassmorphismBackground({
       />
 
       {/* Glass panel com degradê vermelho, borda completa e tilt sutil */}
-      <SubtleTiltPanel>
+      <div
+        className="absolute inset-6 will-change-transform"
+        style={{
+          transform: `perspective(5000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale3d(${isHovered ? hoverScale : 1}, ${isHovered ? hoverScale : 1}, 1)`,
+          transition: "all 500ms cubic-bezier(0.03, 0.98, 0.52, 0.99) 0s",
+        }}
+      >
         {/* Conteúdo com clip-path */}
         <div
           className="relative w-full h-full"
@@ -230,7 +223,7 @@ function GlassmorphismBackground({
             strokeWidth="2.5"
           />
         </svg>
-      </SubtleTiltPanel>
+      </div>
 
       {children}
 

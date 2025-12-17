@@ -134,11 +134,11 @@ const ImageStructure3D = ({ className = "" }) => {
     redAccent.position.set(-5, -2, 3);
     scene.add(redAccent);
 
-    const redRim = new THREE.DirectionalLight(0xff3311, 5.0); // Rim light vermelha bem mais visível
+    const redRim = new THREE.DirectionalLight(0xff3311, 8.0); // Rim light vermelha bem mais visível
     redRim.position.set(-6, 1, -3);
     scene.add(redRim);
 
-    const redFront = new THREE.PointLight(0xff4422, 0.8, 15); // Luz vermelha frontal adicional
+    const redFront = new THREE.PointLight(0xff4422, 1, 300); // Luz vermelha frontal adicional
     redFront.position.set(3, 2, 5);
     scene.add(redFront);
 
@@ -161,7 +161,7 @@ const ImageStructure3D = ({ className = "" }) => {
 
     const regularSphereGeometry = new THREE.SphereGeometry(0.22, 42, 42);
     const largeSphereGeometry = new THREE.SphereGeometry(0.27, 52, 52);
-    const cylinderRadius = 0.12; // Cilindros mais espessos
+    const cylinderRadius = 0.15; // Cilindros mais espessos
 
     const sphereMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xfff8f0, // Branco creme
