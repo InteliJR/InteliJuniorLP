@@ -1,4 +1,12 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -42,74 +50,103 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  
-  --shadow-inner-glass: inset 0 2px 15px rgba(255,255,255,0.1), inset 0 0 50px rgba(255,255,255,0.03);
-  --shadow-inner-primary: inset 0 2px 20px rgba(255,77,58,0.35), inset 0 0 60px rgba(255,77,58,0.12);
-  --shadow-inner-glass-premium: inset 0 2px 30px rgba(255,255,255,0.08), inset 0 -2px 30px rgba(0,0,0,0.3), inset 0 0 80px rgba(255,77,58,0.1);
-  --shadow-inner-primary-premium: inset 0 3px 40px rgba(255,77,58,0.25), inset 0 -3px 40px rgba(0,0,0,0.4), inset 0 0 100px rgba(255,150,130,0.15);
-  --shadow-inner-button: inset 0 3px 20px rgba(255,255,255,0.4), inset 0 -3px 15px rgba(0,0,0,0.35), inset 0 0 40px rgba(255,150,130,0.25);
-  --shadow-inner-button-hover: inset 0 3px 25px rgba(255,255,255,0.5), inset 0 -3px 20px rgba(0,0,0,0.4), inset 0 0 50px rgba(255,150,130,0.35), 0 0 40px rgba(255,77,58,0.6);
+
+  --shadow-inner-glass: inset 0 2px 15px rgba(255, 255, 255, 0.1), inset 0 0 50px rgba(255, 255, 255, 0.03);
+  --shadow-inner-primary: inset 0 2px 20px rgba(255, 77, 58, 0.35), inset 0 0 60px rgba(255, 77, 58, 0.12);
+  --shadow-inner-glass-premium: inset 0 2px 30px rgba(255, 255, 255, 0.08), inset 0 -2px 30px rgba(0, 0, 0, 0.3), inset 0 0 80px rgba(255, 77, 58, 0.1);
+  --shadow-inner-primary-premium: inset 0 3px 40px rgba(255, 77, 58, 0.25), inset 0 -3px 40px rgba(0, 0, 0, 0.4), inset 0 0 100px rgba(255, 150, 130, 0.15);
+  --shadow-inner-button: inset 0 3px 20px rgba(255, 255, 255, 0.4), inset 0 -3px 15px rgba(0, 0, 0, 0.35), inset 0 0 40px rgba(255, 150, 130, 0.25);
+  --shadow-inner-button-hover: inset 0 3px 25px rgba(255, 255, 255, 0.5), inset 0 -3px 20px rgba(0, 0, 0, 0.4), inset 0 0 50px rgba(255, 150, 130, 0.35), 0 0 40px rgba(255, 77, 58, 0.6);
   --animate-scan-line: scan 2.5s ease-in-out infinite;
 
   @keyframes moveBackground {
-  from {
-    background-position: 0% 0%;
+    from {
+      background-position: 0% 0%;
     }
-  to {
-    background-position: 0% -1000%;
+
+    to {
+      background-position: 0% -1000%;
     }
   }
+
   @keyframes aurora-glow {
-  0%, 100% {
-    text-shadow: 0 0 40px rgba(0, 200, 200, 0.5);
+
+    0%,
+    100% {
+      text-shadow: 0 0 40px rgba(0, 200, 200, 0.5);
     }
-  50% {
-    text-shadow: 0 0 60px rgba(0, 255, 153, 0.7);
+
+    50% {
+      text-shadow: 0 0 60px rgba(0, 255, 153, 0.7);
     }
   }
+
   @keyframes sparkle {
-  0%, 100% {
-    opacity: 0.7;
+
+    0%,
+    100% {
+      opacity: 0.7;
     }
-  50% {
-    opacity: 1;
+
+    50% {
+      opacity: 1;
     }
   }
+
   @keyframes marquee {
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(-100%);
     }
   }
+
   --animate-marquee: marquee 25s linear infinite;
   --beam-right: var(----beam-right);
   --beam-left: var(----beam-left);
   --color-accent-2: var(----accent-2);
   --color-accent-1: var(----accent-1);
+
   @keyframes slideUpFade {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
+    from {
+      opacity: 0;
+      transform: translateY(24px);
     }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
+
   @keyframes scan {
-    0% { top: 0%; opacity: 0; }
-    15% { opacity: 1; }
-    85% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
+    0% {
+      top: 0%;
+      opacity: 0;
+    }
+
+    15% {
+      opacity: 1;
+    }
+
+    85% {
+      opacity: 1;
+    }
+
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
   }
 }
 
 @layer utilities {
+
   /* Padrão de Grade Tech para o fundo da seção */
   .bg-tech-grid {
-    background-image: 
+    background-image:
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
@@ -119,6 +156,28 @@
 
 :root {
   --radius: 0.625rem;
+  /* Typography scale (desktop ↔ mobile via clamp) */
+  --font-hero-size: clamp(2.85rem, 2.2vw + 2.3rem, 4.3rem);
+  --font-hero-line: 1.05;
+  --font-display-size: clamp(2.1rem, 1.5vw + 1.6rem, 3.1rem);
+  --font-display-line: 1.12;
+  --font-heading-size: clamp(1.55rem, 1vw + 1.2rem, 2.2rem);
+  --font-heading-line: 1.2;
+  --font-subhead-size: clamp(1.25rem, 0.7vw + 1.05rem, 1.6rem);
+  --font-subhead-line: 1.35;
+  --font-body-lg-size: clamp(1.05rem, 0.35vw + 0.96rem, 1.2rem);
+  --font-body-size: clamp(0.98rem, 0.22vw + 0.9rem, 1.08rem);
+  --font-body-line: 1.6;
+  --font-small-size: clamp(0.88rem, 0.18vw + 0.82rem, 0.96rem);
+  --font-overline-size: clamp(0.78rem, 0.14vw + 0.72rem, 0.86rem);
+  --font-button-size: clamp(0.95rem, 0.25vw + 0.9rem, 1.06rem);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --letter-tight: -0.02em;
+  --letter-tighter: -0.03em;
+  --letter-wide: 0.12em;
   --background: #05060f;
   --foreground: #f5f6ff;
   --card: #090d1a;
@@ -150,14 +209,12 @@
   --sidebar-accent-foreground: #0b0d16;
   --sidebar-border: #1f2437;
   --sidebar-ring: #ff7058;
-  --gradient-silver: linear-gradient(
-    120deg,
-    rgba(244, 246, 255, 0.94) 0%,
-    rgba(217, 222, 238, 0.92) 28%,
-    rgba(176, 187, 212, 0.9) 52%,
-    rgba(228, 234, 255, 0.94) 75%,
-    rgba(200, 210, 232, 0.92) 100%
-  );
+  --gradient-silver: linear-gradient(120deg,
+      rgba(244, 246, 255, 0.94) 0%,
+      rgba(217, 222, 238, 0.92) 28%,
+      rgba(176, 187, 212, 0.9) 52%,
+      rgba(228, 234, 255, 0.94) 75%,
+      rgba(200, 210, 232, 0.92) 100%);
   --accent-1: hsl(280 80% 60%);
   --accent-2: hsl(320 85% 60%);
   --beam-left: 270deg;
@@ -196,20 +253,19 @@
   --sidebar-accent-foreground: #0b0d16;
   --sidebar-border: #1f2437;
   --sidebar-ring: #ff7058;
-  --gradient-silver: linear-gradient(
-    120deg,
-    rgba(244, 246, 255, 0.94) 0%,
-    rgba(217, 222, 238, 0.92) 28%,
-    rgba(176, 187, 212, 0.9) 52%,
-    rgba(228, 234, 255, 0.94) 75%,
-    rgba(200, 210, 232, 0.92) 100%
-  );
+  --gradient-silver: linear-gradient(120deg,
+      rgba(244, 246, 255, 0.94) 0%,
+      rgba(217, 222, 238, 0.92) 28%,
+      rgba(176, 187, 212, 0.9) 52%,
+      rgba(228, 234, 255, 0.94) 75%,
+      rgba(200, 210, 232, 0.92) 100%);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     /* Use the JetBrains Mono variable injected by Next Font as the global font-family.
@@ -219,6 +275,73 @@
 
     background-image: radial-gradient(circle, color-mix(in srgb, var(--primary), transparent 50%) 1.5px, transparent 1.5px);
     background-size: 32px 32px;
+    font-size: var(--font-body-size);
+    line-height: var(--font-body-line);
+  }
+}
+
+@layer components {
+
+  /* Semantic typography utilities */
+  .ty-hero {
+    font-size: var(--font-hero-size);
+    line-height: var(--font-hero-line);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-tighter);
+  }
+
+  .ty-display {
+    font-size: var(--font-display-size);
+    line-height: var(--font-display-line);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-tight);
+  }
+
+  .ty-heading {
+    font-size: var(--font-heading-size);
+    line-height: var(--font-heading-line);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-tight);
+  }
+
+  .ty-subtitle {
+    font-size: var(--font-subhead-size);
+    line-height: var(--font-subhead-line);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .ty-body {
+    font-size: var(--font-body-size);
+    line-height: var(--font-body-line);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .ty-body-strong {
+    font-size: var(--font-body-size);
+    line-height: var(--font-body-line);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .ty-caption {
+    font-size: var(--font-small-size);
+    line-height: 1.35;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .ty-overline {
+    font-size: var(--font-overline-size);
+    line-height: 1.2;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-wide);
+    text-transform: uppercase;
+  }
+
+  .ty-button {
+    font-size: var(--font-button-size);
+    line-height: 1.2;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
   }
 }
 
@@ -226,13 +349,16 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #050505;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #333;
   border: 1px solid var(--primary);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #444;
   border-color: var(--primary);
@@ -242,26 +368,24 @@
 .glow-text {
   text-shadow: 0 0 10px rgba(255, 77, 58, 0.6);
 }
+
 .glow-box {
   box-shadow: 0 0 20px rgba(255, 77, 58, 0.15);
 }
 
 /* Clip Path for Tech Shapes */
 .clip-tech-card {
-  clip-path: polygon(
-    20px 0, 100% 0, 
-    100% calc(100% - 20px), 
-    calc(100% - 20px) 100%, 
-    0 100%, 0 20px
-  );
+  clip-path: polygon(20px 0, 100% 0,
+      100% calc(100% - 20px),
+      calc(100% - 20px) 100%,
+      0 100%, 0 20px);
 }
+
 .clip-tech-border {
-  clip-path: polygon(
-    20px 0, 100% 0, 
-    100% calc(100% - 20px), 
-    calc(100% - 20px) 100%, 
-    0 100%, 0 20px
-  );
+  clip-path: polygon(20px 0, 100% 0,
+      100% calc(100% - 20px),
+      calc(100% - 20px) 100%,
+      0 100%, 0 20px);
 }
 
 /* Hero cyber reveal */

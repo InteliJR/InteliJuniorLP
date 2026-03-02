@@ -22,11 +22,7 @@
         "name": "next"
       }
     ],
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+    "paths": {}
   },
   "include": [
     "next-env.d.ts",
@@ -34,10 +30,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts",
-    ".next\\dev/types/**/*.ts",
-    ".next\\dev/types/**/*.ts",
-    "components/ImageStructure3D.jsx"
+    "**/*.mts"
   ],
   "exclude": [
     "node_modules"
