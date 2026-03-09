@@ -50,7 +50,7 @@ export default function ThirdSection() {
             data-graph-profile
             data-graph-line="0.17"
             data-graph-node="0.25"
-            className="arch-shell relative w-full bg-(--surface-dark-4) px-6 py-24 text-white md:px-12 md:py-32 lg:pl-32 lg:pr-16"
+            className="arch-shell relative w-full bg-(--surface-dark-4) px-6 py-24 text-white md:px-12 lg:pl-32 lg:pr-16"
         >
             <div className="flex w-full items-end justify-between gap-6">
                 <div>

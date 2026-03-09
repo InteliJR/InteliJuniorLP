@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Briefcase, Linkedin, Mail } from "lucide-react";
 
 export default function FifthSection() {
     return (
@@ -11,11 +12,11 @@ export default function FifthSection() {
         >
             <div className="absolute inset-0">
                 <Image
-                    src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/1c6b6980-54e4-4d8c-9ff6-e09b844d7b01_3840w.webp"
+                    src="/images/foto7.jpg"
                     alt="Background"
                     fill
                     sizes="100vw"
-                    className="h-full w-full object-cover opacity-20 grayscale"
+                    className="h-full w-full object-cover opacity-45"
                     priority
                     fetchPriority="high"
                 />
@@ -26,7 +27,7 @@ export default function FifthSection() {
             <div className="pointer-events-none absolute inset-y-0 right-6 hidden w-px bg-white/10 md:block" />
 
             <div className="relative z-10 w-full px-4 text-center lg:pl-28 lg:pr-10" data-footer-parallax>
-                <div className="mb-8 text-xs font-semibold uppercase tracking-[0.3em] text-white/55" data-split>
+                <div className="mb-8 text-xs font-bold uppercase tracking-[0.3em] text-primary" data-split>
                     [7. contato]
                 </div>
 
@@ -39,19 +40,28 @@ export default function FifthSection() {
                     </span>
                 </a>
 
-                <p className="mx-auto mt-6 max-w-xl text-sm uppercase tracking-[0.16em] text-white/55" data-split>
+                <p className="mx-auto mt-6 max-w-xl uppercase tracking-[0.16em] text-white" data-split>
                     Vamos construir o futuro? Nosso time está pronto para entender seu desafio.
                 </p>
 
-                <div className="mt-24 flex w-full flex-col items-center justify-between gap-10 px-6 text-xs uppercase tracking-[0.2em] text-white/70 md:flex-row md:px-12">
-                    <div className="text-[12px] text-white/60 md:text-left">
+                <div className="mt-24 flex w-full flex-col items-center justify-between gap-10 px-6 text-xs uppercase tracking-[0.2em] text-white md:flex-row md:px-12">
+                    <div className="text-[12px] md:text-left">
                         <span className="block" data-split>© 2025 Inteli Júnior</span>
                         <span className="block" data-split>Butantã, São Paulo - SP</span>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-                        <a href="#servicos" className="hover:text-white transition-colors" data-split>Serviços</a>
-                        <a href="https://www.linkedin.com/company/inteli-junior" target="_blank" rel="noreferrer" className="hover:text-white transition-colors" data-split>LinkedIn</a>
-                        <a href="mailto:contato@intelijunior.com" className="hover:text-white transition-colors" data-split>E-mail</a>
+                        <a href="#servicos" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors" data-split>
+                            <Briefcase className="size-10 transition-colors group-hover:text-primary" strokeWidth={0.4} />
+                            <span>Serviços</span>
+                        </a>
+                        <a href="https://www.linkedin.com/company/inteli-junior" target="_blank" rel="noreferrer" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors" data-split>
+                            <Linkedin className="size-10 transition-colors group-hover:text-primary" strokeWidth={0.4} />
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="mailto:contato@intelijunior.com" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors" data-split>
+                            <Mail className="size-10 transition-colors group-hover:text-primary" strokeWidth={0.4} />
+                            <span>E-mail</span>
+                        </a>
                     </div>
                 </div>
             </div>

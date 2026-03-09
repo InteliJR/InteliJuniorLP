@@ -11,9 +11,8 @@ const members = [
         companyRole: "Estagiária",
         quote:
             "Gestão financeira e liderança de verdade enquanto estudante. Essa vivência brilhou em todos os processos seletivos.",
-        image:
-            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://logo.clearbit.com/ab-inbev.com",
+        image: "/images/members/clara_mohammad.webp",
+        companyLogo: "/images/company_logos/Anheuser-Busch-InBev-Logo.png",
     },
     {
         name: "Rodrigo Sales",
@@ -23,9 +22,8 @@ const members = [
         companyRole: "Estagiário",
         quote:
             "A EJ me deu o relacionamento direto com cliente que faltava. Trabalhar com um time jovem e projetos reais foi o que me levou ao estágio em uma multinacional.",
-        image:
-            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://logo.clearbit.com/bcg.com",
+        image: "/images/members/rodrigo_sales.webp",
+        companyLogo: "/images/company_logos/BCG_X.png",
     },
     {
         name: "Matheus Mendes",
@@ -35,9 +33,8 @@ const members = [
         companyRole: "Estagiário",
         quote:
             "Estratégia, liderança e entrega. A EJ foi minha escola prática e abriu a porta para a Uber.",
-        image:
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://cdn.simpleicons.org/uber",
+        image: "/images/members/matheus_mendes.webp",
+        companyLogo: "/images/company_logos/uber.png",
     },
     {
         name: "Ólin Costa",
@@ -47,9 +44,8 @@ const members = [
         companyRole: "Estagiário",
         quote:
             "Ganhei confiança entregando soluções prontas para produção. Enfrentei desafios reais, com responsabilidade e foco em resultado.",
-        image:
-            "https://images.unsplash.com/photo-1504257432389-52343af06ae3?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://logo.clearbit.com/bcg.com",
+        image: "/images/members/olin_costa.webp",
+        companyLogo: "/images/company_logos/BCG_X.png",
     },
     {
         name: "Mirella Borim",
@@ -59,9 +55,7 @@ const members = [
         companyRole: "Gestão Estratégica",
         quote:
             "Visão estratégica, sustentabilidade e cultura viva. Liderar a EJ foi o salto que me preparou para o mercado sênior.",
-        image:
-            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://logo.clearbit.com/intelijunior.com",
+        image: "/images/members/mirella_borim.webp",
     },
     {
         name: "Igor Sampaio",
@@ -71,9 +65,7 @@ const members = [
         companyRole: "Pessoas & Cultura",
         quote:
             "Seleção e desenvolvimento de pessoas. Processos, cultura e comunicação: aprendizados lapidados com o time.",
-        image:
-            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://logo.clearbit.com/intelijunior.com",
+        image: "/images/members/igor_sampaio.webp",
     },
     {
         name: "Nataly Cunha",
@@ -83,9 +75,7 @@ const members = [
         companyRole: "Administrativo e Financeiro",
         quote:
             "Saúde financeira, jurídica e operacional na prática. Cada decisão é treino para o mercado real.",
-        image:
-            "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://logo.clearbit.com/intelijunior.com",
+        image: "/images/members/nataly_cunha.webp",
     },
     {
         name: "Rodrigo Ferraz",
@@ -95,9 +85,7 @@ const members = [
         companyRole: "Vendas",
         quote:
             "Laboratório de negociação e autoconfiança. Cresci com clientes reais e metas claras.",
-        image:
-            "https://images.unsplash.com/photo-1463453091185-61582044d556?q=80&w=1200&auto=format&fit=crop",
-        logo: "https://logo.clearbit.com/intelijunior.com",
+        image: "/images/members/rodrigo_ferraz.webp",
     },
 ];
 
@@ -177,20 +165,23 @@ export default function IndustriesSection() {
                                 </div>
 
                                 <div className="mt-5 border-t border-white/10 pt-4">
-                                    <div className="mb-2 flex items-center gap-3">
-                                        <Image
-                                            src={member.logo}
-                                            alt={`Logo ${member.company}`}
-                                            width={20}
-                                            height={20}
-                                            className="h-5 w-5 object-contain grayscale invert"
-                                            loading="lazy"
-                                        />
-                                        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-white/75" data-split>
-                                            {member.company}
-                                        </p>
+                                    <div className="flex items-center gap-3 pb-2">
+                                        {member.companyLogo ? (
+                                            <Image
+                                                src={member.companyLogo}
+                                                alt={`Logo ${member.company}`}
+                                                width={84}
+                                                height={20}
+                                                className="h-4.5 w-auto object-contain"
+                                                loading="lazy"
+                                            />
+                                        ) : (
+                                            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white" data-split>
+                                                {member.company}
+                                            </p>
+                                        )}
                                     </div>
-                                    <p className="text-[12px] uppercase tracking-[0.16em] text-primary" data-split>
+                                    <p className="text-[12px] uppercase tracking-[0.16em] font-bold text-primary" data-split>
                                         {member.companyRole}
                                     </p>
                                 </div>

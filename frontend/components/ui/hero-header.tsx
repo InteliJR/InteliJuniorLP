@@ -4,6 +4,7 @@ const navLinks = [
     { label: "Quem somos", href: "#quem-somos" },
     { label: "Portfólio", href: "#portfolio" },
     { label: "Serviços", href: "#servicos" },
+    { label: "Membros", href: "#membros" },
     { label: "Contato", href: "#contato" },
 ];
 
@@ -60,7 +61,7 @@ export default function HeroHeader() {
                             o Futuro
                         </span>
                     </h1>
-                    <p className="mt-3 text-[clamp(1.05rem,2.2vw,1.7rem)] font-thin tracking-tight text-white/70" data-hero-fade>
+                    <p className="mt-3 text-[clamp(1.05rem,2.2vw,1.7rem)] font-thin tracking-tight text-white/70 hidden md:block" data-hero-fade>
                         Inteli Júnior • Tecnologia pronta para produção
                     </p>
                 </div>

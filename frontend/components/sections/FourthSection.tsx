@@ -2,20 +2,20 @@ export default function FourthSection() {
     return (
         <section
             id="servicos"
-            className="arch-shell w-full px-6 py-28 text-white md:px-12 md:py-40 lg:pl-32 lg:pr-16"
+            className="arch-shell w-full px-6 py-28 text-white md:px-12 lg:pl-32 lg:pr-16"
         >
             <div className="w-full">
-                <div className="mb-10 grid grid-cols-1 items-end gap-8 md:grid-cols-2">
+                <div className="mb-10 grid grid-cols-1 md:items-end gap-8 md:grid-cols-2">
                     <h2 className="text-4xl tracking-[-0.03em] uppercase md:text-6xl lg:text-7xl">
-                        <span className="block font-thin" data-split>
+                        <span className="block font-thin text-center md:text-right" data-split>
                             NOSSOS
                         </span>
-                        <span className="block font-semibold text-primary" data-split>
+                        <span className="block font-semibold text-primary text-center md:text-right" data-split>
                             SERVIÇOS
                         </span>
                     </h2>
                     <p
-                        className="text-right text-[clamp(1.05rem,1.35vw,1.35rem)] font-thin leading-relaxed tracking-[0.03em] text-white/78 uppercase"
+                        className="text-center md:text-right text-[clamp(1.05rem,1.35vw,1.35rem)] font-thin leading-relaxed tracking-[0.03em] text-white/78 uppercase"
                         data-split
                     >
                         Solucoes conectadas de ponta a ponta. Cada bloco encaixa no seguinte, da estrategia
@@ -156,7 +156,7 @@ export default function FourthSection() {
                         </h3>
                         <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/50" data-split>
                             Frontend, backend, dados e deploy coordenados no mesmo fluxo. Da arquitetura ao go-live,
-                            tudo com padrao de producao.
+                            tudo com padrao de produção.
                         </p>
 
                         <div className="pointer-events-none absolute bottom-0 right-8 top-20 flex items-end gap-1 opacity-80">
@@ -167,7 +167,7 @@ export default function FourthSection() {
                                     style={{ height: `${Math.round(h * 100)}%` }}
                                 >
                                     <div
-                                        className={`absolute bottom-0 left-0 w-full origin-bottom ${index === 3 ? "bg-primary/55" : "bg-primary/45"}`}
+                                        className={`absolute bottom-0 left-0 w-full origin-bottom ${index === 3 ? "bg-primary/45" : "bg-primary/35"}`}
                                         style={{
                                             height: "100%",
                                             animation: "svc-bar-rise 3.8s ease-in-out infinite",
