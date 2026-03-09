@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+
+import NavigationRail from "@/components/ui/navigation-rail";
+
 import "./globals.css";
 
 const jetBrainsMono = JetBrains_Mono({
@@ -19,7 +22,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        <link rel="preconnect" href="https://hoirqrkdgbmvpwutwuwj.supabase.co" crossOrigin="" />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
+      </head>
       <body className={`${jetBrainsMono.variable} bg-background text-foreground antialiased`}>
+        <NavigationRail />
         {children}
       </body>
     </html>

@@ -9,6 +9,39 @@ type HeroTorusSceneProps = {
     className?: string;
 };
 
+class SpiralEdgeCurve extends THREE.Curve<THREE.Vector3> {
+    start: THREE.Vector3;
+    end: THREE.Vector3;
+    normal: THREE.Vector3;
+    binormal: THREE.Vector3;
+    turns: number;
+    amplitude: number;
+
+    constructor(start: THREE.Vector3, end: THREE.Vector3, turns: number, amplitude: number) {
+        super();
+        this.start = start.clone();
+        this.end = end.clone();
+        const tangent = new THREE.Vector3().subVectors(this.end, this.start).normalize();
+        const helper = Math.abs(tangent.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
+        this.normal = new THREE.Vector3().crossVectors(tangent, helper).normalize();
+        this.binormal = new THREE.Vector3().crossVectors(tangent, this.normal).normalize();
+        this.turns = turns;
+        this.amplitude = amplitude;
+    }
+
+    getPoint(t: number, optionalTarget = new THREE.Vector3()): THREE.Vector3 {
+        const base = this.start.clone().lerp(this.end, t);
+        const angle = t * Math.PI * 2 * this.turns;
+        const sinSign = Math.sign(Math.sin(angle)) || 0;
+        const cosSign = Math.sign(Math.cos(angle)) || 0;
+        const offset = this.normal
+            .clone()
+            .multiplyScalar(sinSign * this.amplitude)
+            .add(this.binormal.clone().multiplyScalar(cosSign * this.amplitude * 0.35));
+        return optionalTarget.copy(base.add(offset));
+    }
+}
+
 export function HeroTorusScene({ className }: HeroTorusSceneProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const initializedRef = useRef(false);
@@ -85,39 +118,6 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         const nodeGeometry = new THREE.IcosahedronGeometry(nodeRadius, 1);
         const edgeGeometries: THREE.BufferGeometry[] = [];
 
-        class SpiralEdgeCurve extends THREE.Curve<THREE.Vector3> {
-            start: THREE.Vector3;
-            end: THREE.Vector3;
-            normal: THREE.Vector3;
-            binormal: THREE.Vector3;
-            turns: number;
-            amplitude: number;
-
-            constructor(start: THREE.Vector3, end: THREE.Vector3, turns: number, amplitude: number) {
-                super();
-                this.start = start.clone();
-                this.end = end.clone();
-                const tangent = new THREE.Vector3().subVectors(this.end, this.start).normalize();
-                const helper = Math.abs(tangent.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
-                this.normal = new THREE.Vector3().crossVectors(tangent, helper).normalize();
-                this.binormal = new THREE.Vector3().crossVectors(tangent, this.normal).normalize();
-                this.turns = turns;
-                this.amplitude = amplitude;
-            }
-
-            getPoint(t: number, optionalTarget = new THREE.Vector3()): THREE.Vector3 {
-                const base = this.start.clone().lerp(this.end, t);
-                const angle = t * Math.PI * 2 * this.turns;
-                const sinSign = Math.sign(Math.sin(angle)) || 0;
-                const cosSign = Math.sign(Math.cos(angle)) || 0;
-                const offset = this.normal
-                    .clone()
-                    .multiplyScalar(sinSign * this.amplitude)
-                    .add(this.binormal.clone().multiplyScalar(cosSign * this.amplitude * 0.35));
-                return optionalTarget.copy(base.add(offset));
-            }
-        }
-
         vertices.forEach((vertex) => {
             const node = new THREE.Mesh(nodeGeometry, material);
             node.position.copy(vertex);
@@ -129,7 +129,6 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         edges.forEach(([from, to]) => {
             const start = vertices[from];
             const end = vertices[to];
-            const distance = start.distanceTo(end);
 
             const curve = new SpiralEdgeCurve(start, end, 0.2, edgeRadius * 0.18);
             const tubeGeometry = new THREE.TubeGeometry(curve, 12, edgeRadius, 3, false);
@@ -156,16 +155,40 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         const clock = new THREE.Clock();
         let animationId = 0;
 
-        const animate = () => {
+        const renderFrame = () => {
             const elapsed = clock.getElapsedTime();
             logoGroup.rotation.x = 0.18 * elapsed + mouseY * 0.6;
             logoGroup.rotation.y = 0.24 * elapsed + mouseX * 0.6;
 
             renderer.render(scene, camera);
-            animationId = requestAnimationFrame(animate);
+            animationId = requestAnimationFrame(renderFrame);
         };
 
-        animate();
+        const startLoop = () => {
+            if (animationId) return;
+            clock.start();
+            animationId = requestAnimationFrame(renderFrame);
+        };
+
+        const stopLoop = () => {
+            if (!animationId) return;
+            cancelAnimationFrame(animationId);
+            animationId = 0;
+        };
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    startLoop();
+                } else {
+                    stopLoop();
+                }
+            },
+            { threshold: 0.1 },
+        );
+
+        observer.observe(container);
+        startLoop();
 
         const handleResize = () => {
             width = container.clientWidth || window.innerWidth;
@@ -179,9 +202,10 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         window.addEventListener("mousemove", handlePointerMove);
 
         return () => {
+            observer.disconnect();
             window.removeEventListener("resize", handleResize);
             window.removeEventListener("mousemove", handlePointerMove);
-            cancelAnimationFrame(animationId);
+            stopLoop();
             renderer.dispose();
             material.dispose();
             nodeGeometry.dispose();
