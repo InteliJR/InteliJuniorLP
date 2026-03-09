@@ -117,7 +117,6 @@ export default function PageShell({ children }: PageShellProps) {
                 });
             };
 
-            splitLetters("[data-loader-letters]", "loader-char", "loader-gap");
             splitLetters("[data-hero-letters]", "hero-char", "hero-gap");
             splitWords("[data-split]");
 
@@ -161,29 +160,18 @@ export default function PageShell({ children }: PageShellProps) {
                 loaderTimeline
                     .to(loaderBarRef.current, {
                         width: "100%",
-                        duration: 1.45,
+                        duration: 1.2,
                         ease: "expo.inOut",
                     })
-                    .to(
-                        ".loader-char",
-                        {
-                            y: "0%",
-                            opacity: 1,
-                            stagger: 0.04,
-                            duration: 0.8,
-                            ease: "power3.out",
-                        },
-                        0.1,
-                    )
                     .to(loaderText, {
-                        y: -20,
+                        y: -50,
                         opacity: 0,
-                        duration: 0.42,
-                        ease: "power3.inOut",
-                    }, 1.0)
+                        duration: 0.6,
+                        ease: "power3.in",
+                    }, "-=0.2")
                     .to(loaderRef.current, {
                         yPercent: -100,
-                        duration: 0.9,
+                        duration: 1.0,
                         ease: "power4.inOut",
                     });
             } else {
@@ -256,7 +244,7 @@ export default function PageShell({ children }: PageShellProps) {
     return (
         <>
             <div ref={loaderRef} className="loader" aria-label="Carregando">
-                <div className="loader-text text-4xl lg:text-5xl font-thin text-primary tracking-tight uppercase" data-loader-letters>Inteli <span className="font-semibold">Júnior</span></div>
+                <div className="loader-text text-4xl lg:text-5xl font-thin text-primary tracking-tight uppercase">Inteli <span className="font-semibold">Júnior</span></div>
                 <div ref={loaderBarRef} className="loader-bar" />
             </div>
 
