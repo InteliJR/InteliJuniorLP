@@ -62,7 +62,7 @@ export default function ThirdSection() {
                         <span className="font-semibold pl-9 text-primary" data-split>DESTAQUE</span>
                     </h3>
                 </div>
-                <p className="hidden max-w-xs text-right text-xs font-medium uppercase tracking-[0.2em] text-white/40 md:block" data-split>
+                <p className="hidden max-w-xs text-right text-xs font-medium uppercase tracking-[0.2em] text-white/50 md:block" data-split>
                     Nossos membros já desenvolveram soluções para grandes empresas do mercado.
                 </p>
             </div>

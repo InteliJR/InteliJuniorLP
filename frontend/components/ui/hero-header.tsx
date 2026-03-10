@@ -43,7 +43,7 @@ export default function HeroHeader() {
                     </p>
                     <a
                         href="#quem-somos"
-                        className="group inline-flex items-center gap-2 border border-white/40 px-5 py-3 text-xs font-bold uppercase tracking-[0.22em] transition hover:border-white/80 hover:bg-white hover:text-black"
+                        className="group inline-flex items-center gap-2 border border-white/40 px-12 py-6 text-xs md:text-lg font-bold uppercase tracking-[0.22em] transition hover:border-white/80 hover:bg-white hover:text-black"
                     >
                         Explorar <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                     </a>

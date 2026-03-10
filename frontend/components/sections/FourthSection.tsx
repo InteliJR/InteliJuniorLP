@@ -5,12 +5,12 @@ export default function FourthSection() {
             className="arch-shell w-full px-6 py-28 text-white md:px-12 lg:pl-32 lg:pr-16"
         >
             <div className="w-full">
-                <div className="mb-10 grid grid-cols-1 md:items-end gap-8 md:grid-cols-2">
-                    <h2 className="text-4xl tracking-[-0.03em] uppercase md:text-6xl lg:text-7xl">
-                        <span className="block font-thin text-center md:text-right" data-split>
+                <div className="mb-4 grid grid-cols-1 md:items-start gap-8 md:grid-cols-2">
+                    <h2 className="text-5xl lg:flex tracking-[-0.03em] uppercase md:text-6xl lg:text-7xl">
+                        <span className="block font-thin text-center md:text-left" data-split>
                             NOSSOS
                         </span>
-                        <span className="block font-semibold text-primary text-center md:text-right" data-split>
+                        <span className="block font-semibold text-primary text-center md:text-left" data-split>
                             SERVIÇOS
                         </span>
                     </h2>
@@ -18,7 +18,7 @@ export default function FourthSection() {
                         className="text-center md:text-right text-[clamp(1.05rem,1.35vw,1.35rem)] font-thin leading-relaxed tracking-[0.03em] text-white/78 uppercase"
                         data-split
                     >
-                        Solucoes conectadas de ponta a ponta. Cada bloco encaixa no seguinte, da estrategia
+                        Soluções conectadas de ponta a ponta. Cada bloco encaixa no seguinte, da estrategia
                         ao deploy, sem perder ritmo de entrega.
                     </p>
                 </div>
@@ -30,7 +30,7 @@ export default function FourthSection() {
                             <div className="absolute left-1/2 top-1/2 h-47.5 w-47.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
                             <div className="absolute left-1/2 top-1/2 h-30 w-30 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
                             <div className="absolute left-1/2 top-1/2 h-65 w-65 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(from_0deg,transparent_0deg_235deg,rgba(var(--brand-primary-rgb),0.22)_360deg)] animate-[spin_5s_linear_infinite]" />
-                            <div className="absolute left-12 top-14 flex items-center gap-2">
+                            <div className="absolute left-12 top-14 flex items-center gap-2 pt-4">
                                 <span className="h-1.5 w-1.5 rounded-full bg-(--brand-primary) shadow-[0_0_12px_rgba(var(--brand-primary-rgb),0.9)]" />
                                 <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-(--brand-soft-accent)">
                                     Pipeline ativo

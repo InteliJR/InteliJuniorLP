@@ -110,7 +110,7 @@ export default function IndustriesSection() {
                         </span>
                     </h3>
                 </div>
-                <p className="hidden max-w-md text-[12px] uppercase tracking-[0.16em] text-white/55 lg:block" data-split>
+                <p className="hidden max-w-md text-sm uppercase tracking-[0.16em] text-white/55 lg:block" data-split>
                     Ex-membros em grandes empresas e membros atuais liderando projetos reais.
                 </p>
             </div>

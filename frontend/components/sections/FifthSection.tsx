@@ -16,7 +16,7 @@ export default function FifthSection() {
                     alt="Background"
                     fill
                     sizes="100vw"
-                    className="h-full w-full object-cover opacity-45"
+                    className="h-full w-full object-cover opacity-40"
                     priority
                     fetchPriority="high"
                 />
@@ -40,7 +40,7 @@ export default function FifthSection() {
                     </span>
                 </a>
 
-                <p className="mx-auto mt-6 max-w-xl uppercase tracking-[0.16em] text-white" data-split>
+                <p className="mx-auto mt-6 max-w-xl uppercase tracking-[0.16em] text-white/80" data-split>
                     Vamos construir o futuro? Nosso time está pronto para entender seu desafio.
                 </p>
 
@@ -50,16 +50,16 @@ export default function FifthSection() {
                         <span className="block" data-split>Butantã, São Paulo - SP</span>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-                        <a href="#servicos" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors" data-split>
-                            <Briefcase className="size-10 transition-colors group-hover:text-primary" strokeWidth={0.4} />
-                            <span>Serviços</span>
+                        <a href="#servicos" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
+                            <Briefcase className="size-10 md:size-20 transition-colors group-hover:text-primary" strokeWidth={0.4} />
+                            <span className="">Serviços</span>
                         </a>
-                        <a href="https://www.linkedin.com/company/inteli-junior" target="_blank" rel="noreferrer" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors" data-split>
-                            <Linkedin className="size-10 transition-colors group-hover:text-primary" strokeWidth={0.4} />
+                        <a href="https://www.linkedin.com/company/inteli-junior" target="_blank" rel="noreferrer" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
+                            <Linkedin className="size-10 md:size-20 transition-colors group-hover:text-primary" strokeWidth={0.4} />
                             <span>LinkedIn</span>
                         </a>
-                        <a href="mailto:contato@intelijunior.com" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors" data-split>
-                            <Mail className="size-10 transition-colors group-hover:text-primary" strokeWidth={0.4} />
+                        <a href="mailto:contato@intelijunior.com" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
+                            <Mail className="size-10 md:size-20 transition-colors group-hover:text-primary" strokeWidth={0.4} />
                             <span>E-mail</span>
                         </a>
                     </div>

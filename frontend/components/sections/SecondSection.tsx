@@ -24,8 +24,8 @@ export default function SecondSection() {
             data-graph-node="0.24"
             className="arch-shell relative w-full px-6 py-24 text-white md:px-12 lg:pl-32 lg:pr-16"
         >
-            <div className="glass-panel grid w-full grid-cols-1 border border-white/10 md:grid-cols-12">
-                <div className="border-b border-white/10 p-8 md:col-span-7 md:border-b-0 md:border-r md:p-12 lg:p-14">
+            <div className="grid w-full grid-cols-1 border-b border-white/10 md:grid-cols-12 pb-12 md:pb-24">
+                <div className="border-b border-white/10 md:col-span-7 md:border-b-0 ">
                     <p className="mb-5 text-[12px] font-semibold uppercase tracking-[0.24em] text-white/55" data-split>
                         [2. Quem somos]
                     </p>
@@ -42,12 +42,12 @@ export default function SecondSection() {
                     </h2>
                 </div>
 
-                <div className="p-8 md:col-span-5 md:p-12 lg:p-14">
-                    <p className="text-[clamp(1rem,1.2vw,1.2rem)] font-thin leading-relaxed tracking-[0.03em] text-white/74 uppercase" data-split>
+                <div className="md:col-span-5">
+                    <p className="text-[clamp(1rem,1.2vw,1.2rem)] font-thin leading-relaxed tracking-[0.03em] text-white/74 uppercase pt-4" data-split>
                         Nascemos no <span className="font-semibold text-primary">Inteli</span>, uma faculdade de ponta com metodologia inovadora. Nossos membros desenvolvem
                         4 projetos reais por ano para grandes empresas, usando tecnologias de ponta.
                     </p>
-                    <div className="mt-8 space-y-4 border-t border-white/10 pt-7 text-xs uppercase tracking-[0.15em] text-primary font-bold">
+                    <div className="space-y-4 border-t border-white/10 pt-12 text-xs uppercase tracking-[0.15em] text-primary font-bold">
                         <div className="flex items-center justify-between">
                             <span data-split>4 projetos reais por ano</span>
                             <span className="hidden md:block" data-split>01</span>
@@ -64,7 +64,7 @@ export default function SecondSection() {
                 </div>
             </div>
 
-            <div className="glass-panel grid w-full grid-cols-1 border-x border-b border-white/10 md:grid-cols-2">
+            <div className="glass-panel grid w-full grid-cols-1 border-x border-y border-white/10 md:grid-cols-2">
                 <div className="border-b border-white/10 p-8 md:border-b-0  md:p-12">
                     <h3 className="text-[clamp(2.1rem,4vw,4rem)] leading-[0.95] tracking-[-0.03em] uppercase text-white">
                         <span className="block font-thin" data-split>
@@ -89,7 +89,7 @@ export default function SecondSection() {
 
             <div className="glass-panel grid w-full grid-cols-1 divide-y divide-white/10 border-x border-b border-white/10 md:grid-cols-4 md:divide-x md:divide-y-0">
                 <div className="flex h-full flex-col justify-between p-8 md:p-10">
-                    <p className="text-[12px] uppercase tracking-[0.2em] text-primary font-extrabold" data-split>
+                    <p className="text-[14px] uppercase tracking-[0.2em] text-primary font-extrabold" data-split>
                         Sobre a EJ
                     </p>
                     <p className="mt-5 text-lg leading-snug text-white/78" data-split>
