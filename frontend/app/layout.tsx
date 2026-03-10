@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   title: "Inteli Júnior — Engenharia para o Futuro",
   description:
     "Engenharia, design e produto na mesma mesa. Soluções com disciplina técnica, estética de ponta e velocidade de startup.",
+  icons: {
+    icon: [{ url: "/images/logo.svg", type: "image/svg+xml" }],
+    shortcut: "/images/logo.svg",
+    apple: "/images/logo.svg",
+  },
 };
 
 export default function RootLayout({

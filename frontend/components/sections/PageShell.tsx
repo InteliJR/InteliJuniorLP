@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 type LenisInstance = Lenis & { scroll?: number; resize?: () => void };
 
@@ -244,7 +245,19 @@ export default function PageShell({ children }: PageShellProps) {
     return (
         <>
             <div ref={loaderRef} className="loader" aria-label="Carregando">
-                <div className="loader-text text-4xl lg:text-5xl font-thin text-primary tracking-tight uppercase">Inteli <span className="font-semibold">Júnior</span></div>
+                <div className="loader-text flex flex-col items-center gap-8 md:gap-10 text-3xl md:text-5xl font-thin text-primary tracking-tight uppercase">
+                    <Image
+                        src="/images/logo.svg"
+                        alt="Logo Inteli Junior"
+                        width={120}
+                        height={120}
+                        className="size-24 md:size-34"
+                        priority
+                    />
+                    <span>
+                        Inteli <span className="font-semibold">Júnior</span>
+                    </span>
+                </div>
                 <div ref={loaderBarRef} className="loader-bar" />
             </div>
 

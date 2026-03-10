@@ -54,8 +54,8 @@ export default function ThirdSection() {
         >
             <div className="flex w-full items-end justify-between gap-6">
                 <div>
-                    <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/40" data-split>
-                        PORTFÓLIO
+                    <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/45" data-split>
+                        [3. PORTFÓLIO]
                     </p>
                     <h3 className="text-4xl font-thin text-white uppercase md:text-6xl">
                         CASES EM

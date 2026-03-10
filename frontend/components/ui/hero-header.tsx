@@ -1,4 +1,5 @@
 import HeroTorusScene from "@/components/ui/hero-torus-scene";
+import Image from "next/image";
 
 const navLinks = [
     { label: "Quem somos", href: "#quem-somos" },
@@ -12,14 +13,24 @@ export default function HeroHeader() {
     return (
         <header
             id="hero"
-            className="arch-shell relative flex min-h-screen flex-col justify-between overflow-hidden px-6 py-10 sm:px-10 lg:pl-32 lg:pr-16"
+            className="arch-shell relative flex min-h-screen flex-col justify-between overflow-hidden px-6 pt-4 pb-10 md:py-10 sm:px-10 lg:pl-32 lg:pr-16"
         >
             <div className="absolute inset-0 z-20 pointer-events-none bg-[radial-gradient(circle_at_60%_60%,rgba(255,255,255,0.08),transparent_35%)]" />
             <HeroTorusScene className="z-10" />
             <div className="pointer-events-none absolute bottom-0 right-0 hidden h-24 w-24 border-l border-t border-white/20 lg:block" />
 
             <div className="relative z-10 flex w-full items-start justify-between gap-6" data-hero-fade>
-                <div className="px-1 py-1 text-xl font-thin tracking-tight uppercase md:text-2xl">Inteli Júnior</div>
+                <div className="flex items-center gap-3 px-1 py-1 text-xl font-thin tracking-tight uppercase md:text-2xl">
+                    <Image
+                        src="/images/logo.svg"
+                        alt="Logo Inteli Junior"
+                        width={28}
+                        height={28}
+                        className="size-8 md:size-10"
+                        priority
+                    />
+                    <span>Inteli Júnior</span>
+                </div>
                 <nav className="hidden items-center gap-2 border border-white/25 px-3 py-2 font-thin uppercase tracking-[0.2em] text-white/90 md:flex">
                     {navLinks.map((link) => (
                         <a
@@ -50,14 +61,14 @@ export default function HeroHeader() {
                 </div>
 
                 <div className="order-1 text-right lg:order-2 lg:col-span-9">
-                    <h1 className="pb-10 text-[clamp(3rem,9vw,8.5rem)] leading-[0.85] tracking-[-0.03em] text-white uppercase">
-                        <span className="block font-thin" data-hero-letters>
+                    <h1 className="pb-8 text-[clamp(2.35rem,11.5vw,8.5rem)] leading-[0.85] tracking-[-0.03em] text-white uppercase sm:pb-10 sm:text-[clamp(2.8rem,10vw,8.5rem)]">
+                        <span className="block whitespace-nowrap font-thin" data-hero-letters>
                             Engenharia
                         </span>
-                        <span className="block font-thin" data-hero-letters>
+                        <span className="block whitespace-nowrap font-thin" data-hero-letters>
                             para
                         </span>
-                        <span className="block font-semibold" data-hero-letters>
+                        <span className="block whitespace-nowrap font-semibold" data-hero-letters>
                             o Futuro
                         </span>
                     </h1>

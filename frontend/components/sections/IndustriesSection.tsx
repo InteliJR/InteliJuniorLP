@@ -1,6 +1,8 @@
-import Image from "next/image";
+"use client";
 
-import ViewportMarquee from "@/components/ui/viewport-marquee";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const members = [
     {
@@ -90,6 +92,73 @@ const members = [
 ];
 
 export default function IndustriesSection() {
+    const railRef = useRef<HTMLDivElement>(null);
+    const velocityRef = useRef(0.058);
+    const manualSteerRef = useRef<{
+        direction: 1 | -1;
+        startTime: number;
+        duration: number;
+    } | null>(null);
+    const [hoveredMember, setHoveredMember] = useState<string | null>(null);
+
+    const carouselMembers = useMemo(() => [...members, ...members], []);
+    const isPaused = Boolean(hoveredMember);
+
+    useEffect(() => {
+        const rail = railRef.current;
+        if (!rail) return;
+
+        let frameId = 0;
+        let previousTime = 0;
+
+        const tick = (time: number) => {
+            if (!previousTime) previousTime = time;
+            const delta = time - previousTime;
+            previousTime = time;
+
+            const baseVelocity = 0.058;
+            let targetVelocity = isPaused ? 0 : baseVelocity;
+
+            const steer = manualSteerRef.current;
+            if (steer) {
+                const progress = Math.min(1, (time - steer.startTime) / steer.duration);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const steerPeak = baseVelocity * 24;
+                const steerVelocity = steerPeak * steer.direction;
+                targetVelocity = steerVelocity + (baseVelocity - steerVelocity) * easeOut;
+
+                if (progress >= 1) {
+                    manualSteerRef.current = null;
+                }
+            }
+
+            const smoothing = 1 - Math.exp(-delta * 0.016);
+            velocityRef.current += (targetVelocity - velocityRef.current) * smoothing;
+
+            rail.scrollLeft += delta * velocityRef.current;
+
+            const midpoint = rail.scrollWidth / 2;
+            if (midpoint > 0 && rail.scrollLeft >= midpoint) {
+                rail.scrollLeft -= midpoint;
+            } else if (rail.scrollLeft < 0) {
+                rail.scrollLeft += midpoint;
+            }
+
+            frameId = window.requestAnimationFrame(tick);
+        };
+
+        frameId = window.requestAnimationFrame(tick);
+        return () => window.cancelAnimationFrame(frameId);
+    }, [isPaused]);
+
+    const scrollByStep = (direction: 1 | -1) => {
+        manualSteerRef.current = {
+            direction,
+            startTime: performance.now(),
+            duration: 850,
+        };
+    };
+
     return (
         <section
             id="membros"
@@ -101,7 +170,7 @@ export default function IndustriesSection() {
             <div className="mb-10 flex w-full items-end justify-between gap-6 border-x border-white/10 px-6 pb-6 md:px-10">
                 <div>
                     <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/45" data-split>
-                        [6. nossos_membros]
+                        [5. nossos_membros]
                     </p>
                     <h3 className="text-3xl font-thin uppercase tracking-[0.04em] text-white md:text-5xl">
                         PESSOAS QUE FIZERAM E
@@ -123,16 +192,38 @@ export default function IndustriesSection() {
                         "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
                 }}
             >
-                <ViewportMarquee
-                    className="px-5 py-6"
-                    trackClassName="items-stretch"
-                    groupClassName="items-stretch gap-5 pr-5"
-                    durationSeconds={58}
+                <div className="pointer-events-none absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+                    <button
+                        type="button"
+                        onClick={() => scrollByStep(-1)}
+                        className="pointer-events-auto grid h-10 w-10 place-items-center border border-white/20 bg-black/60 text-white/80 backdrop-blur-sm transition-colors hover:border-(--brand-primary) hover:text-(--brand-primary)"
+                        aria-label="Recuar carrossel de membros"
+                    >
+                        <ChevronLeft className="size-5" />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => scrollByStep(1)}
+                        className="pointer-events-auto grid h-10 w-10 place-items-center border border-white/20 bg-black/60 text-white/80 backdrop-blur-sm transition-colors hover:border-(--brand-primary) hover:text-(--brand-primary)"
+                        aria-label="Avancar carrossel de membros"
+                    >
+                        <ChevronRight className="size-5" />
+                    </button>
+                </div>
+
+                <div
+                    ref={railRef}
+                    className="flex w-full gap-5 overflow-x-auto px-5 pt-6 pb-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 >
-                    {members.map((member) => (
+                    {carouselMembers.map((member, index) => (
                         <article
-                            key={member.name}
-                            className="group glass-panel flex h-135 w-[82vw] shrink-0 flex-col border border-white/12 bg-(--surface-dark-3) sm:w-[64vw] lg:w-85"
+                            key={`${member.name}-${index}`}
+                            onMouseEnter={() => setHoveredMember(member.name)}
+                            onMouseLeave={() => setHoveredMember(null)}
+                            className={`group glass-panel flex h-135 w-[82vw] shrink-0 flex-col border border-white/12 bg-(--surface-dark-3) transition duration-300 sm:w-[64vw] lg:w-85 ${hoveredMember && hoveredMember !== member.name
+                                ? "opacity-35"
+                                : "opacity-100"
+                                }`}
                         >
                             <div className="relative h-[58%] overflow-hidden border-b border-white/10">
                                 <Image
@@ -188,7 +279,7 @@ export default function IndustriesSection() {
                             </div>
                         </article>
                     ))}
-                </ViewportMarquee>
+                </div>
             </div>
         </section>
     );

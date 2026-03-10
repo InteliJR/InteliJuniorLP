@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { Briefcase, Linkedin, Mail } from "lucide-react";
+import { Briefcase, Github, Linkedin, Mail } from "lucide-react";
 
 export default function FifthSection() {
     return (
         <footer
-            id="contato"
             data-graph-profile
             data-graph-line="0.18"
             data-graph-node="0.26"
@@ -28,7 +27,7 @@ export default function FifthSection() {
 
             <div className="relative z-10 w-full px-4 text-center lg:pl-28 lg:pr-10" data-footer-parallax>
                 <div className="mb-8 text-xs font-bold uppercase tracking-[0.3em] text-primary" data-split>
-                    [7. contato]
+                    [6. contato]
                 </div>
 
                 <a href="mailto:contato@intelijunior.com" className="group relative mx-auto block w-fit overflow-hidden">
@@ -49,7 +48,7 @@ export default function FifthSection() {
                         <span className="block" data-split>© 2025 Inteli Júnior</span>
                         <span className="block" data-split>Butantã, São Paulo - SP</span>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-white/80">
                         <a href="#servicos" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
                             <Briefcase className="size-10 md:size-20 transition-colors group-hover:text-primary" strokeWidth={0.4} />
                             <span className="">Serviços</span>
@@ -63,6 +62,17 @@ export default function FifthSection() {
                             <span>E-mail</span>
                         </a>
                     </div>
+                     <a
+                        href="https://github.com/souzajv"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-primary"
+                        aria-label="GitHub de João Campos"
+                    >
+                        <Github className="size-4 md:size-6" />
+                        <span className="text-[12px] md:text-sm font-bold uppercase tracking-[0.16em]">Made by João Campos</span>
+                    </a>
+
                 </div>
             </div>
         </footer>

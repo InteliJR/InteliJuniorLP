@@ -16,6 +16,7 @@ export default function Home() {
           <ThirdSection />
           <FourthSection />
           <IndustriesSection />
+          <div id="contato" className="h-px w-full" aria-hidden="true" />
         </div>
         <FifthSection />
       </PageShell>

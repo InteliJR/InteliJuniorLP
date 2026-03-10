@@ -6,14 +6,19 @@ export default function FourthSection() {
         >
             <div className="w-full">
                 <div className="mb-4 grid grid-cols-1 md:items-start gap-8 md:grid-cols-2">
-                    <h2 className="text-5xl lg:flex tracking-[-0.03em] uppercase md:text-6xl lg:text-7xl">
-                        <span className="block font-thin text-center md:text-left" data-split>
-                            NOSSOS
-                        </span>
-                        <span className="block font-semibold text-primary text-center md:text-left" data-split>
-                            SERVIÇOS
-                        </span>
-                    </h2>
+                    <div className="">
+                        <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/45" data-split>
+                            [4. nossos_servicos]
+                        </p>
+                        <h2 className="text-5xl lg:flex lg:gap-8 tracking-[-0.03em] uppercase md:text-6xl lg:text-7xl">
+                            <span className="block font-thin text-center md:text-left" data-split>
+                                NOSSOS
+                            </span>
+                            <span className="block font-semibold text-primary text-center md:text-left" data-split>
+                                SERVIÇOS
+                            </span>
+                        </h2>
+                    </div>
                     <p
                         className="text-center md:text-right text-[clamp(1.05rem,1.35vw,1.35rem)] font-thin leading-relaxed tracking-[0.03em] text-white/78 uppercase"
                         data-split
