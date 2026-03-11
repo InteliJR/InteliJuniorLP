@@ -1,60 +1,39 @@
-/**
- * Layout raiz da landing page
- * - Aplica fonte global e tema dark default.
- * - Injeta provedores críticos: LazyMotion (animações), ClientCursor (cursor desktop),
- *   SmoothScrolling (Lenis) e AppLoaderShell (splash + gate de carregamento).
- * - Mantém o <Header /> fixo e envelopa o conteúdo em <main>.
- * Performance: pré-carrega fonte via next/font (swap) e pré-conecta domínio de imagens remotas.
- */
-import "./globals.css";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
-import AppLoaderShell from "@/components/AppLoaderShell";
-import Header from "@/components/ui/Header";
-import SmoothScrolling from "@/components/SmoothScrolling";
-import ClientCursor from "@/components/ClientCursor";
-import LazyMotionProvider from "@/components/LazyMotionProvider";
+
+import NavigationRail from "@/components/ui/navigation-rail";
+
+import "./globals.css";
 
 const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  display: "swap", // mantém texto visível com fallback enquanto a fonte carrega
-  preload: true,
+  variable: "--font-jetbrains-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Inteli Júnior",
-  description: "Criando soluções como futuramente",
+  title: "Inteli Júnior — Engenharia para o Futuro",
+  description:
+    "Engenharia, design e produto na mesma mesa. Soluções com disciplina técnica, estética de ponta e velocidade de startup.",
   icons: {
-    icon: "/images/logo.svg",
+    icon: [{ url: "/images/logo.svg", type: "image/svg+xml" }],
+    shortcut: "/images/logo.svg",
+    apple: "/images/logo.svg",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-br" className="dark">
+    <html lang="pt-BR">
       <head>
-        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://hoirqrkdgbmvpwutwuwj.supabase.co" crossOrigin="" />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
       </head>
-      {/* cursor custom só em desktop; mobile mantém cursor padrão */}
-      <body className={`${jetBrainsMono.variable} antialiased md:cursor-none`}>
-        <LazyMotionProvider>
-          <ClientCursor />
-          <SmoothScrolling>
-            <AppLoaderShell>
-              <>
-                <Header />
-                <main className="relative">
-                  {children}
-                </main>
-              </>
-            </AppLoaderShell>
-          </SmoothScrolling>
-        </LazyMotionProvider>
+      <body className={`${jetBrainsMono.variable} bg-background text-foreground antialiased`}>
+        <NavigationRail />
+        {children}
       </body>
     </html>
   );
