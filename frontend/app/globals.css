@@ -215,6 +215,8 @@
   --glass-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
   --graph-line-opacity: 0.2;
   --graph-node-opacity: 0.3;
+  --selection-bg: rgba(var(--brand-primary-rgb), 0.42);
+  --selection-fg: #ffffff;
 }
 
 .dark {
@@ -287,6 +289,16 @@
     background-size: 64px 64px;
     font-size: var(--font-body-size);
     line-height: var(--font-body-line);
+  }
+
+  ::selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+
+  ::-moz-selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
   }
 }
 
