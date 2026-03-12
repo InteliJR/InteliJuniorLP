@@ -57,12 +57,12 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         const useMobileProfile = isTouchDevice || isSmallViewport;
 
         const sizeMultiplier = useMobileProfile ? 1.02 : 1.24;
-        const tubeSegments = useMobileProfile ? 7 : 10;
-        const tubeRadialSegments = useMobileProfile ? 2 : 3;
+        const tubeSegments = useMobileProfile ? 8 : 12;
+        const tubeRadialSegments = useMobileProfile ? 3 : 5;
         const nodeDetail = useMobileProfile ? 0 : 1;
         const maxPixelRatio = useMobileProfile ? 1.2 : 1.8;
         const targetFrameMs = isTouchDevice ? 1000 / 30 : 1000 / 60;
-        const pointerInfluence = useMobileProfile ? 0.28 : 0.6;
+        const pointerInfluence = useMobileProfile ? 0.16 : 0.28;
 
         const scene = new THREE.Scene();
         scene.fog = new THREE.FogExp2(0xff4d3a, 0.012);
@@ -151,8 +151,10 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
             logoGroup.add(edge);
         });
 
-        logoGroup.rotation.y = Math.PI * 0.24;
-        logoGroup.rotation.x = -0.18;
+        const baseRotationX = -0.22;
+        const baseRotationY = Math.PI * 0.22;
+        logoGroup.rotation.y = baseRotationY;
+        logoGroup.rotation.x = baseRotationX;
 
         let mouseX = 0;
         let mouseY = 0;
@@ -175,8 +177,9 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
 
             lastFrameTime = timestamp;
             const elapsed = clock.getElapsedTime();
-            logoGroup.rotation.x = 0.18 * elapsed + mouseY * pointerInfluence;
-            logoGroup.rotation.y = 0.24 * elapsed + mouseX * pointerInfluence;
+            // Keep motion in a bounded orbit to avoid ugly edge-on profiles.
+            logoGroup.rotation.x = baseRotationX + Math.sin(elapsed * 0.48) * 0.16 + mouseY * pointerInfluence;
+            logoGroup.rotation.y = baseRotationY + Math.cos(elapsed * 0.62) * 0.24 + mouseX * pointerInfluence;
 
             renderer.render(scene, camera);
             animationId = requestAnimationFrame(renderFrame);
