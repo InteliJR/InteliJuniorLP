@@ -6,10 +6,10 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   // Ajustar com o nome do projeto
-  title: "Landing Page - Inteli Junior, Docs",
+  title: "Landing Page - Inteli Júnior, Docs",
   baseUrl: "/InteliJuniorLP/",
   projectName: "InteliJuniorLP",
-  tagline: "Documentação da landing page oficial da Inteli Junior",
+  tagline: "Documentação da landing page oficial da Inteli Júnior",
 
 
   favicon: "img/favicon.ico",
@@ -61,7 +61,7 @@ const config: Config = {
     footer: {
       style: "dark",
 
-      copyright: `Copyright © ${new Date().getFullYear()} Landing Page Oficial da Inteli Junior, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Landing Page Oficial da Inteli Júnior, Inc. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
