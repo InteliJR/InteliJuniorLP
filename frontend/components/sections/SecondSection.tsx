@@ -16,6 +16,48 @@ export default function SecondSection() {
         "Sirio Libanes",
     ];
 
+    const ejHighlights = [
+        {
+            label: "4 projetos reais por ano",
+            index: "01",
+            icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                    <rect x="4" y="5" width="16" height="15" rx="2" />
+                    <path d="M8 3v4" />
+                    <path d="M16 3v4" />
+                    <path d="M4 10h16" />
+                </svg>
+            ),
+        },
+        {
+            label: "Blockchain a IoT",
+            index: "02",
+            icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                    <rect x="3" y="9" width="5" height="5" rx="1" />
+                    <rect x="16" y="4" width="5" height="5" rx="1" />
+                    <rect x="16" y="15" width="5" height="5" rx="1" />
+                    <path d="M8 11.5h4" />
+                    <path d="M12 11.5a5 5 0 0 1 4-4.5" />
+                    <path d="M12 11.5a5 5 0 0 0 4 4.5" />
+                </svg>
+            ),
+        },
+        {
+            label: "Implantacao em produção",
+            index: "03",
+            icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                    <path d="M4 18h16" />
+                    <path d="M8 18v-5" />
+                    <path d="M12 18V8" />
+                    <path d="M16 18v-8" />
+                    <path d="m9 6 3-3 3 3" />
+                </svg>
+            ),
+        },
+    ];
+
     return (
         <section
             id="quem-somos"
@@ -48,18 +90,17 @@ export default function SecondSection() {
                         4 projetos reais por ano para grandes empresas, usando tecnologias de ponta.
                     </p>
                     <div className="space-y-4 border-t border-white/10 pt-12 text-xs uppercase tracking-[0.15em] text-primary font-bold">
-                        <div className="flex items-center justify-between">
-                            <span data-split>4 projetos reais por ano</span>
-                            <span className="hidden md:block" data-split>01</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <span data-split>Blockchain a IoT</span>
-                            <span className="hidden md:block" data-split>02</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <span data-split>Implantacao em produção</span>
-                            <span className="hidden md:block" data-split>03</span>
-                        </div>
+                        {ejHighlights.map((item) => (
+                            <div key={item.index} className="flex items-center justify-between">
+                                <span className="inline-flex items-center gap-2">
+                                    <span className="h-3.5 w-3.5 shrink-0 text-primary">{item.icon}</span>
+                                    <span data-split>{item.label}</span>
+                                </span>
+                                <span className="hidden md:block" data-split>
+                                    {item.index}
+                                </span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -92,31 +133,31 @@ export default function SecondSection() {
                     <p className="text-[14px] uppercase tracking-[0.2em] text-primary font-extrabold" data-split>
                         Sobre a EJ
                     </p>
-                    <p className="mt-5 text-lg leading-snug text-white/78" data-split>
+                    <p className="mt-5 text-lg uppercase leading-snug text-white/78" data-split>
                         Agilidade de startup com responsabilidade de entrega em produção.
                     </p>
                 </div>
-                <div className="group p-8 transition-colors hover:bg-white/4 md:p-10">
+                <div className="group p-8 transition-colors hover:bg-white/4 md:p-10 flex flex-col items-start justify-end">
                     <p className="text-[clamp(2.2rem,4vw,4rem)] font-semibold tracking-[-0.03em] text-white transition-colors group-hover:text-primary" data-split>
                         30+
                     </p>
-                    <p className="mt-3 text-xs uppercase tracking-[0.18em] text-white/55" data-split>
+                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55" data-split>
                         Negocios impactados
                     </p>
                 </div>
-                <div className="group p-8 transition-colors hover:bg-white/4 md:p-10">
+                <div className="group p-8 transition-colors hover:bg-white/4 md:p-10 flex flex-col items-start justify-end">
                     <p className="text-[clamp(2.2rem,4vw,4rem)] font-semibold tracking-[-0.03em] text-white transition-colors group-hover:text-primary" data-split>
                         60+
                     </p>
-                    <p className="mt-3 text-xs uppercase tracking-[0.18em] text-white/55" data-split>
+                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55" data-split>
                         Universitarios capacitados
                     </p>
                 </div>
-                <div className="group p-8 transition-colors hover:bg-white/4 md:p-10">
+                <div className="group p-8 transition-colors hover:bg-white/4 md:p-10 flex flex-col items-start justify-end">
                     <p className="text-[clamp(2.2rem,4vw,4rem)] font-semibold tracking-[-0.03em] text-white transition-colors group-hover:text-primary" data-split>
-                        R$ 110K+
+                        R$110K+
                     </p>
-                    <p className="mt-3 text-xs uppercase tracking-[0.18em] text-white/55" data-split>
+                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55" data-split>
                         Impacto economico
                     </p>
                 </div>

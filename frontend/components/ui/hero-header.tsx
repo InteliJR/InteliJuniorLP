@@ -20,23 +20,23 @@ export default function HeroHeader() {
             <div className="pointer-events-none absolute bottom-0 right-0 hidden h-24 w-24 border-l border-t border-white/20 lg:block" />
 
             <div className="relative z-10 flex w-full items-start justify-between gap-6" data-hero-fade>
-                <div className="flex items-center gap-3 px-1 py-1 text-xl font-thin tracking-tight uppercase md:text-2xl">
+                <div className="flex items-center gap-[clamp(0.3rem,0.8vw,0.75rem)] px-1 py-1 text-[clamp(1rem,1.2vw+0.7rem,1.75rem)] font-thin tracking-tight uppercase">
                     <Image
                         src="/images/logo.svg"
                         alt="Logo Inteli Junior"
                         width={28}
                         height={28}
-                        className="size-8 md:size-10"
+                        className="size-[clamp(1.5rem,2.3vw,2.5rem)]"
                         priority
                     />
                     <span>Inteli Júnior</span>
                 </div>
-                <nav className="hidden items-center gap-2 border border-white/25 px-3 py-2 font-thin uppercase tracking-[0.2em] text-white/90 md:flex">
+                <nav className="hidden items-center gap-[clamp(0.25rem,0.7vw,0.5rem)] border border-white/25 px-[clamp(0.5rem,1vw,0.75rem)] py-[clamp(0.4rem,0.8vw,0.65rem)] font-thin uppercase tracking-[0.2em] text-[clamp(0.62rem,0.34vw+0.5rem,0.85rem)] text-white/90 md:flex">
                     {navLinks.map((link) => (
                         <a
                             key={link.href}
                             href={link.href}
-                            className="rounded-none px-3 py-2 transition hover:text-black"
+                            className="rounded-none px-[clamp(0.45rem,0.8vw,0.75rem)] py-[clamp(0.35rem,0.7vw,0.55rem)] transition hover:text-black"
                         >
                             {link.label}
                         </a>
@@ -49,12 +49,12 @@ export default function HeroHeader() {
                     <p className="arch-kicker" data-split>
                         Engenharia aplicada
                     </p>
-                    <p className="font-medium leading-relaxed" data-split>
+                    <p className="leading-relaxed uppercase" data-split>
                         Engenharia, design e produto na mesma mesa. Construímos soluções com disciplina técnica, estética de ponta e velocidade de startup.
                     </p>
                     <a
                         href="#quem-somos"
-                        className="group inline-flex items-center gap-2 border border-white/40 px-12 py-6 text-xs md:text-lg font-bold uppercase tracking-[0.22em] transition hover:border-white/80 hover:bg-white hover:text-black"
+                        className="group inline-flex min-h-11 items-center gap-[clamp(0.35rem,0.9vw,0.65rem)] border border-white/40 px-[clamp(1.4rem,4.5vw,3rem)] py-[clamp(0.8rem,2vw,1.5rem)] text-[clamp(0.72rem,0.55vw+0.5rem,1.1rem)] font-bold uppercase tracking-[clamp(0.14em,0.12em+0.2vw,0.22em)] transition hover:border-white/80 hover:bg-white hover:text-black"
                     >
                         Explorar <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                     </a>

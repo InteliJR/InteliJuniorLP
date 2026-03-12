@@ -167,7 +167,7 @@ export default function IndustriesSection() {
             data-graph-node="0.2"
             className="arch-shell w-full bg-(--surface-dark-4) px-6 py-20 text-white md:px-12 lg:pl-32 lg:pr-16"
         >
-            <div className="mb-10 flex w-full items-end justify-between gap-6 border-x border-white/10 px-6 pb-6 md:px-10">
+            <div className="mb-10 flex w-full flex-col md:flex-row items-center justify-between gap-6 border-x border-white/10 px-6 pb-6 md:px-10">
                 <div>
                     <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/45" data-split>
                         [5. nossos_membros]
@@ -179,7 +179,7 @@ export default function IndustriesSection() {
                         </span>
                     </h3>
                 </div>
-                <p className="hidden max-w-md text-sm uppercase tracking-[0.16em] text-white/55 lg:block" data-split>
+                <p className="text-center md:text-right text-[clamp(1rem,1.25vw,1.25rem)] font-thin leading-relaxed tracking-[0.03em] text-white/78 uppercase" data-split>
                     Ex-membros em grandes empresas e membros atuais liderando projetos reais.
                 </p>
             </div>
@@ -250,7 +250,7 @@ export default function IndustriesSection() {
                                     <p className="mt-2 text-[12px] uppercase tracking-[0.15em] text-white/45" data-split>
                                         {member.profile}
                                     </p>
-                                    <p className="mt-4 text-[13px] leading-relaxed text-white/72" data-split>
+                                    <p className="mt-4 text-[12px] md:text-[13px] uppercase leading-relaxed text-white/72" data-split>
                                         {member.quote}
                                     </p>
                                 </div>
