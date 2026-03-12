@@ -49,7 +49,7 @@ export default function HeroHeader() {
                     <p className="arch-kicker" data-split>
                         Engenharia aplicada
                     </p>
-                    <p className="leading-relaxed uppercase" data-split>
+                    <p className="leading-relaxed uppercase text-sm md:text-base" data-split>
                         Engenharia, design e produto na mesma mesa. Construímos soluções com disciplina técnica, estética de ponta e velocidade de startup.
                     </p>
                     <a
@@ -72,7 +72,7 @@ export default function HeroHeader() {
                             o Futuro
                         </span>
                     </h1>
-                    <p className="mt-3 text-[clamp(1.05rem,2.2vw,1.7rem)] font-thin tracking-tight text-white/70 hidden md:block" data-hero-fade>
+                    <p className="mt-3 text-[clamp(1rem,1.8vw,1.5rem)] font-thin tracking-tight text-white/70 hidden md:block" data-hero-fade>
                         Inteli Júnior • Tecnologia pronta para produção
                     </p>
                 </div>

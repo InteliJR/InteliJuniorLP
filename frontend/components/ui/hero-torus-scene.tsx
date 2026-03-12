@@ -52,6 +52,18 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
 
         initializedRef.current = true;
 
+        const isTouchDevice = window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(hover: none)").matches;
+        const isSmallViewport = window.matchMedia("(max-width: 768px)").matches;
+        const useMobileProfile = isTouchDevice || isSmallViewport;
+
+        const sizeMultiplier = useMobileProfile ? 1.02 : 1.24;
+        const tubeSegments = useMobileProfile ? 7 : 10;
+        const tubeRadialSegments = useMobileProfile ? 2 : 3;
+        const nodeDetail = useMobileProfile ? 0 : 1;
+        const maxPixelRatio = useMobileProfile ? 1.2 : 1.8;
+        const targetFrameMs = isTouchDevice ? 1000 / 30 : 1000 / 60;
+        const pointerInfluence = useMobileProfile ? 0.28 : 0.6;
+
         const scene = new THREE.Scene();
         scene.fog = new THREE.FogExp2(0xff4d3a, 0.012);
 
@@ -62,7 +74,7 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         camera.position.z = 32;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
         renderer.setSize(width, height);
         renderer.setClearColor(0xff4d3a, 0);
         container.appendChild(renderer.domElement);
@@ -80,7 +92,6 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         const logoGroup = new THREE.Group();
         scene.add(logoGroup);
 
-        const sizeMultiplier = 1.5;
         const scale = 4.2 * sizeMultiplier;
         const edgeRadius = 0.32 * sizeMultiplier * 2;
         const nodeRadius = edgeRadius * 1.4;
@@ -115,7 +126,7 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
             [7, 6],
         ];
 
-        const nodeGeometry = new THREE.IcosahedronGeometry(nodeRadius, 1);
+        const nodeGeometry = new THREE.IcosahedronGeometry(nodeRadius, nodeDetail);
         const edgeGeometries: THREE.BufferGeometry[] = [];
 
         vertices.forEach((vertex) => {
@@ -131,7 +142,7 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
             const end = vertices[to];
 
             const curve = new SpiralEdgeCurve(start, end, 0.2, edgeRadius * 0.18);
-            const tubeGeometry = new THREE.TubeGeometry(curve, 12, edgeRadius, 3, false);
+            const tubeGeometry = new THREE.TubeGeometry(curve, tubeSegments, edgeRadius, tubeRadialSegments, false);
             edgeGeometries.push(tubeGeometry);
 
             const edge = new THREE.Mesh(tubeGeometry, material);
@@ -154,11 +165,18 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
 
         const clock = new THREE.Clock();
         let animationId = 0;
+        let lastFrameTime = 0;
 
-        const renderFrame = () => {
+        const renderFrame = (timestamp = 0) => {
+            if (timestamp - lastFrameTime < targetFrameMs) {
+                animationId = requestAnimationFrame(renderFrame);
+                return;
+            }
+
+            lastFrameTime = timestamp;
             const elapsed = clock.getElapsedTime();
-            logoGroup.rotation.x = 0.18 * elapsed + mouseY * 0.6;
-            logoGroup.rotation.y = 0.24 * elapsed + mouseX * 0.6;
+            logoGroup.rotation.x = 0.18 * elapsed + mouseY * pointerInfluence;
+            logoGroup.rotation.y = 0.24 * elapsed + mouseX * pointerInfluence;
 
             renderer.render(scene, camera);
             animationId = requestAnimationFrame(renderFrame);
@@ -167,6 +185,7 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
         const startLoop = () => {
             if (animationId) return;
             clock.start();
+            lastFrameTime = 0;
             animationId = requestAnimationFrame(renderFrame);
         };
 
@@ -195,16 +214,21 @@ export function HeroTorusScene({ className }: HeroTorusSceneProps) {
             height = container.clientHeight || window.innerHeight;
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
             renderer.setSize(width, height);
         };
 
         window.addEventListener("resize", handleResize);
-        window.addEventListener("mousemove", handlePointerMove);
+        if (!isTouchDevice) {
+            window.addEventListener("mousemove", handlePointerMove);
+        }
 
         return () => {
             observer.disconnect();
             window.removeEventListener("resize", handleResize);
-            window.removeEventListener("mousemove", handlePointerMove);
+            if (!isTouchDevice) {
+                window.removeEventListener("mousemove", handlePointerMove);
+            }
             stopLoop();
             renderer.dispose();
             material.dispose();
