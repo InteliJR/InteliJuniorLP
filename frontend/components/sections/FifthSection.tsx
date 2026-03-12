@@ -44,9 +44,11 @@ export default function FifthSection() {
                 </p>
 
                 <div className="mt-24 flex w-full flex-col items-center justify-between gap-10 px-6 text-xs uppercase tracking-[0.2em] text-white md:flex-row md:px-12">
-                    <div className="text-[12px] md:text-left">
-                        <span className="block" data-split>© 2025 Inteli Júnior</span>
+                    <div className="text-sx md:text-left flex flex-col items-center text-white/70 hover:text-primary gap-1 duration-200">
+                        <span className="block" data-split>© 2026 Inteli Júnior</span>
                         <span className="block" data-split>Butantã, São Paulo - SP</span>
+                        <span className="block" data-split>48.820.726/0001-05</span>
+
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-white/80">
                         <a href="#servicos" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
@@ -62,7 +64,7 @@ export default function FifthSection() {
                             <span>E-mail</span>
                         </a>
                     </div>
-                     <a
+                    <a
                         href="https://github.com/souzajv"
                         target="_blank"
                         rel="noopener noreferrer"
