@@ -245,13 +245,13 @@ export default function PageShell({ children }: PageShellProps) {
     return (
         <>
             <div ref={loaderRef} className="loader" aria-label="Carregando">
-                <div className="loader-text flex flex-col items-center gap-8 md:gap-10 text-3xl md:text-5xl font-thin text-primary tracking-tight uppercase">
+                <div className="loader-text flex flex-col items-center gap-8 md:gap-10 text-3xl md:text-4xl font-thin text-primary tracking-tight uppercase">
                     <Image
                         src="/images/logo.svg"
                         alt="Logo Inteli Junior"
                         width={120}
                         height={120}
-                        className="size-24 md:size-34"
+                        className="size-24 md:size-32"
                         priority
                     />
                     <span>

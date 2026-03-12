@@ -13,6 +13,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export type NavigationRailItem = {
     label: string;
@@ -89,7 +90,17 @@ export function NavigationRail({ items = defaultItems, className }: NavigationRa
                 aria-label="Menu de navegação"
             >
                 <div className="mt-16 flex h-full flex-col">
-                    <span className="mb-6 text-xs font-semibold uppercase tracking-[0.22em] text-white/55">Navegação</span>
+                    <div className="flex items-center justify-start gap-2 pb-4">
+                        <Image
+                            src="/images/logo.svg"
+                            alt="Logo Inteli Junior"
+                            width={50}
+                            height={50}
+                            className="size-6"
+                            priority
+                        />
+                        <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white/55">Navegação</span>
+                    </div>
                     <nav className="flex flex-col gap-2">
                         {items.map(({ href, label, Icon }) => (
                             <a
