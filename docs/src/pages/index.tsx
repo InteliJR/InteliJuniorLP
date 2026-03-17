@@ -51,7 +51,7 @@ function HomepageHeader() {
           <div className={styles.logoContent}>
             <img
               src={logoSrc}
-              alt="Logo da Inteli Junior"
+              alt="Logo da Inteli Júnior"
               className={styles.logoImage}
             />
           </div>
