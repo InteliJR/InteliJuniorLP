@@ -1,111 +1,503 @@
-import Image from "next/image";
+"use client";
 
-const stackItems = [
-    {
-        id: "01",
-        title: "BTG Pactual",
-        location: "Dashboard financeiro",
-        description:
-            "Dashboard interativo para visualização de dados financeiros em tempo real, otimizando a tomada de decisão.",
-        image:
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
-    },
-    {
-        id: "02",
-        title: "Meta",
-        location: "Analytics platform",
-        description:
-            "Plataforma de análise de dados para campanhas de marketing, com relatórios automatizados e insights preditivos.",
-        image:
-            "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/952269bf-60f5-48dc-afce-13953bead1eb_1600w.webp",
-    },
-    {
-        id: "03",
-        title: "BCG",
-        location: "Business intelligence",
-        description:
-            "Sistema de BI para consultoria estratégica, integrando múltiplas fontes de dados para análises complexas.",
-        image:
-            "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1600&auto=format&fit=crop",
-    },
-    {
-        id: "04",
-        title: "Dell",
-        location: "Sistema de gestão",
-        description:
-            "ERP customizado para gestão de inventário e logística, reduzindo custos operacionais em 15%.",
-        image:
-            "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1600&auto=format&fit=crop",
-    },
-];
+/**
+ * Seção de trajetória (Timeline).
+ * - Três blocos anuais com TechCard/ImpactCard e CTA para documento público.
+ * - Usa TextScramble em títulos/CTA e formatação numérica para manter consistência visual.
+ */
+import { Timeline } from "../ui/Timeline";
+import { Trophy, Users, Rocket, DollarSign, Award, Target } from "lucide-react";
+import { TextScramble } from "../ui/textScramble";
+import { m } from "framer-motion";
+import { TechCard } from "../ui/TechCard";
+import { ImpactCard } from "../ui/ImpactCard";
+import { useRef } from "react";
+import { useScrambleTrigger } from "@/hooks/useScrambleTrigger";
 
 export default function ThirdSection() {
-    return (
-        <section
-            id="portfolio"
-            data-graph-profile
-            data-graph-line="0.17"
-            data-graph-node="0.25"
-            className="arch-shell relative w-full bg-(--surface-dark-4) px-6 py-24 text-white md:px-12 lg:pl-32 lg:pr-16"
-        >
-            <div className="flex w-full flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                    <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/45" data-split>
-                        [3. PORTFÓLIO]
-                    </p>
-                    <h3 className="text-4xl font-thin text-white uppercase md:text-6xl whitespace-nowrap flex flex-col 2xl:flex-row">
-                        CASES EM
-                        <span className="font-semibold pl-9 text-primary" data-split>DESTAQUE</span>
-                    </h3>
-                </div>
-                <p className="text-center md:text-right text-[clamp(1rem,1.25vw,1.25rem)] font-thin leading-relaxed tracking-[0.03em] text-white/78 uppercase" data-split>
-                    Nossos membros já desenvolveram soluções para grandes empresas do mercado.
-                </p>
-            </div>
+    const formatCurrency = (val: number) => {
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
+    };
 
-            <div className="mt-14 w-full space-y-14 pb-[10vh]">
-                {stackItems.map((item, index) => (
-                    <div key={item.id} data-stack-card className="group sticky top-[8vh] h-[76vh] w-full sm:h-[82vh] lg:top-[10vh] lg:h-[80vh]">
-                        <div
-                            data-stack-inner
-                            className="glass-panel relative grid h-full w-full transform-gpu overflow-hidden rounded border border-white/10 bg-(--surface-dark-3) shadow-2xl shadow-black/40 lg:grid-cols-[1fr_1.5fr]"
-                        >
-                            <div className="absolute top-0 left-0 h-px w-full bg-(--brand-primary) opacity-65" />
-                            <div className="relative z-10 order-2 flex flex-col justify-between bg-(--surface-dark-1) p-8 md:order-1 md:p-16">
-                                <div>
-                                    <div className="mb-6 text-4xl font-semibold text-primary">{item.id}</div>
-                                    <h4 className="mb-2 text-2xl leading-tight tracking-[-0.02em] text-white uppercase md:text-4xl">
-                                        <span className="font-thin tracking-[0.06em]" data-split>
-                                            {item.title.split(" ")[0]}
-                                        </span>
-                                        <span className="font-semibold" data-split>
-                                            {item.title.split(" ").slice(1).join("")}
-                                        </span>
-                                    </h4>
-                                    <p className="text-xs font-medium uppercase tracking-[0.15em] text-white/50" data-split>
-                                        {item.location}
-                                    </p>
-                                </div>
-                                <div className="max-w-xs space-y-6">
-                                    <p className="text-sm font-light leading-relaxed text-white/65 uppercase" data-split>
-                                        {item.description}
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="relative order-1 h-full overflow-hidden md:order-2">
-                                <Image
-                                    src={item.image}
-                                    alt={item.title}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
-                                    className={`h-full w-full object-cover transition-transform duration-1500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105 ${index === stackItems.length - 1 ? "grayscale group-hover:grayscale-0" : ""}`}
-                                    loading="lazy"
-                                />
-                                <div className="absolute inset-0 bg-black/10" />
-                            </div>
-                        </div>
+    const headerRef = useRef<HTMLDivElement | null>(null);
+    const { triggered: headerTriggered, playId: headerPlayId } = useScrambleTrigger(headerRef, { threshold: 0.35, once: true });
+
+    const resultsRef = useRef<HTMLDivElement | null>(null);
+    const { triggered: resultsTriggered, playId: resultsPlayId } = useScrambleTrigger(resultsRef, { threshold: 0.35, once: true });
+
+    const data = [
+        {
+            title: "2023",
+            content: (
+                <div className="space-y-8">
+                    <div className="space-y-3">
+                        <h4 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest">
+                            O Início da Jornada
+                        </h4>
+                        <p className="text-gray-400 text-md border-l-2 border-primary pl-4 leading-relaxed">
+                            Um ano de fundação e primeiras grandes conquistas. Estabelecemos nossa base e superamos todas as expectativas.
+                        </p>
                     </div>
-                ))}
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Card 1: Awards */}
+                        <TechCard
+                            title="Prêmios"
+                            icon={<Award className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="space-y-4">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-4xl font-bold text-white">
+                                        07
+                                    </span>
+                                    <span className="text-sm text-gray-500 uppercase tracking-wider">Conquistas</span>
+                                </div>
+                                <ul className="space-y-3">
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex (EJ recém federada)</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">2x Embarque</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">2x Estação São Paulo</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">2x Prêmio Fejesp</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </TechCard>
+
+                        {/* Card 2: Financial */}
+                        <TechCard
+                            title="Faturamento"
+                            icon={<Target className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="flex flex-col h-full justify-between gap-6 px-4">
+                                <div className="relative pt-2">
+                                    <div className="flex justify-between items-end mb-2">
+                                        <span className="text-xs text-gray-500 uppercase tracking-widest">Realizado</span>
+                                        <DollarSign className="w-4 h-4 text-primary" />
+                                    </div>
+                                    <span className="text-2xl lg:text-5xl font-bold text-white truncate">
+                                        10,1K
+                                    </span>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="space-y-1">
+                                        <div className="flex justify-between text-xs text-gray-500 uppercase font-mono">
+                                            <span>Progresso</span>
+                                            <span>2028%</span>
+                                        </div>
+                                        <div className="h-2 w-full bg-white/5 skew-x-[-20deg] overflow-hidden">
+                                            <div
+                                                className="h-full bg-primary shadow-[0_0_10px_#ff4d3a] transition-all duration-1000"
+                                                style={{ width: '100%' }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-between items-center pt-2 border-t border-white/5">
+                                        <span className="text-xs text-gray-500 uppercase">Meta</span>
+                                        <span className="text-sm font-mono text-gray-400 line-through decoration-primary/50">
+                                            {formatCurrency(500)}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </TechCard>
+
+                        {/* Card 3: Members */}
+                        <TechCard
+                            title="Time"
+                            icon={<Users className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="flex flex-col items-center justify-center h-full py-2">
+                                <div className="relative w-32 h-32 flex items-center justify-center mb-4">
+                                    {/* Decorative Circles */}
+                                    <div className="absolute inset-0 border-2 border-primary/50 rounded-full border-dashed animate-spin" style={{ animationDuration: '10s' }} />
+                                    <div className="absolute inset-2 border border-white/5 rounded-full" />
+
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-5xl font-bold text-white glow-text">
+                                            15
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                                    <span className="text-xs text-gray-400 uppercase tracking-widest font-bold">Membros Ativos</span>
+                                </div>
+                            </div>
+                        </TechCard>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            title: "2024",
+            content: (
+                <div className="space-y-8">
+                    <div className="space-y-3">
+                        <h4 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest">
+                            Expansão Acelerada
+                        </h4>
+                        <p className="text-gray-400 text-md border-l-2 border-primary pl-4 leading-relaxed">
+                            Dobramos nosso time e multiplicamos nosso impacto. A consolidação da nossa cultura de excelência.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Card 1: Awards */}
+                        <TechCard
+                            title="Prêmios"
+                            icon={<Award className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="space-y-4">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-4xl font-bold text-white">
+                                        05
+                                    </span>
+                                    <span className="text-sm text-gray-500 uppercase tracking-wider">Conquistas</span>
+                                </div>
+                                <ul className="space-y-3">
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">3x Dispare</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary/50 rotate-45 group-hover/item:bg-primary transition-colors" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Estação São Paulo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </TechCard>
+
+                        {/* Card 2: Financial */}
+                        <TechCard
+                            title="Faturamento"
+                            icon={<Target className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="flex flex-col h-full justify-between px-4 gap-6">
+                                <div className="relative pt-2">
+                                    <div className="flex justify-between items-end mb-2">
+                                        <span className="text-xs text-gray-500 uppercase tracking-widest">Realizado</span>
+                                        <DollarSign className="w-4 h-4 text-primary" />
+                                    </div>
+                                    <span className="text-2xl lg:text-5xl font-bold text-white truncate">
+                                        43K
+                                    </span>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="space-y-1">
+                                        <div className="flex justify-between text-xs text-gray-500 uppercase font-mono">
+                                            <span>Progresso</span>
+                                            <span>326%</span>
+                                        </div>
+                                        <div className="h-2 w-full bg-white/5 skew-x-[-20deg] overflow-hidden">
+                                            <div
+                                                className="h-full bg-primary shadow-[0_0_10px_#ff4d3a] transition-all duration-1000"
+                                                style={{ width: '100%' }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-between items-center pt-2 border-t border-white/5">
+                                        <span className="text-xs text-gray-500 uppercase">Meta</span>
+                                        <span className="text-sm font-mono text-gray-400 line-through decoration-primary/50">
+                                            {formatCurrency(13182)}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </TechCard>
+
+                        {/* Card 3: Members */}
+                        <TechCard
+                            title="Time"
+                            icon={<Users className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="flex flex-col items-center justify-center h-full py-2">
+                                <div className="relative w-32 h-32 flex items-center justify-center mb-4">
+                                    {/* Decorative Circles */}
+                                    <div className="absolute inset-0 border-2 border-primary/50 rounded-full border-dashed animate-spin" style={{ animationDuration: '10s' }} />
+                                    <div className="absolute inset-2 border border-white/5 rounded-full" />
+
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-5xl font-bold text-white glow-text">
+                                            33
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                                    <span className="text-xs text-gray-400 uppercase tracking-widest font-bold">Membros Ativos</span>
+                                </div>
+                            </div>
+                        </TechCard>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            title: "2025",
+            content: (
+                <div className="space-y-8">
+                    <div className="space-y-3">
+                        <h4 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest">
+                            Rumo ao Topo
+                        </h4>
+                        <p className="text-gray-400 text-md border-l-2 border-primary pl-4 leading-relaxed">
+                            Em busca do 5º cluster no nosso quinto ano. Uma ascensão rápida e contínua que define nossa história.
+                        </p>
+                    </div>
+
+                    {/* 2025 Special Highlight Banner */}
+                    <div className="relative w-full">
+                        <TechCard highlight className="w-full backdrop-blur-[1.2px]">
+                            <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
+                                <div className="p-4 bg-primary/10 rounded-full border border-primary/40 shadow-[0_0_20px_rgba(255,77,58,0.2)]">
+                                    <Rocket className="w-8 h-8 text-primary" />
+                                </div>
+                                <div className="flex-1 text-center md:text-left">
+                                    <h5 className="text-xl font-bold text-primary mb-2 uppercase tracking-wider">
+                                        4 Clusters em 3 Anos
+                                    </h5>
+                                    <p className="text-gray-400 mb-4 md:mb-0 max-w-2xl text-sm">
+                                        Um marco histórico de maturidade e resultados. Somos a prova de que agilidade e responsabilidade caminham juntas.
+                                    </p>
+                                </div>
+                            </div>
+                        </TechCard>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Card 1: Awards */}
+                        <TechCard
+                            title="Prêmios"
+                            icon={<Award className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="space-y-4">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-4xl font-bold text-white">
+                                        02
+                                    </span>
+                                    <span className="text-sm text-gray-500 uppercase tracking-wider">Conquistas</span>
+                                </div>
+                                <ul className="space-y-3">
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary animate-pulse rotate-45" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex (Verde de faturamento)</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary animate-pulse rotate-45" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Estação São Paulo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </TechCard>
+
+                        {/* Card 2: Financial */}
+                        <TechCard
+                            title="Faturamento"
+                            icon={<Target className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="flex flex-col h-full justify-between gap-6 px-4">
+                                <div className="relative pt-2">
+                                    <div className="flex justify-between items-end mb-2">
+                                        <span className="text-xs text-gray-500 uppercase tracking-widest">Realizado</span>
+                                        <DollarSign className="w-4 h-4 text-primary" />
+                                    </div>
+                                    <span className="text-2xl lg:text-5xl font-bold text-white truncate">
+                                        60,7K
+                                    </span>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="space-y-1">
+                                        <div className="flex justify-between text-xs text-gray-500 uppercase font-mono">
+                                            <span>Progresso</span>
+                                            <span>200%</span>
+                                        </div>
+                                        <div className="h-2 w-full bg-white/5 skew-x-[-20deg] overflow-hidden">
+                                            <div
+                                                className="h-full bg-primary shadow-[0_0_10px_#ff4d3a] transition-all duration-1000"
+                                                style={{ width: '100%' }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-between items-center pt-2 border-t border-white/5">
+                                        <span className="text-xs text-gray-500 uppercase">Meta</span>
+                                        <span className="text-sm font-mono text-gray-400 line-through decoration-primary/50">
+                                            {formatCurrency(30108.75)}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </TechCard>
+
+                        {/* Card 3: Members */}
+                        <TechCard
+                            title="Time"
+                            icon={<Users className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="flex flex-col items-center justify-center h-full py-2">
+                                <div className="relative w-32 h-32 flex items-center justify-center mb-4">
+                                    {/* Decorative Circles */}
+                                    <div className="absolute inset-0 border-2 border-primary/50 rounded-full border-dashed animate-spin" style={{ animationDuration: '10s' }} />
+                                    <div className="absolute inset-2 border border-white/5 rounded-full" />
+
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-5xl font-bold text-white glow-text">
+                                            45
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                                    <span className="text-xs text-gray-400 uppercase tracking-widest font-bold">Membros Ativos</span>
+                                </div>
+                            </div>
+                        </TechCard>
+                    </div>
+                </div>
+            ),
+        },
+    ];
+    return (
+        <section id="trajetoria" className="w-full relative overflow-hidden">
+            <m.div
+                ref={headerRef}
+                className="w-full flex items-center justify-between mx-auto -mb-20"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+                <div className="h-[0.1px] w-1/9 bg-primary"></div>
+                <div className="flex gap-18 items-center px-10">
+                    <div className="flex flex-col">
+                        <TextScramble
+                            as="span"
+                            className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
+                            duration={1}
+                            speed={0.03}
+                            trigger={headerTriggered}
+                            playId={headerPlayId}
+                        >
+                            {"[3. De onde viemos]"}
+                        </TextScramble>
+                        <h2 className="text-4xl md:text-5xl font-light uppercase leading-tight mb-4 whitespace-nowrap">
+                            Nossa <TextScramble
+                                className="text-primary font-semibold"
+                                duration={1}
+                                speed={0.03}
+                                trigger={headerTriggered}
+                                playId={headerPlayId}
+                            > trajetoria</TextScramble>
+                        </h2>
+                    </div>
+                    <p className="text-muted-foreground text-lg">
+                        De uma ideia ambiciosa a uma <span className="font-semibold text-white/70">referência no ecossistema júnior</span>. Confira os marcos da nossa evolução.
+                    </p>
+                </div>
+                <div className="h-[0.1px] w-1/9 bg-primary"></div>
+            </m.div>
+            <Timeline data={data} />
+            {/* Seção de Resultados - Grande Destaque */}
+            <div className="relative pt-16 px-4 md:px-8 lg:px-10 overflow-hidden">
+                {/* Background com gradiente sutil */}
+                <div className="absolute inset-0 bg-linear-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
+
+                {/* Título da seção de resultados */}
+                <m.div
+                    ref={resultsRef}
+                    className="relative z-10 text-center mb-16"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                    <TextScramble
+                        as="span"
+                        className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
+                        duration={1}
+                        speed={0.03}
+                        trigger={resultsTriggered}
+                        playId={resultsPlayId}
+                    >
+                        {"[Nossos Resultados]"}
+                    </TextScramble>
+                    <h3 className="text-4xl md:text-5xl font-light uppercase leading-tight mt-4">
+                        O<TextScramble
+                            className="text-primary font-semibold"
+                            duration={1}
+                            speed={0.03}
+                            trigger={resultsTriggered}
+                            playId={resultsPlayId}
+                        > impacto </TextScramble>
+                        que geramos
+                    </h3>
+                </m.div>
+
+                <div className="relative z-10 px-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Card 1 - Negócios Impactados */}
+                    <ImpactCard
+                        value="30+"
+                        label="Negócios Impactados"
+                        description="Empresas que confiaram em nossas soluções tecnológicas."
+                        icon={
+                            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+                            </svg>
+                        }
+                        delay={0}
+                    />
+
+                    {/* Card 2 - Universitários Capacitados (Card Central - Destaque) */}
+                    <ImpactCard
+                        value="60+"
+                        label="Universitários Capacitados"
+                        description="Talentos formados com experiência real de mercado em projetos de alto impacto."
+                        icon={<Users className="w-8 h-8" strokeWidth={1.5} />}
+                        highlight={true}
+                        delay={0.15}
+                        className=""
+                    />
+
+                    {/* Card 3 - Impacto Econômico */}
+                    <ImpactCard
+                        value="R$ 110K+"
+                        label="Impacto Econômico"
+                        description="Valor gerado em projetos e soluções entregues ao mercado."
+                        icon={<DollarSign className="w-8 h-8" strokeWidth={1.5} />}
+                        delay={0.3}
+                    />
+                </div>
             </div>
         </section>
     );

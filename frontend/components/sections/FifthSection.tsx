@@ -1,82 +1,128 @@
-import Image from "next/image";
-import { Briefcase, Github, Linkedin, Mail } from "lucide-react";
+"use client";
+
+/**
+ * Seção de Cases (parallax de produtos).
+ * - Usa HeroParallax para filas animadas de cards; alimentado por lista estática.
+ * - Mantém layout estável (altura via parallax interno) e linka CTA para contato.
+ */
+import { HeroParallax } from "../ui/HeroParallax";
 
 export default function FifthSection() {
     return (
-        <footer
-            data-graph-profile
-            data-graph-line="0.18"
-            data-graph-node="0.26"
-            className="footer-sticky border-t border-white/15"
+        <section
+            id="cases"
+            className="relative overflow-hidden bg-transparent -mt-64"
         >
-            <div className="absolute inset-0">
-                <Image
-                    src="/images/foto7.jpg"
-                    alt="Background"
-                    fill
-                    sizes="100vw"
-                    className="h-full w-full object-cover opacity-40"
-                    priority
-                    fetchPriority="high"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
-            </div>
-
-            <div className="pointer-events-none absolute inset-y-0 left-6 hidden w-px bg-white/10 md:block" />
-            <div className="pointer-events-none absolute inset-y-0 right-6 hidden w-px bg-white/10 md:block" />
-
-            <div className="relative z-10 w-full px-4 text-center lg:pl-28 lg:pr-10" data-footer-parallax>
-                <div className="mb-8 text-xs font-bold uppercase tracking-[0.3em] text-primary" data-split>
-                    [6. contato]
-                </div>
-
-                <a href="mailto:contato@intelijunior.com" className="group relative mx-auto block w-fit overflow-hidden">
-                    <span className="font-display block text-[clamp(3rem,12vw,11rem)] leading-[0.85] tracking-tighter uppercase transition-transform duration-500 group-hover:-translate-y-full">
-                        <span className="font-semibold">CONTATO</span>
-                    </span>
-                    <span className="font-display absolute top-0 left-0 block translate-y-full text-[clamp(3rem,12vw,11rem)] leading-[0.85] tracking-tighter text-primary uppercase transition-transform duration-500 group-hover:translate-y-0">
-                        <span className="font-semibold">CONTATO</span>
-                    </span>
-                </a>
-
-                <p className="mx-auto mt-6 max-w-xl uppercase tracking-[0.16em] text-white/80" data-split>
-                    Vamos construir o futuro? Nosso time está pronto para entender seu desafio.
-                </p>
-
-                <div className="mt-24 flex w-full flex-col items-center justify-between gap-10 px-6 text-xs uppercase tracking-[0.2em] text-white md:flex-row md:px-12">
-                    <div className="text-sx md:text-left flex flex-col items-center text-white/70 hover:text-primary gap-1 duration-200">
-                        <span className="block" data-split>© 2026 Inteli Júnior</span>
-                        <span className="block" data-split>Butantã, São Paulo - SP</span>
-                        <span className="block" data-split>48.820.726/0001-05</span>
-
-                    </div>
-                    <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-white/80">
-                        <a href="#servicos" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
-                            <Briefcase className="size-10 md:size-20 transition-colors group-hover:text-primary" strokeWidth={0.4} />
-                            <span className="">Serviços</span>
-                        </a>
-                        <a href="https://www.linkedin.com/company/inteli-junior" target="_blank" rel="noreferrer" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
-                            <Linkedin className="size-10 md:size-20 transition-colors group-hover:text-primary" strokeWidth={0.4} />
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="mailto:contato@intelijunior.com" className="group inline-flex flex-col items-center gap-2 hover:text-primary transition-colors justify-center">
-                            <Mail className="size-10 md:size-20 transition-colors group-hover:text-primary" strokeWidth={0.4} />
-                            <span>E-mail</span>
-                        </a>
-                    </div>
-                    <a
-                        href="https://github.com/souzajv"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-primary"
-                        aria-label="GitHub de João Campos"
-                    >
-                        <Github className="size-4 md:size-6" />
-                        <span className="text-[12px] md:text-sm font-bold uppercase tracking-[0.16em]">Made by João Campos</span>
-                    </a>
-
-                </div>
-            </div>
-        </footer>
+            <HeroParallax products={projects} />
+        </section>
     );
 }
+
+// Projetos da Inteli Júnior - Cases de Sucesso
+const projects = [
+    {
+        title: "BTG Pactual - Dashboard Financeiro",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+        description: "Dashboard interativo para visualização de dados financeiros em tempo real, otimizando a tomada de decisão.",
+        renderLink: true,
+    },
+    {
+        title: "Meta - Analytics Platform",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+        description: "Plataforma de análise de dados para campanhas de marketing, com relatórios automatizados e insights preditivos.",
+        renderLink: false,
+    },
+    {
+        title: "BCG - Business Intelligence",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&sat=-100",
+        description: "Sistema de BI para consultoria estratégica, integrando múltiplas fontes de dados para análises complexas.",
+        renderLink: true,
+    },
+    {
+        title: "Dell - Sistema de Gestão",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop",
+        description: "ERP customizado para gestão de inventário e logística, reduzindo custos operacionais em 15%.",
+        renderLink: true,
+    },
+    {
+        title: "Banco Pan - Plataforma Digital",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
+        description: "Reformulação da experiência do usuário no banking digital, focada em acessibilidade e performance.",
+        renderLink: false,
+    },
+    {
+        title: "CPTM - Sistema de Monitoramento",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&hue=180",
+        description: "Painel de controle para monitoramento de tráfego e incidentes em tempo real.",
+        renderLink: true,
+    },
+    {
+        title: "Uber - Analytics Dashboard",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&hue=270",
+        description: "Ferramenta interna para análise de métricas de performance de motoristas e parceiros.",
+        renderLink: false,
+    },
+    {
+        title: "Ambev - Sistema de Dados",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&hue=120",
+        description: "Plataforma de dados para otimização da cadeia de suprimentos e previsão de demanda.",
+        renderLink: true,
+    },
+    {
+        title: "Google - ML Platform",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&hue=90",
+        description: "Interface para gerenciamento de modelos de Machine Learning e visualização de resultados.",
+        renderLink: false,
+    },
+    {
+        title: "Bank of America - FinTech Solution",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop&hue=200",
+        description: "Solução fintech para automação de processos bancários e segurança de transações.",
+        renderLink: true,
+    },
+    {
+        title: "Sírio Libanês - Health Tech",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
+        description: "Aplicativo para gestão de pacientes e agendamento de consultas com integração de prontuário.",
+        renderLink: true,
+    },
+    {
+        title: "Startup Tech - MVP Development",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop",
+        description: "Desenvolvimento rápido de MVP para validação de mercado e captação de investimento.",
+        renderLink: true,
+    },
+    {
+        title: "E-commerce - Full Stack Solution",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop&hue=300",
+        description: "Plataforma de e-commerce completa com gestão de estoque, pagamentos e logística.",
+        renderLink: false,
+    },
+    {
+        title: "EdTech Platform - Learning System",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop",
+        description: "Sistema de gestão de aprendizado (LMS) com recursos de gamificação e acompanhamento.",
+        renderLink: true,
+    },
+    {
+        title: "IoT Dashboard - Real-time Analytics",
+        link: "#contato",
+        thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&hue=45",
+        description: "Dashboard para monitoramento de dispositivos IoT industriais em tempo real.",
+        renderLink: true,
+    },
+];
