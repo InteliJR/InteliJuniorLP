@@ -102,7 +102,7 @@ export default function Footer() {
     const [isContactOpen, setIsContactOpen] = useState(false);
     const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
     const [formError, setFormError] = useState<string | null>(null);
-    const [activePanel, setActivePanel] = useState<"form" | "agents">("form");
+    const activePanel: "form" | "agents" = "form";
     const [ctaHover, setCtaHover] = useState(false);
     const [ctaPlayId, setCtaPlayId] = useState(0);
 
@@ -314,7 +314,7 @@ export default function Footer() {
                                 speed={0.03}
                                 trigger={isTitleInView}
                             >
-                                {"[7. contato]"}
+                                {"[5. contato]"}
                             </TextScramble>
                             <h2 className="text-4xl md:text-5xl uppercase leading-tight whitespace-nowrap">
                                 vamos construir<br />o
@@ -340,7 +340,7 @@ export default function Footer() {
                         </div>
                         <p className="text-white/70 text-md whitespace-normal">
                             Nosso time está pronto para entender o seu desafio e construir, junto com você, a melhor solução.
-                            Preencha o formulário ou fale direto com o nosso time de vendas.
+                            Preencha o formulário e nosso time retorna com os próximos passos.
                         </p>
                     </div>
                     <div className="h-px w-1/9 bg-primary" />
@@ -383,7 +383,6 @@ export default function Footer() {
                             <div className="flex gap-3">
                                 <button
                                     type="button"
-                                    onClick={() => setActivePanel("form")}
                                     className={cn(
                                         "px-3 py-2 text-xs font-bold uppercase tracking-widest border transition-all duration-300",
                                         activePanel === "form"
@@ -393,19 +392,6 @@ export default function Footer() {
                                     aria-pressed={activePanel === "form"}
                                 >
                                     Formulário
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setActivePanel("agents")}
-                                    className={cn(
-                                        "px-3 py-2 text-xs font-bold uppercase tracking-widest border transition-all duration-300",
-                                        activePanel === "agents"
-                                            ? "bg-primary text-black border-primary shadow-[0_0_20px_rgba(255,77,58,0.35)]"
-                                            : "text-white/70 border-white/10 hover:text-white hover:border-white/30"
-                                    )}
-                                    aria-pressed={activePanel === "agents"}
-                                >
-                                    Time de vendas
                                 </button>
                             </div>
                         </div>
@@ -834,8 +820,6 @@ export default function Footer() {
                                     <li><a className="hover:text-primary transition-colors" href="#quem-somos">Quem somos</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#trajetoria">Trajetória</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#servicos">Serviços</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#cases">Portfólio</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#depoimentos">Membros</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#contato">Contato</a></li>
                                 </ul>
                             </div>
@@ -845,7 +829,6 @@ export default function Footer() {
                                     <li><a className="hover:text-primary transition-colors" href="#servicos">Análise de Dados</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#servicos">Aplicações Completas</a></li>
                                     <li><a className="hover:text-primary transition-colors" href="#servicos">Landing Pages</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#cases">Cases em destaque</a></li>
                                 </ul>
                             </div>
                             <div>

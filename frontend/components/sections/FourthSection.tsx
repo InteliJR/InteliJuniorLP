@@ -20,7 +20,8 @@ import {
     MousePointerClick,
     Lock,
     Zap,
-    Cpu
+    Cpu,
+    Bot
 } from "lucide-react";
 
 // Dados dos serviços
@@ -97,6 +98,24 @@ const services = [
         accentColor: "orange",
         serial: "SYS-04"
     },
+    {
+        id: 5,
+        title: "Inteligência Artificial",
+        subtitle: "Assistentes e agentes para operar melhor",
+        description: "Desenvolvemos assistentes, agentes e automações com IA para qualificar atendimento, acelerar rotinas internas, organizar conhecimento e integrar fluxos com os sistemas que sua operação já usa.",
+        features: ["Agentes Autônomos", "Assistentes Internos", "RAG & Bases de Conhecimento", "Automação de Processos"],
+        icon: Bot,
+        technologies: [
+            { name: "OpenAI", logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/openai.svg" },
+            { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+            { name: "LangChain", logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/langchain.svg" },
+            { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+            { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+            { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        ],
+        accentColor: "cyan",
+        serial: "IA-05"
+    },
 ];
 
 // Mapeamento de cores para classes Tailwind
@@ -168,6 +187,7 @@ const CARD_CLIP_PATH = 'polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 
 const ICON_CLIP_PATH = 'polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)';
 const BADGE_CLIP_PATH = 'polygon(10% 0%, 100% 0%, 100% 100%, 90% 100%, 0% 100%, 0% 0%)';
 const CTA_CLIP_PATH = 'polygon(8% 0%, 100% 0%, 100% 70%, 92% 100%, 0% 100%, 0% 30%)';
+const SERVICES_WIRE_PATH = 'M 25 0 V 16 H 75 V 34 H 25 V 52 H 75 V 70 H 25 V 88';
 
 // SVG Border Path constante
 const CARD_SVG_PATH = "M 8 0 L 100 0 L 100 92 L 92 100 L 0 100 L 0 8 L 8 0 Z";
@@ -396,7 +416,7 @@ const ServiceCard = memo(function ServiceCard({
                                     {service.title}
                                 </h3>
                                 <span className={cn("text-xs uppercase tracking-widest opacity-80", colors.text)}>
-                                    // Architecture Stack
+                                    Architecture Stack
                                 </span>
                             </div>
                         </div>
@@ -471,7 +491,7 @@ export default function FourthSection() {
     });
 
     // Limites personalizados para cada card para garantir o tempo correto em relação ao caminho zig-zag
-    const thresholds = [0.05, 0.28, 0.58, 0.88];
+    const thresholds = [0.04, 0.24, 0.44, 0.64, 0.84];
 
     return (
         <section id="servicos" className="relative py-24 overflow-hidden">
@@ -553,7 +573,7 @@ export default function FourthSection() {
 
                         {/* Trilho de Fundo (Inativo) */}
                         <path
-                            d="M 25 0 V 20 H 75 V 45 H 25 V 70 H 75 V 100"
+                            d={SERVICES_WIRE_PATH}
                             fill="none"
                             stroke="url(#wire-gradient-bg)"
                             strokeWidth="0.15"
@@ -562,7 +582,7 @@ export default function FourthSection() {
 
                         {/* Trilho Frontal (Ativo) - Controlado pelo Scroll */}
                         <m.path
-                            d="M 25 0 V 20 H 75 V 45 H 25 V 70 H 75 V 100"
+                            d={SERVICES_WIRE_PATH}
                             fill="none"
                             stroke="url(#wire-gradient-primary)"
                             strokeWidth="0.25"
@@ -592,8 +612,8 @@ export default function FourthSection() {
                             )}
                             initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.7, delay: index * 0.1 }}
+                            viewport={{ once: true, margin: "-180px" }}
+                            transition={{ duration: 0.45, delay: index * 0.04 }}
                         >
                             <ServiceCard
                                 service={service}

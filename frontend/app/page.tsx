@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Página raiz: orquestra as seções da landing.
  * - Carrega o hero de forma síncrona (FirstSection) para LCP.
@@ -11,7 +13,7 @@ import FirstSection from '@/components/sections/FirstSection';
 const SecondSection = dynamic(
   () => import('@/components/sections/SecondSection'),
   {
-    ssr: true,
+    ssr: false,
     loading: () => (
       <section id="quem-somos" className="relative min-h-[300vh] bg-background" aria-hidden="true" />
     )
@@ -21,7 +23,7 @@ const SecondSection = dynamic(
 const ThirdSection = dynamic(
   () => import('@/components/sections/ThirdSection'),
   {
-    ssr: true,
+    ssr: false,
     loading: () => (
       <section id="trajetoria" className="relative min-h-[50vh] bg-background" aria-hidden="true" />
     )
@@ -31,29 +33,9 @@ const ThirdSection = dynamic(
 const FourthSection = dynamic(
   () => import('@/components/sections/FourthSection'),
   {
-    ssr: true,
+    ssr: false,
     loading: () => (
       <section id="servicos" className="relative min-h-screen bg-background" aria-hidden="true" />
-    )
-  }
-);
-
-const FifthSection = dynamic(
-  () => import('@/components/sections/FifthSection'),
-  {
-    ssr: true,
-    loading: () => (
-      <section id="cases" className="relative min-h-[300vh] bg-background" aria-hidden="true" />
-    )
-  }
-);
-
-const SixthSection = dynamic(
-  () => import('@/components/sections/SixthSection'),
-  {
-    ssr: true,
-    loading: () => (
-      <section id="depoimentos" className="relative min-h-[80vh] bg-background" aria-hidden="true" />
     )
   }
 );
@@ -61,7 +43,7 @@ const SixthSection = dynamic(
 const Footer = dynamic(
   () => import('@/components/sections/Footer'),
   {
-    ssr: true,
+    ssr: false,
     loading: () => (
       <section id="contato" className="relative min-h-[40vh] bg-background" aria-hidden="true" />
     )
@@ -75,8 +57,6 @@ export default function Home() {
       <SecondSection />
       <ThirdSection />
       <FourthSection />
-      <FifthSection />
-      <SixthSection />
       <Footer />
     </main>
   );

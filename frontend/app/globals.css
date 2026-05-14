@@ -118,6 +118,7 @@
 }
 
 :root {
+  --font-jetbrains-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --radius: 0.625rem;
   --background: #05060f;
   --foreground: #f5f6ff;

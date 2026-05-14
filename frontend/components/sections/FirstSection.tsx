@@ -10,7 +10,7 @@ import Link from "next/link";
 // import dynamic from 'next/dynamic'; // temporariamente removido para debug
 import { useCallback, useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { TextScramble } from "@/components/ui/textScramble/index";
 import { useAppLoader } from "@/components/AppLoaderShell";
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -261,32 +261,13 @@ export default function FirstSection() {
   );
   const { isInitialLoading } = useAppLoader();
   const isMobile = useIsMobile();
-  const [inView, setInView] = useState(false);
-  const [hasTriggered, setHasTriggered] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
+  const inView = heroTriggered;
+  const hasTriggered = heroTriggered;
+  const hasMounted = true;
   const headerTriggered = heroTriggered;
 
-  // Evita hydration mismatch - só renderiza conteúdo condicional após montar no cliente
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  // Log para debug
-  useEffect(() => {
-    if (hasMounted) {
-      console.log(
-        "[FirstSection] hasMounted:",
-        hasMounted,
-        "isMobile:",
-        isMobile
-      );
-    }
-  }, [hasMounted, isMobile]);
-
   const [contactPlayId, setContactPlayId] = useState(0);
-  const [portfolioPlayId, setPortfolioPlayId] = useState(0);
   const contactHoveringRef = useRef(false);
-  const portfolioHoveringRef = useRef(false);
 
   const triggerContactScramble = useCallback(() => {
     if (contactHoveringRef.current) return;
@@ -297,22 +278,6 @@ export default function FirstSection() {
   const resetContactHoverState = useCallback(() => {
     contactHoveringRef.current = false;
   }, []);
-
-  const triggerPortfolioScramble = useCallback(() => {
-    if (portfolioHoveringRef.current) return;
-    portfolioHoveringRef.current = true;
-    setPortfolioPlayId((prev) => prev + 1);
-  }, []);
-
-  const resetPortfolioHoverState = useCallback(() => {
-    portfolioHoveringRef.current = false;
-  }, []);
-
-  useEffect(() => {
-    if (!heroTriggered) return;
-    setInView(true);
-    setHasTriggered(true);
-  }, [heroTriggered]);
 
   // Blinking cursor removido - não estava sendo usado
 
@@ -422,71 +387,6 @@ export default function FirstSection() {
                     {"ENTRAR EM CONTATO"}
                   </TextScramble>
                   <ArrowRight className="ml-3 size-4 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-125" />
-                </div>
-              </Link>
-
-              {/* Botão Ver Portfólio - Tech Style */}
-              <Link
-                href="#cases"
-                className="z-10 relative group inline-flex items-center justify-center"
-                onMouseEnter={triggerPortfolioScramble}
-                onMouseLeave={resetPortfolioHoverState}
-                onFocus={triggerPortfolioScramble}
-                onBlur={resetPortfolioHoverState}
-              >
-                {/* Backdrop blur layer */}
-                <div
-                  className="absolute inset-0 backdrop-blur-md bg-white/5 group-hover:bg-primary/10 transition-colors duration-300"
-                  style={{
-                    clipPath:
-                      "polygon(8% 0%, 100% 0%, 100% 70%, 92% 100%, 0% 100%, 0% 30%)",
-                  }}
-                />
-                {/* Border SVG */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <svg
-                    className="w-full h-full"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      d="M 8 0 L 100 0 L 100 70 L 92 100 L 0 100 L 0 30 L 8 0 Z"
-                      vectorEffect="non-scaling-stroke"
-                      className="stroke-1 fill-none stroke-white/25 group-hover:stroke-primary/50 transition-all duration-300"
-                    />
-                  </svg>
-                  {/* Corner accents */}
-                  <svg className="absolute -top-px -left-px w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <path
-                      d="M 0 12 V 0 H 12"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                  <svg className="absolute -bottom-px -right-px w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <path
-                      d="M 16 4 V 16 H 4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                </div>
-                {/* Content */}
-                <div className="relative z-10 flex items-center px-8 py-4">
-                  <TextScramble
-                    as="span"
-                    className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80 group-hover:text-primary transition-colors duration-300"
-                    duration={0.8}
-                    speed={0.035}
-                    trigger={portfolioPlayId > 0}
-                    playId={portfolioPlayId}
-                    idleGlitch={false}
-                  >
-                    {"ver portfólio"}
-                  </TextScramble>
-                  <Play className="ml-3 size-4 shrink-0 text-white/80 group-hover:text-primary transition-all duration-300 group-hover:translate-x-1 group-hover:scale-125" />
                 </div>
               </Link>
             </div>

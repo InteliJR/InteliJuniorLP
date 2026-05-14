@@ -39,7 +39,7 @@ export default function ThirdSection() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Card 1: Awards */}
                         <TechCard
                             title="Prêmios"
@@ -78,7 +78,7 @@ export default function ThirdSection() {
                         <TechCard
                             title="Faturamento"
                             icon={<Target className="size-5" />}
-                            className="backdrop-blur-[1.2px]"
+                            className="hidden"
                         >
                             <div className="flex flex-col h-full justify-between gap-6 px-4">
                                 <div className="relative pt-2">
@@ -157,7 +157,7 @@ export default function ThirdSection() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Card 1: Awards */}
                         <TechCard
                             title="Prêmios"
@@ -192,7 +192,7 @@ export default function ThirdSection() {
                         <TechCard
                             title="Faturamento"
                             icon={<Target className="size-5" />}
-                            className="backdrop-blur-[1.2px]"
+                            className="hidden"
                         >
                             <div className="flex flex-col h-full justify-between px-4 gap-6">
                                 <div className="relative pt-2">
@@ -290,7 +290,7 @@ export default function ThirdSection() {
                         </TechCard>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Card 1: Awards */}
                         <TechCard
                             title="Prêmios"
@@ -307,7 +307,7 @@ export default function ThirdSection() {
                                 <ul className="space-y-3">
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary animate-pulse rotate-45" />
-                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex (Verde de faturamento)</span>
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex</span>
                                     </li>
                                     <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
                                         <span className="w-1.5 h-1.5 bg-primary animate-pulse rotate-45" />
@@ -316,49 +316,7 @@ export default function ThirdSection() {
                                 </ul>
                             </div>
                         </TechCard>
-
-                        {/* Card 2: Financial */}
-                        <TechCard
-                            title="Faturamento"
-                            icon={<Target className="size-5" />}
-                            className="backdrop-blur-[1.2px]"
-                        >
-                            <div className="flex flex-col h-full justify-between gap-6 px-4">
-                                <div className="relative pt-2">
-                                    <div className="flex justify-between items-end mb-2">
-                                        <span className="text-xs text-gray-500 uppercase tracking-widest">Realizado</span>
-                                        <DollarSign className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <span className="text-2xl lg:text-5xl font-bold text-white truncate">
-                                        60,7K
-                                    </span>
-                                </div>
-
-                                <div className="space-y-4">
-                                    <div className="space-y-1">
-                                        <div className="flex justify-between text-xs text-gray-500 uppercase font-mono">
-                                            <span>Progresso</span>
-                                            <span>200%</span>
-                                        </div>
-                                        <div className="h-2 w-full bg-white/5 skew-x-[-20deg] overflow-hidden">
-                                            <div
-                                                className="h-full bg-primary shadow-[0_0_10px_#ff4d3a] transition-all duration-1000"
-                                                style={{ width: '100%' }}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="flex justify-between items-center pt-2 border-t border-white/5">
-                                        <span className="text-xs text-gray-500 uppercase">Meta</span>
-                                        <span className="text-sm font-mono text-gray-400 line-through decoration-primary/50">
-                                            {formatCurrency(30108.75)}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </TechCard>
-
-                        {/* Card 3: Members */}
+                        {/* Card 2: Members */}
                         <TechCard
                             title="Time"
                             icon={<Users className="size-5" />}
@@ -373,6 +331,86 @@ export default function ThirdSection() {
                                     <div className="flex flex-col items-center">
                                         <span className="text-5xl font-bold text-white glow-text">
                                             45
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                                    <span className="text-xs text-gray-400 uppercase tracking-widest font-bold">Membros Ativos</span>
+                                </div>
+                            </div>
+                        </TechCard>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            title: "2026",
+            content: (
+                <div className="space-y-8">
+                    <div className="space-y-3">
+                        <h4 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest">
+                            Consolidação e Eficiência
+                        </h4>
+                        <p className="text-gray-400 text-md border-l-2 border-primary pl-4 leading-relaxed">
+                            Um ano voltado a operação mais enxuta, qualidade de entrega e continuidade da maturidade conquistada.
+                        </p>
+                    </div>
+
+                    <div className="relative w-full">
+                        <TechCard highlight className="w-full backdrop-blur-[1.2px]">
+                            <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
+                                <div className="p-4 bg-primary/10 rounded-full border border-primary/40 shadow-[0_0_20px_rgba(255,77,58,0.2)]">
+                                    <Rocket className="w-8 h-8 text-primary" />
+                                </div>
+                                <div className="flex-1 text-center md:text-left">
+                                    <h5 className="text-xl font-bold text-primary mb-2 uppercase tracking-wider">
+                                        5 Clusters em 4 Anos
+                                    </h5>
+                                    <p className="text-gray-400 mb-4 md:mb-0 max-w-2xl text-sm">
+                                        Uma trajetória construída com inovação, consistência e evolução contínua. Crescemos transformando desafios em resultados reais.
+                                    </p>
+                                </div>
+                            </div>
+                        </TechCard>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <TechCard
+                            title="Prêmios"
+                            icon={<Award className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="space-y-4">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-4xl font-bold text-white">
+                                        01
+                                    </span>
+                                    <span className="text-sm text-gray-500 uppercase tracking-wider">Conquista</span>
+                                </div>
+                                <ul className="space-y-3">
+                                    <li className="flex items-center gap-3 text-sm text-gray-300 group/item">
+                                        <span className="w-1.5 h-1.5 bg-primary animate-pulse rotate-45" />
+                                        <span className="group-hover/item:text-white transition-colors tracking-wide">1x Vórtex</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </TechCard>
+
+                        <TechCard
+                            title="Time"
+                            icon={<Users className="size-5" />}
+                            className="backdrop-blur-[1.2px]"
+                        >
+                            <div className="flex flex-col items-center justify-center h-full py-2">
+                                <div className="relative w-32 h-32 flex items-center justify-center mb-4">
+                                    <div className="absolute inset-0 border-2 border-primary/50 rounded-full border-dashed animate-spin" style={{ animationDuration: '10s' }} />
+                                    <div className="absolute inset-2 border border-white/5 rounded-full" />
+
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-5xl font-bold text-white glow-text">
+                                            60
                                         </span>
                                     </div>
                                 </div>
@@ -453,15 +491,18 @@ export default function ThirdSection() {
                         {"[Nossos Resultados]"}
                     </TextScramble>
                     <h3 className="text-4xl md:text-5xl font-light uppercase leading-tight mt-4">
-                        O<TextScramble
-                            className="text-primary font-semibold"
-                            duration={1}
-                            speed={0.03}
-                            trigger={resultsTriggered}
-                            playId={resultsPlayId}
-                        > impacto </TextScramble>
-                        que geramos
-                    </h3>
+    <span className="inline text-white">O </span>
+    <TextScramble
+        className="inline text-primary font-semibold"
+        duration={1}
+        speed={0.03}
+        trigger={resultsTriggered}
+        playId={resultsPlayId}>
+            IMPACTO
+    </TextScramble>
+    <span className="text-white"> QUE GERAMOS</span>
+
+</h3>
                 </m.div>
 
                 <div className="relative z-10 px-24 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -491,9 +532,9 @@ export default function ThirdSection() {
 
                     {/* Card 3 - Impacto Econômico */}
                     <ImpactCard
-                        value="R$ 110K+"
-                        label="Impacto Econômico"
-                        description="Valor gerado em projetos e soluções entregues ao mercado."
+                        value="15+"
+                        label="Prêmios Conquistados"
+                        description="Reconhecimentos acumulados em nossa trajetória no ecossistema júnior."
                         icon={<DollarSign className="w-8 h-8" strokeWidth={1.5} />}
                         delay={0.3}
                     />

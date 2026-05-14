@@ -224,7 +224,7 @@ export default function DefaultDemo() {
               trigger={hasTriggered}
               playId={playId}
             >
-              {"4 clusters em 3 anos."}
+              {"5 clusters em 4 anos."}
             </TextScramble>
             <m.div
               initial={{ opacity: 0, y: 20 }}
@@ -244,7 +244,7 @@ export default function DefaultDemo() {
             <span className="text-white/70 font-semibold">
               velocidade da nossa evolução
             </span>
-            . Em apenas 3 anos, atingimos níveis de maturidade que levam tempo
+            . Em apenas 4 anos, atingimos níveis de maturidade que levam tempo
             para serem construídos, provando que{" "}
             <span className="text-white/70 font-semibold">
               unimos a agilidade de uma startup com a responsabilidade de uma
@@ -308,17 +308,14 @@ export default function DefaultDemo() {
               >
                 Inteli
               </a>
-              , uma faculdade de ponta com metodologia inovadora. Nossos membros desenvolvem{" "}
-              <span className="text-white font-semibold">
-                4 projetos reais por ano
-              </span>{" "}
-              para grandes empresas, usando tecnologias de ponta — de Blockchain a IoT.
+              , uma faculdade que une tecnologia com liderança desenvolvendo projetos para as maiores empresas do Brasil. Trabalhamos com a metodologia ágil SCRUM e assim garantimos o seu projeto com a melhor entrega do mercado.
             </p>
             <div className="h-[0.1px] w-1/12 bg-primary"></div>
           </m.div>
+
           <div className="grid w-full grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-8 md:px-16 lg:px-32">
             {/* Card 1 - Quem Somos / Inteli Júnior */}
-            <TiltCard className="md:col-span-2" intensity={14} hoverScale={1.01}>
+            <TiltCard className="order-1 md:order-1 md:col-span-2" intensity={14} hoverScale={1.01}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -381,11 +378,12 @@ export default function DefaultDemo() {
                       <a href="https://www.inteli.edu.br/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">
                         Instituto de Tecnologia e Liderança
                       </a>
-                      . Enquanto no Inteli desenvolvemos MVPs para empresas parceiras, na Inteli Júnior{" "}
+                      , a melhor faculdade de tecnologia do país, conhecida como MIT Brasileiro. Na Inteli Júnior unimos todo o aprendizado dos cursos e entregamos o produto do diagnóstico à implantação do seu projeto.
+                      {" "}
                       <span className="text-white font-semibold">
-                        entregamos o produto completo
+                        Tecnologia aplicada, gestão ágil e entrega de ponta a ponta
                       </span>
-                      : do diagnóstico do problema à implantação robusta em produção.
+                      .
                     </p>
                   </div>
                 </div>
@@ -395,7 +393,7 @@ export default function DefaultDemo() {
             </TiltCard>
 
             {/* Card 2 - Metodologia PBL */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-4 md:order-4" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -436,8 +434,7 @@ export default function DefaultDemo() {
                   <h4 className="text-lg font-semibold mb-2 text-white">Metodologia PBL</h4>
                   <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
                     No Inteli, cada aluno desenvolve{" "}
-                    <span className="text-primary font-medium">4 projetos por ano</span> para empresas reais. 
-                    De Blockchain a IoT, resolvemos problemas reais com tecnologias de ponta.
+                    <span className="text-primary font-medium">4 projetos por ano</span> para empresas do mercado como Meta, IBM, Google, Bayer, entre outras, aprendemos a desenvolver diversos projetos desde inteligência artificial até Internet of Things (IoT).
                   </p>
                 </div>
               </div>
@@ -446,7 +443,7 @@ export default function DefaultDemo() {
             </TiltCard>
 
             {/* Card 3 - Ágil na Prática */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-2 md:order-2" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -507,7 +504,7 @@ export default function DefaultDemo() {
             </TiltCard>
 
             {/* Card 4 - Tecnologia Avançada */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-3 md:order-3" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -568,7 +565,7 @@ export default function DefaultDemo() {
             </TiltCard>
 
             {/* Card 5 - CTA (ocupa 1 coluna) */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-5 md:order-5" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -663,6 +660,7 @@ export default function DefaultDemo() {
               </m.div>
             </TiltCard>
           </div>
+
           {/* Título empresas com animação */}
           <m.div
             initial={{ opacity: 0, y: 30 }}
@@ -704,7 +702,7 @@ export default function DefaultDemo() {
             <p className="text-white/70 text-md max-w-2xl leading-relaxed">
               Durante a formação no Inteli, nossos membros trabalham em projetos reais com grandes empresas do mercado.
               Essa experiência prática nos diferencia:{" "}
-              <span className="text-white/90 font-medium">
+              <span className="text-white font-semibold">
                 chegamos preparados para entregar resultados de verdade
               </span>.
             </p>

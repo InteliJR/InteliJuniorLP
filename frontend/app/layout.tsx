@@ -1,26 +1,15 @@
 /**
  * Layout raiz da landing page
  * - Aplica fonte global e tema dark default.
- * - Injeta provedores críticos: LazyMotion (animações), ClientCursor (cursor desktop),
+ * - Injeta provedores críticos: LazyMotion (animações),
  *   SmoothScrolling (Lenis) e AppLoaderShell (splash + gate de carregamento).
- * - Mantém o <Header /> fixo e envelopa o conteúdo em <main>.
  * Performance: pré-carrega fonte via next/font (swap) e pré-conecta domínio de imagens remotas.
  */
 import "./globals.css";
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
 import AppLoaderShell from "@/components/AppLoaderShell";
-import Header from "@/components/ui/Header";
 import SmoothScrolling from "@/components/SmoothScrolling";
-import ClientCursor from "@/components/ClientCursor";
 import LazyMotionProvider from "@/components/LazyMotionProvider";
-
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap", // mantém texto visível com fallback enquanto a fonte carrega
-  preload: true,
-});
 
 export const metadata: Metadata = {
   title: "Inteli Júnior",
@@ -40,18 +29,13 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
       </head>
-      {/* cursor custom só em desktop; mobile mantém cursor padrão */}
-      <body className={`${jetBrainsMono.variable} antialiased md:cursor-none`}>
+      <body className="antialiased">
         <LazyMotionProvider>
-          <ClientCursor />
           <SmoothScrolling>
             <AppLoaderShell>
-              <>
-                <Header />
-                <main className="relative">
-                  {children}
-                </main>
-              </>
+              <main className="relative">
+                {children}
+              </main>
             </AppLoaderShell>
           </SmoothScrolling>
         </LazyMotionProvider>
