@@ -96,6 +96,22 @@ const products = [
     "Outros"
 ];
 
+const siteMapLinks = [
+    { label: "Início", href: "#home" },
+    { label: "Quem Somos", href: "#quem-somos" },
+    { label: "Trajetória", href: "#trajetoria" },
+    { label: "Serviços", href: "#servicos" },
+    { label: "Contato", href: "#contato" },
+];
+
+const servicesFooterLinks = [
+    { label: "Análise de Dados", href: "#servicos" },
+    { label: "Identidade Visual", href: "#servicos" },
+    { label: "Landing Pages", href: "#servicos" },
+    { label: "Aplicações Completas", href: "#servicos" },
+    { label: "Inteligência Artificial", href: "#servicos" },
+];
+
 // --- COMPONENTE PRINCIPAL ---
 
 export default function Footer() {
@@ -816,19 +832,21 @@ export default function Footer() {
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Mapa do site</h3>
                                 <ul className="space-y-3 text-sm text-white/70">
-                                    <li><a className="hover:text-primary transition-colors" href="#home">Início</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#quem-somos">Quem somos</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#trajetoria">Trajetória</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Serviços</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#contato">Contato</a></li>
+                                    {siteMapLinks.map((item) => (
+                                        <li key={item.href}>
+                                            <a className="hover:text-primary transition-colors" href={item.href}>{item.label}</a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Serviços</h3>
                                 <ul className="space-y-3 text-sm text-white/70">
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Análise de Dados</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Aplicações Completas</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Landing Pages</a></li>
+                                    {servicesFooterLinks.map((item) => (
+                                        <li key={item.label}>
+                                            <a className="hover:text-primary transition-colors" href={item.href}>{item.label}</a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div>
@@ -851,7 +869,7 @@ export default function Footer() {
                             aria-label="GitHub de João Campos"
                         >
                             <Github className="w-4 h-4" />
-                            Made by João Campos
+                            Made by João Campos 
                         </a>
                         <div className="flex flex-col gap-4 text-white/70 text-[10px] md:text-xs md:items-end">
                             <a
