@@ -93,7 +93,8 @@ function GlassmorphismBackground({
   className?: string;
 }) {
   // Hook de tilt 3D para o glass panel - valores mais sutis
-  const { containerRef, rotate, isHovered } = useTilt3D(50, 30);
+  // Intensidade alta = rotação menor (rotação = deslocamento do mouse / intensidade)
+  const { containerRef, rotate, isHovered } = useTilt3D(600, 30);
   const hoverScale = 1.0001;
 
   return (
@@ -394,15 +395,9 @@ export default function FirstSection() {
         </div>
 
         {/* Logo 3D - lado direito (apenas desktop, após montagem) */}
-        {hasMounted && (
+        {hasMounted && !isMobile && (
           <div className="absolute right-6 top-6 bottom-6 w-[45%] z-20 pointer-events-auto">
-            {!isMobile ? (
-              <ImageStructure3D className="w-full h-full" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-white">
-                Mobile Mode
-              </div>
-            )}
+            <ImageStructure3D className="w-full h-full" />
           </div>
         )}
 

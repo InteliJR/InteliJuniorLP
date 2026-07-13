@@ -24,6 +24,7 @@ const ImageStructure3D = ({ className = "" }) => {
   const animationFrameIdRef = useRef(null);
 
   const [isRotating, setIsRotating] = useState(true); // Inicia como true para garantir animação
+  const [hasWebGLError, setHasWebGLError] = useState(false);
   const isRotatingRef = useRef(true);
 
   const pointerTargetRef = useRef({ x: 0, y: 0 });
@@ -99,11 +100,18 @@ const ImageStructure3D = ({ className = "" }) => {
     );
     cameraRef.current = camera;
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
+    } catch (error) {
+      console.warn("[ImageStructure3D] WebGL unavailable, using fallback.", error);
+      setHasWebGLError(true);
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(mountElement.clientWidth, mountElement.clientHeight);
     renderer.shadowMap.enabled = true;
@@ -371,7 +379,6 @@ const ImageStructure3D = ({ className = "" }) => {
       const { clientWidth, clientHeight } = mountRef.current;
 
       rendererRef.current.setSize(clientWidth, clientHeight);
-      renderTarget.setSize(clientWidth, clientHeight);
       cameraRef.current.aspect = clientWidth / clientHeight;
       cameraRef.current.updateProjectionMatrix();
       cameraRef.current.lookAt(
@@ -477,6 +484,21 @@ const ImageStructure3D = ({ className = "" }) => {
       scene.clear();
     };
   }, []);
+
+  if (hasWebGLError) {
+    return (
+      <div
+        className={`isolate flex h-full w-full items-center justify-center ${className}`}
+        style={{ minHeight: "400px" }}
+        aria-hidden="true"
+      >
+        <div className="relative h-48 w-48 rotate-45 border border-primary/70 bg-black/40 shadow-[0_0_40px_rgba(255,77,58,0.22)]">
+          <div className="absolute inset-6 border border-primary/70" />
+          <div className="absolute inset-0 -z-10 bg-primary/20 blur-3xl" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

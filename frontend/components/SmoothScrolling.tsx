@@ -22,7 +22,6 @@ function SmoothScrolling({ children }: { children: React.ReactNode }) {
                 duration: 0.9,
                 lerp: 0.14,
                 smoothWheel: true,
-                smoothTouch: false,
             }}
         >
             {children}

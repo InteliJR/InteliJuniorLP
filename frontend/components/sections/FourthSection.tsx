@@ -504,15 +504,15 @@ export default function FourthSection() {
             {/* Header da seção */}
             <m.div
                 ref={headerRef}
-                className="w-full flex items-center justify-between mx-auto pb-20 "
+                className="w-full flex items-center justify-between mx-auto pb-14 lg:pb-20 "
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <div className="h-[0.1px] w-1/9 bg-primary"></div>
-                <div className="flex items-center gap-18 px-10">
-                    <div className="flex flex-col">
+                <div className="hidden lg:block h-px w-1/9 bg-primary" />
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-18 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
+                    <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left relative shrink-0">
                         <TextScramble
                             as="span"
                             className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
@@ -523,8 +523,9 @@ export default function FourthSection() {
                         >
                             {"[4. Nossos Serviços]"}
                         </TextScramble>
-                        <h2 className="text-4xl md:text-5xl font-light uppercase leading-tight mb-4 whitespace-nowrap">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
                             nossos <TextScramble
+                                as="span"
                                 className="text-primary font-semibold"
                                 duration={1}
                                 speed={0.03}
@@ -533,11 +534,11 @@ export default function FourthSection() {
                             > serviços</TextScramble>
                         </h2>
                     </div>
-                    <p className="text-muted-foreground text-md">
+                    <p className="text-muted-foreground text-md whitespace-normal max-w-md lg:max-w-lg text-center lg:text-left">
                         De uma ideia ambiciosa a uma <span className="font-semibold text-white/70">referência no ecossistema júnior</span>. Confira os marcos da nossa evolução.
                     </p>
                 </div>
-                <div className="h-[0.1px] w-1/9 bg-primary"></div>
+                <div className="hidden lg:block h-px w-1/9 bg-primary" />
             </m.div>
 
             {/* Container do Layout Zig-Zag */}

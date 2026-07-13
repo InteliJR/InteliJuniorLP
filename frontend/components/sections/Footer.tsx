@@ -57,14 +57,6 @@ const commercialTeam = [
         image: "/images/members/rodrigo_ferraz.webp",
     },
     {
-        name: "Livia Negrini",
-        phone: "(11) 94373-2417",
-        email: "livia.negrini@intelijunior.com",
-        role: "Representante de Vendas",
-        linkedin: "https://www.linkedin.com/in/livianegrini/",
-        image: "/images/members/livia_negrini.webp",
-    },
-    {
         name: "Ana Júlia Ribeiro",
         phone: "(11) 98637-2353",
         email: "ana.ribeiro@intelijunior.com",
@@ -79,6 +71,30 @@ const commercialTeam = [
         role: "Representante de Vendas",
         linkedin: "https://www.linkedin.com/in/lu%C3%ADsa-mangini/",
         image: "/images/members/luisa_mangini.jpg",
+    },
+    {
+        name: "Eduardo Maciel",
+        phone: "(12) 98827-7091",
+        email: "eduardo.maciel@sou.inteli.edu.br",
+        role: "Representante de Vendas",
+        linkedin: "",
+        image: "",
+    },
+    {
+        name: "Igor Rodrigues",
+        phone: "(11) 94634-5650",
+        email: "igor.rodrigues@sou.inteli.edu.br",
+        role: "Representante de Vendas",
+        linkedin: "",
+        image: "",
+    },
+    {
+        name: "João Mari",
+        phone: "(11) 96895-1339",
+        email: "joao.mari@sou.inteli.edu.br",
+        role: "Representante de Vendas",
+        linkedin: "",
+        image: "",
     },
 ];
 
@@ -386,14 +402,6 @@ export default function Footer() {
                                 </span>
                             </div>
                         </div>
-                        {/* <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                            <div className="flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                                <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-white">Transmissão de Projeto</span>
-                            </div>
-                            <span className="text-[10px] font-mono text-white/50">INTERFACE: INPUT_MODE</span>
-                        </div> */}
-
                         {/* Tab bar */}
                         <div className="flex items-center justify-between bg-white/5 border-b border-white/10 px-4 py-3">
                             <div className="flex gap-3">
@@ -758,16 +766,18 @@ export default function Footer() {
                                                         </div>
 
                                                         {/* LinkedIn Button */}
-                                                        <a
-                                                            href={member.linkedin}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="flex items-center justify-center gap-2 w-full text-[11px] font-medium uppercase tracking-wider text-white/70 hover:text-primary border border-white/10 hover:border-primary/40 py-3.5 rounded-sm transition-all duration-300 hover:bg-primary/5"
-                                                            aria-label={`LinkedIn de ${member.name}`}
-                                                        >
-                                                            <Linkedin className="w-3.5 h-3.5" />
-                                                            Ver Perfil
-                                                        </a>
+                                                        {member.linkedin && (
+                                                            <a
+                                                                href={member.linkedin}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center justify-center gap-2 w-full text-[11px] font-medium uppercase tracking-wider text-white/70 hover:text-primary border border-white/10 hover:border-primary/40 py-3.5 rounded-sm transition-all duration-300 hover:bg-primary/5"
+                                                                aria-label={`LinkedIn de ${member.name}`}
+                                                            >
+                                                                <Linkedin className="w-3.5 h-3.5" />
+                                                                Ver Perfil
+                                                            </a>
+                                                        )}
                                                     </div>
                                                 </TechCard>
                                             ))}
@@ -860,17 +870,30 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="mx-auto w-full px-[5%] pb-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/70 md:flex-row md:items-center md:justify-between relative z-10">
-                        <p className="uppercase tracking-[0.12em]">© 2025 Inteli Júnior. Todos os direitos reservados.</p>
-                        <a
-                            href="https://github.com/souzajv"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-white/70 hover:text-primary transition-colors"
-                            aria-label="GitHub de João Campos"
-                        >
+                        <p className="uppercase tracking-[0.12em]">© 2026 Inteli Júnior. Todos os direitos reservados.</p>
+                        <span className="inline-flex items-center gap-2 text-white/70">
                             <Github className="w-4 h-4" />
-                            Made by João Campos 
-                        </a>
+                            Made by{" "}
+                            <a
+                                href="https://github.com/enzopiolcerutti"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary transition-colors"
+                                aria-label="GitHub de Enzo Cerutti"
+                            >
+                                Enzo Cerutti
+                            </a>
+                            {" "}&{" "}
+                            <a
+                                href="https://github.com/souzajv"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary transition-colors"
+                                aria-label="GitHub de João Campos"
+                            >
+                                João Campos
+                            </a>
+                        </span>
                         <div className="flex flex-col gap-4 text-white/70 text-[10px] md:text-xs md:items-end">
                             <a
                                 href="https://share.google/SXZzbHvo95wP7AzUs"

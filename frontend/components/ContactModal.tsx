@@ -142,7 +142,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                     <>
                                         <div className="mb-6">
                                             <h2 className="text-2xl text-white font-bold uppercase leading-none mb-2">
-                                                <TextScramble trigger={true}>Iniciar Projeto</TextScramble>
+                                                <TextScramble as="span" trigger={true}>Iniciar Projeto</TextScramble>
                                             </h2>
                                             <p className="text-sm text-white/40">
                                                 Preencha os dados abaixo para estabelecer conexão com nossa equipe.

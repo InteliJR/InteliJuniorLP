@@ -206,19 +206,19 @@ export default function DefaultDemo() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative flex h-[50vh] items-center justify-center -mb-10"
+        className="relative flex min-h-[50vh] lg:h-[50vh] items-center justify-center py-14 lg:py-0 -mb-10"
       >
-        <div className="h-[0.1px] w-1/9 bg-primary"></div>
-        <div className="flex gap-18 whitespace-nowrap w-full items-center justify-center px-10">
-          <div className="flex flex-col gap-1 items-start relative">
-            <h2 className="text-4xl md:text-5xl font-light uppercase leading-tight">
+        <div className="hidden lg:block h-px w-1/9 bg-primary"></div>
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10 xl:gap-14 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
+          <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left shrink-0">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
               A primeira Empresa,
               <br />
               Junior a conquistar
             </h2>
             <TextScramble
               as="span"
-              className="text-4xl md:text-5xl uppercase leading-tight text-primary font-semibold"
+              className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight text-primary font-semibold"
               duration={1}
               speed={0.03}
               trigger={hasTriggered}
@@ -226,20 +226,20 @@ export default function DefaultDemo() {
             >
               {"5 clusters em 4 anos."}
             </TextScramble>
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={hasTriggered ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="absolute -right-4 -top-2 flex items-center justify-center mt-2"
-            >
-              <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
-              <Trophy
-                className="size-12 text-primary relative z-10"
-                strokeWidth={1.5}
-              />
-            </m.div>
           </div>
-          <p className="text-muted-foreground text-md whitespace-normal">
+          <m.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={hasTriggered ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative flex items-center justify-center shrink-0"
+          >
+            <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
+            <Trophy
+              className="size-12 text-primary relative z-10"
+              strokeWidth={1.5}
+            />
+          </m.div>
+          <p className="text-muted-foreground text-md whitespace-normal max-w-md lg:max-w-lg text-center lg:text-left">
             Mais do que um título, esse marco representa a{" "}
             <span className="text-white/70 font-semibold">
               velocidade da nossa evolução
@@ -253,14 +253,14 @@ export default function DefaultDemo() {
             .
           </p>
         </div>
-        <div className="h-[0.1px] w-1/9 bg-primary"></div>
+        <div className="hidden lg:block h-px w-1/9 bg-primary"></div>
       </m.div>
       <ZoomParallax images={images} />
       <section
         id="quem-somos"
-        className="relative w-full py-32 overflow-hidden"
+        className="relative w-full py-28 overflow-hidden"
       >
-        <div className="mx-auto space-y-24 flex flex-col w-full items-center justify-center">
+        <div className="mx-auto flex flex-col w-full items-center justify-center">
           {/* Header da seção com animação */}
           <m.div
             ref={headerRef}
@@ -269,53 +269,56 @@ export default function DefaultDemo() {
               headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
             }
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full flex flex-col md:flex-row justify-start items-center gap-12"
+            className="w-full flex items-center mb-16 md:mb-24"
           >
-            <div className="h-[0.1px] w-1/12 bg-primary"></div>
-            <div className="space-y-4">
-              <TextScramble
-                as="span"
-                className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
-                duration={1}
-                speed={0.03}
-                trigger={headerTriggered}
-                playId={headerPlayId}
-              >
-                {"[2. Quem somos]"}
-              </TextScramble>
-              <h3 className="text-4xl md:text-5xl font-light uppercase leading-tight whitespace-nowrap">
-                Tecnologia de
+            <div className="hidden lg:block h-px w-1/9 bg-primary" />
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-18 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
+              <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left relative">
                 <TextScramble
-                  className="text-primary font-semibold"
+                  as="span"
+                  className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
                   duration={1}
                   speed={0.03}
                   trigger={headerTriggered}
                   playId={headerPlayId}
                 >
-                  {" verdade"}
+                  {"[2. Quem somos]"}
                 </TextScramble>
-                <br />
-                feita por quem vive o mercado
-              </h3>
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight">
+                  Tecnologia de
+                  <TextScramble
+                    as="span"
+                    className="text-primary font-semibold"
+                    duration={1}
+                    speed={0.03}
+                    trigger={headerTriggered}
+                    playId={headerPlayId}
+                  >
+                    {" verdade"}
+                  </TextScramble>
+                  <br />
+                  feita por quem vive o mercado
+                </h3>
+              </div>
+              <p className="text-white/70 text-md whitespace-normal w-full max-w-lg text-center lg:text-left lg:shrink-0">
+                Nascemos no{" "}
+                <a
+                  href="https://www.inteli.edu.br/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+                >
+                  Inteli
+                </a>
+                , uma faculdade que une tecnologia com liderança desenvolvendo projetos para as maiores empresas do Brasil. Trabalhamos com a metodologia ágil SCRUM e assim garantimos o seu projeto com a melhor entrega do mercado.
+              </p>
             </div>
-            <p className="text-white/80 text-md w-full max-w-lg leading-relaxed">
-              Nascemos no{" "}
-              <a
-                href="https://www.inteli.edu.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
-              >
-                Inteli
-              </a>
-              , uma faculdade que une tecnologia com liderança desenvolvendo projetos para as maiores empresas do Brasil. Trabalhamos com a metodologia ágil SCRUM e assim garantimos o seu projeto com a melhor entrega do mercado.
-            </p>
-            <div className="h-[0.1px] w-1/12 bg-primary"></div>
+            <div className="hidden lg:block h-px w-1/9 bg-primary" />
           </m.div>
 
-          <div className="grid w-full grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-8 md:px-16 lg:px-32">
+          <div className="grid w-full grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 px-6 sm:px-8 md:px-16 lg:px-32 mb-20 md:mb-28">
             {/* Card 1 - Quem Somos / Inteli Júnior */}
-            <TiltCard className="order-1 md:order-1 md:col-span-2" intensity={14} hoverScale={1.01}>
+            <TiltCard className="order-1 md:order-1 lg:col-span-2" intensity={14} hoverScale={1.01}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -422,6 +425,18 @@ export default function DefaultDemo() {
                   clipPath: "polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 8%)",
                 }}
               >
+                <div className="absolute inset-0">
+                  <Image
+                    src="/images/foto13-card.jpg"
+                    alt="Metodologia PBL na Inteli Júnior"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    quality={75}
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/70 to-black/50" />
+                </div>
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] z-0 pointer-events-none" />
                 <div className="absolute inset-0 shadow-(--shadow-inner-glass) pointer-events-none" />
                 <div className="pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-white/2" />
@@ -667,7 +682,7 @@ export default function DefaultDemo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex flex-col items-center justify-center gap-4 w-full max-w-4xl text-center px-8"
+            className="flex flex-col items-center justify-center gap-4 w-full max-w-4xl text-center px-8 mb-12 md:mb-16"
             onViewportEnter={() => {
               if (!companiesTriggered) {
                 setCompaniesTriggered(true);
@@ -688,6 +703,7 @@ export default function DefaultDemo() {
             <h3 className="text-3xl md:text-4xl font-light uppercase leading-tight">
               Nossos membros já{" "}
               <TextScramble
+                as="span"
                 className="text-primary font-semibold"
                 duration={1}
                 speed={0.03}

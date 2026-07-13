@@ -430,15 +430,15 @@ export default function ThirdSection() {
         <section id="trajetoria" className="w-full relative overflow-hidden">
             <m.div
                 ref={headerRef}
-                className="w-full flex items-center justify-between mx-auto -mb-20"
+                className="w-full flex items-center justify-between mx-auto mb-6 lg:-mb-20"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <div className="h-[0.1px] w-1/9 bg-primary"></div>
-                <div className="flex gap-18 items-center px-10">
-                    <div className="flex flex-col">
+                <div className="hidden lg:block h-px w-1/9 bg-primary" />
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-18 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
+                    <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left relative shrink-0">
                         <TextScramble
                             as="span"
                             className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
@@ -449,8 +449,9 @@ export default function ThirdSection() {
                         >
                             {"[3. De onde viemos]"}
                         </TextScramble>
-                        <h2 className="text-4xl md:text-5xl font-light uppercase leading-tight mb-4 whitespace-nowrap">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
                             Nossa <TextScramble
+                                as="span"
                                 className="text-primary font-semibold"
                                 duration={1}
                                 speed={0.03}
@@ -459,15 +460,15 @@ export default function ThirdSection() {
                             > trajetoria</TextScramble>
                         </h2>
                     </div>
-                    <p className="text-muted-foreground text-lg">
+                    <p className="text-muted-foreground text-md whitespace-normal max-w-md lg:max-w-lg text-center lg:text-left">
                         De uma ideia ambiciosa a uma <span className="font-semibold text-white/70">referência no ecossistema júnior</span>. Confira os marcos da nossa evolução.
                     </p>
                 </div>
-                <div className="h-[0.1px] w-1/9 bg-primary"></div>
+                <div className="hidden lg:block h-px w-1/9 bg-primary" />
             </m.div>
             <Timeline data={data} />
             {/* Seção de Resultados - Grande Destaque */}
-            <div className="relative pt-16 px-4 md:px-8 lg:px-10 overflow-hidden">
+            <div className="relative pt-24 md:pt-32 px-4 md:px-8 lg:px-10 overflow-hidden">
                 {/* Background com gradiente sutil */}
                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
 
@@ -505,7 +506,7 @@ export default function ThirdSection() {
 </h3>
                 </m.div>
 
-                <div className="relative z-10 px-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="relative z-10 px-6 sm:px-8 md:px-12 lg:px-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Card 1 - Negócios Impactados */}
                     <ImpactCard
                         value="30+"
