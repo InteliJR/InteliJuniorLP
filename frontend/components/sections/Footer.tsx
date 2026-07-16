@@ -334,7 +334,7 @@ export default function Footer() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="relative w-full flex h-[50vh] items-center -mb-10"
+                    className="relative left-1/2 w-screen -translate-x-1/2 flex h-[50vh] items-center -mb-10"
                 >
                     <div className="h-px w-1/9 bg-primary" />
                     <div className="flex gap-18 w-full items-center justify-center px-10">
