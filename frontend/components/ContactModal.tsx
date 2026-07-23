@@ -1,11 +1,6 @@
 "use client";
 
-/**
- * Modal de contato reutilizável.
- * - Bloqueia interação de fundo com backdrop; tecla ESC fecha.
- * - Valida contato (email ou telefone) antes de simular envio.
- * - Usa framer-motion para entrada/saída suave e TextScramble no título.
- */
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Terminal, Loader2, CheckCircle2, AlertCircle, Building2, Mail, Phone, User } from "lucide-react";
@@ -38,7 +33,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         message: ""
     });
 
-    // Fecha com ESC
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose();
@@ -55,7 +49,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validação: Email OU Telefone obrigatórios
         if (!formData.email && !formData.phone) {
             setFormError("É necessário informar ao menos um contato (Email ou Telefone).");
             return;
@@ -68,7 +61,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
         setFormState("submitting");
 
-        // Simulação de envio
         await new Promise(resolve => setTimeout(resolve, 2000));
         setFormState("success");
     };
@@ -77,7 +69,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         <AnimatePresence>
             {isOpen && (
                 <>
-                    {/* Backdrop com Blur */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -85,8 +76,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         onClick={onClose}
                         className="fixed inset-0 z-999 bg-black/80 backdrop-blur-sm"
                     />
-
-                    {/* Janela do Modal */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -95,11 +84,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         className="fixed inset-0 z-1000 flex items-center justify-center p-4 pointer-events-none"
                     >
                         <div className="w-full max-w-lg pointer-events-auto flex flex-col bg-[#050505] border border-white/10 shadow-[0_0_50px_rgba(var(--primary),0.15)] overflow-hidden relative max-h-[90vh] overflow-y-auto custom-scrollbar">
-
-                            {/* Grid Decorativo Fundo */}
                             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] pointer-events-none" />
-
-                            {/* Header da Janela */}
                             <div className="sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-[#050505] border-b border-white/10">
                                 <div className="flex items-center gap-3">
                                     <div className="flex gap-1.5">
@@ -119,8 +104,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                     <X className="w-4 h-4" />
                                 </button>
                             </div>
-
-                            {/* Corpo do Formulário */}
                             <div className="p-6 md:p-8 relative z-10">
                                 {formState === "success" ? (
                                     <div className="flex flex-col items-center justify-center py-10 text-center space-y-4">
@@ -282,8 +265,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                     </>
                                 )}
                             </div>
-
-                            {/* Footer do Modal */}
                             <div className="bg-black/80 p-2 border-t border-white/10 flex justify-between items-center px-4 sticky bottom-0 z-20">
                                 <span className="text-[9px] text-white/20 font-mono uppercase">SECURE_CONNECTION_V2.0</span>
                                 <div className="flex gap-1">

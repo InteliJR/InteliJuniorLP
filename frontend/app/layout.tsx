@@ -1,10 +1,4 @@
-/**
- * Layout raiz da landing page
- * - Aplica fonte global e tema dark default.
- * - Injeta provedores críticos: LazyMotion (animações),
- *   SmoothScrolling (Lenis) e AppLoaderShell (splash + gate de carregamento).
- * Performance: pré-carrega fonte via next/font (swap) e pré-conecta domínio de imagens remotas.
- */
+
 import "./globals.css";
 import type { Metadata } from "next";
 import AppLoaderShell from "@/components/AppLoaderShell";

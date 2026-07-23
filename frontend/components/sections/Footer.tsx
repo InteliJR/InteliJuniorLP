@@ -1,11 +1,6 @@
 "use client";
 
-/**
- * Rodapé/Contato.
- * - Abas Formulário vs Agentes com transição animada e altura fixa para evitar jumps.
- * - Valida contato mínimo (email ou telefone) e simula envio; modal global reaproveitado.
- * - Inclui CTA com TextScramble, dados comerciais e links sociais/legais.
- */
+
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { TechCard } from "../ui/TechCard";
@@ -29,7 +24,6 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-// --- DADOS ---
 
 const commercialTeam = [
     {
@@ -128,7 +122,6 @@ const servicesFooterLinks = [
     { label: "Inteligência Artificial", href: "#servicos" },
 ];
 
-// --- COMPONENTE PRINCIPAL ---
 
 export default function Footer() {
     const [isContactOpen, setIsContactOpen] = useState(false);
@@ -138,7 +131,6 @@ export default function Footer() {
     const [ctaHover, setCtaHover] = useState(false);
     const [ctaPlayId, setCtaPlayId] = useState(0);
 
-    // Controla o TextScramble: dispara uma vez quando o título entra em viewport
     const titleRef = useRef<HTMLDivElement | null>(null);
     const isTitleInView = useInView(titleRef, { once: true, amount: 0.4 });
     const [hasTriggered, setHasTriggered] = useState(false);
@@ -151,18 +143,16 @@ export default function Footer() {
         }
     }, [isTitleInView, hasTriggered]);
 
-    // Auto-reset do formulário após sucesso
     useEffect(() => {
         if (formState === "success") {
             const timer = setTimeout(() => {
                 setFormState("idle");
                 setFormData({ name: "", company: "", email: "", phone: "", products: [], message: "" });
-            }, 5000); // 5 segundos
+            }, 5000);
             return () => clearTimeout(timer);
         }
     }, [formState]);
 
-    // Form States
     const [formData, setFormData] = useState({
         name: "",
         company: "",
@@ -172,7 +162,6 @@ export default function Footer() {
         message: ""
     });
 
-    // Máscara de telefone brasileiro
     const formatPhone = (value: string): string => {
         const digits = value.replace(/\D/g, '').slice(0, 11);
         if (digits.length <= 2) return digits;
@@ -183,13 +172,13 @@ export default function Footer() {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        
+
         if (name === 'phone') {
             setFormData(prev => ({ ...prev, phone: formatPhone(value) }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
         }
-        
+
         if (formError) setFormError(null);
     };
 
@@ -206,10 +195,8 @@ export default function Footer() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Helper para verificar se string tem conteúdo real (não só espaços)
         const hasContent = (str: string) => str.trim().length > 0;
 
-        // Limites de caracteres
         const LIMITS = {
             name: { min: 3, max: 100 },
             company: { max: 100 },
@@ -217,7 +204,6 @@ export default function Footer() {
             message: { max: 1000 }
         };
 
-        // Validação: Nome obrigatório e limites
         const nameTrimmed = formData.name.trim();
         if (!hasContent(formData.name)) {
             setFormError("Por favor, informe seu nome.");
@@ -232,22 +218,19 @@ export default function Footer() {
             return;
         }
 
-        // Validação: Empresa (opcional, mas com limite)
         if (formData.company.trim().length > LIMITS.company.max) {
             setFormError(`O nome da empresa deve ter no máximo ${LIMITS.company.max} caracteres.`);
             return;
         }
 
-        // Validação: Email OU Telefone obrigatórios (com conteúdo real)
         const hasEmail = hasContent(formData.email);
         const hasPhone = hasContent(formData.phone);
-        
+
         if (!hasEmail && !hasPhone) {
             setFormError("É necessário informar ao menos um contato (Email ou Telefone).");
             return;
         }
 
-        // Validação: Email válido (se preenchido)
         if (hasEmail) {
             const emailTrimmed = formData.email.trim();
             if (emailTrimmed.length > LIMITS.email.max) {
@@ -261,7 +244,6 @@ export default function Footer() {
             }
         }
 
-        // Validação: Telefone válido (se preenchido) - mínimo 10 dígitos
         if (hasPhone) {
             const phoneDigits = formData.phone.replace(/\D/g, '');
             if (phoneDigits.length < 10) {
@@ -270,13 +252,11 @@ export default function Footer() {
             }
         }
 
-        // Validação: Pelo menos um produto selecionado
         if (formData.products.length === 0) {
             setFormError("Por favor, selecione pelo menos um produto de interesse.");
             return;
         }
 
-        // Validação: Mensagem (opcional, mas com limite)
         if (formData.message.trim().length > LIMITS.message.max) {
             setFormError(`A mensagem deve ter no máximo ${LIMITS.message.max} caracteres.`);
             return;
@@ -377,11 +357,8 @@ export default function Footer() {
                     </div>
                     <div className="h-px w-1/9 bg-primary" />
                 </motion.div>
-
-                {/* MAIN CONTENT GRID - Terminal Style Switcher */}
                 <div className="relative mb-20 px-[5%]">
                     <div className="relative w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_0_50px_rgba(0,0,0,0.7)]">
-                        {/* Top bar */}
                         <div className="h-11 w-full bg-white/5 border-b border-white/10 flex items-center justify-between px-4">
                             <div className="flex items-center gap-3">
                                 <div className="flex gap-1.5">
@@ -402,7 +379,6 @@ export default function Footer() {
                                 </span>
                             </div>
                         </div>
-                        {/* Tab bar */}
                         <div className="flex items-center justify-between bg-white/5 border-b border-white/10 px-4 py-3">
                             <div className="flex gap-3">
                                 <button
@@ -419,8 +395,6 @@ export default function Footer() {
                                 </button>
                             </div>
                         </div>
-
-                        {/* Body */}
                         <div className="relative min-h-[640px]">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,77,58,0.08),transparent_35%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.04),transparent_30%)]" />
 
@@ -435,11 +409,9 @@ export default function Footer() {
                                         className="relative z-10 h-full"
                                     >
                                         {formState === "success" ? (
-                                            /* Tela de sucesso - ocupa todo o container sem borda interna */
+
                                             <div className="relative min-h-[500px] flex flex-col items-center justify-center text-center space-y-6 p-8">
                                                 <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.2),transparent_50%)]" />
-                                                
-                                                {/* Barra de progresso do auto-reset */}
                                                 <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 overflow-hidden">
                                                     <motion.div
                                                         initial={{ width: "100%" }}
@@ -448,8 +420,8 @@ export default function Footer() {
                                                         className="h-full bg-green-500/60"
                                                     />
                                                 </div>
-                                                
-                                                <motion.div 
+
+                                                <motion.div
                                                     initial={{ scale: 0, opacity: 0 }}
                                                     animate={{ scale: 1, opacity: 1 }}
                                                     transition={{ type: "spring", duration: 0.5 }}
@@ -458,8 +430,8 @@ export default function Footer() {
                                                     <div className="absolute inset-0 bg-green-500/30 blur-2xl rounded-full scale-150" />
                                                     <CheckCircle2 className="relative w-20 h-20 text-green-500" />
                                                 </motion.div>
-                                                
-                                                <motion.div 
+
+                                                <motion.div
                                                     initial={{ opacity: 0, y: 20 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ delay: 0.2 }}
@@ -472,7 +444,7 @@ export default function Footer() {
                                                         Sua mensagem foi recebida com sucesso. Nosso time entrará em contato em breve.
                                                     </p>
                                                 </motion.div>
-                                                
+
                                                 <motion.button
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
@@ -482,7 +454,7 @@ export default function Footer() {
                                                 >
                                                     Enviar nova mensagem
                                                 </motion.button>
-                                                
+
                                                 <motion.p
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
@@ -493,7 +465,7 @@ export default function Footer() {
                                                 </motion.p>
                                             </div>
                                         ) : (
-                                            /* Formulário */
+
                                             <div className="relative overflow-hidden border border-white/10 bg-linear-to-b from-black/80 via-primary/10 to-black/90 shadow-[0_0_35px_rgba(255,77,58,0.2)]">
                                                 <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_30%_20%,rgba(255,77,58,0.16),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(255,255,255,0.06),transparent_30%)]" />
                                                 <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
@@ -706,11 +678,10 @@ export default function Footer() {
                                             {commercialTeam.map((member, idx) => (
                                                 <TechCard key={idx} className="bg-white/[0.02] hover:bg-white/[0.05] border-white/[0.06] hover:border-primary/30 transition-all duration-300 group/member">
                                                     <div className="flex flex-col items-center text-center p-5 gap-4">
-                                                        {/* Avatar */}
                                                         <div className="relative flex-none">
                                                             <div className="absolute -inset-1 bg-gradient-to-br from-primary/40 to-transparent rounded-full opacity-0 group-hover/member:opacity-100 blur-md transition-opacity duration-300" />
                                                             {member.image ? (
-                                                                <div 
+                                                                <div
                                                                     className="relative rounded-full overflow-hidden border-2 border-white/10 group-hover/member:border-primary/40 transition-colors duration-300"
                                                                     style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}
                                                                 >
@@ -722,7 +693,7 @@ export default function Footer() {
                                                                     />
                                                                 </div>
                                                             ) : (
-                                                                <div 
+                                                                <div
                                                                     className="relative rounded-full border-2 border-white/10 bg-white/5 flex items-center justify-center text-lg font-semibold text-white/80 group-hover/member:border-primary/40 transition-colors duration-300"
                                                                     style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}
                                                                 >
@@ -730,8 +701,6 @@ export default function Footer() {
                                                                 </div>
                                                             )}
                                                         </div>
-
-                                                        {/* Info */}
                                                         <div className="space-y-1">
                                                             <p className="text-white font-bold text-sm uppercase tracking-wider group-hover/member:text-primary transition-colors duration-300">
                                                                 {member.name}
@@ -740,8 +709,6 @@ export default function Footer() {
                                                                 {member.role}
                                                             </p>
                                                         </div>
-
-                                                        {/* Contatos */}
                                                         <div className="w-full space-y-2 pt-2 border-t border-white/5">
                                                             {member.phone && (
                                                                 <a
@@ -764,8 +731,6 @@ export default function Footer() {
                                                                 <span className="truncate">{member.email}</span>
                                                             </a>
                                                         </div>
-
-                                                        {/* LinkedIn Button */}
                                                         {member.linkedin && (
                                                             <a
                                                                 href={member.linkedin}
@@ -911,8 +876,6 @@ export default function Footer() {
                     </div>
                 </section>
             </div>
-
-            {/* Modal de Contato (Para botões do topo da página que chamam o modal) */}
             <ContactModal
                 isOpen={isContactOpen}
                 onClose={() => setIsContactOpen(false)}

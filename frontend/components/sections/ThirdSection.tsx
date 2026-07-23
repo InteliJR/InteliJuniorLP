@@ -1,10 +1,6 @@
 "use client";
 
-/**
- * Seção de trajetória (Timeline).
- * - Três blocos anuais com TechCard/ImpactCard e CTA para documento público.
- * - Usa TextScramble em títulos/CTA e formatação numérica para manter consistência visual.
- */
+
 import { Timeline } from "../ui/Timeline";
 import { Trophy, Users, Rocket, DollarSign, Award, Target } from "lucide-react";
 import { TextScramble } from "../ui/textScramble";
@@ -40,7 +36,6 @@ export default function ThirdSection() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Card 1: Awards */}
                         <TechCard
                             title="Prêmios"
                             icon={<Award className="size-5" />}
@@ -73,8 +68,6 @@ export default function ThirdSection() {
                                 </ul>
                             </div>
                         </TechCard>
-
-                        {/* Card 2: Financial */}
                         <TechCard
                             title="Faturamento"
                             icon={<Target className="size-5" />}
@@ -114,8 +107,6 @@ export default function ThirdSection() {
                                 </div>
                             </div>
                         </TechCard>
-
-                        {/* Card 3: Members */}
                         <TechCard
                             title="Time"
                             icon={<Users className="size-5" />}
@@ -123,7 +114,6 @@ export default function ThirdSection() {
                         >
                             <div className="flex flex-col items-center justify-center h-full py-2">
                                 <div className="relative w-32 h-32 flex items-center justify-center mb-4">
-                                    {/* Decorative Circles */}
                                     <div className="absolute inset-0 border-2 border-primary/50 rounded-full border-dashed animate-spin" style={{ animationDuration: '10s' }} />
                                     <div className="absolute inset-2 border border-white/5 rounded-full" />
 
@@ -158,7 +148,6 @@ export default function ThirdSection() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Card 1: Awards */}
                         <TechCard
                             title="Prêmios"
                             icon={<Award className="size-5" />}
@@ -187,8 +176,6 @@ export default function ThirdSection() {
                                 </ul>
                             </div>
                         </TechCard>
-
-                        {/* Card 2: Financial */}
                         <TechCard
                             title="Faturamento"
                             icon={<Target className="size-5" />}
@@ -228,8 +215,6 @@ export default function ThirdSection() {
                                 </div>
                             </div>
                         </TechCard>
-
-                        {/* Card 3: Members */}
                         <TechCard
                             title="Time"
                             icon={<Users className="size-5" />}
@@ -237,7 +222,6 @@ export default function ThirdSection() {
                         >
                             <div className="flex flex-col items-center justify-center h-full py-2">
                                 <div className="relative w-32 h-32 flex items-center justify-center mb-4">
-                                    {/* Decorative Circles */}
                                     <div className="absolute inset-0 border-2 border-primary/50 rounded-full border-dashed animate-spin" style={{ animationDuration: '10s' }} />
                                     <div className="absolute inset-2 border border-white/5 rounded-full" />
 
@@ -270,8 +254,6 @@ export default function ThirdSection() {
                             Em busca do 5º cluster no nosso quinto ano. Uma ascensão rápida e contínua que define nossa história.
                         </p>
                     </div>
-
-                    {/* 2025 Special Highlight Banner */}
                     <div className="relative w-full">
                         <TechCard highlight className="w-full backdrop-blur-[1.2px]">
                             <div className="flex flex-col md:flex-row items-center gap-6 relative z-10">
@@ -291,7 +273,6 @@ export default function ThirdSection() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Card 1: Awards */}
                         <TechCard
                             title="Prêmios"
                             icon={<Award className="size-5" />}
@@ -316,7 +297,6 @@ export default function ThirdSection() {
                                 </ul>
                             </div>
                         </TechCard>
-                        {/* Card 2: Members */}
                         <TechCard
                             title="Time"
                             icon={<Users className="size-5" />}
@@ -324,7 +304,6 @@ export default function ThirdSection() {
                         >
                             <div className="flex flex-col items-center justify-center h-full py-2">
                                 <div className="relative w-32 h-32 flex items-center justify-center mb-4">
-                                    {/* Decorative Circles */}
                                     <div className="absolute inset-0 border-2 border-primary/50 rounded-full border-dashed animate-spin" style={{ animationDuration: '10s' }} />
                                     <div className="absolute inset-2 border border-white/5 rounded-full" />
 
@@ -467,12 +446,8 @@ export default function ThirdSection() {
                 <div className="hidden lg:block h-px w-1/9 bg-primary" />
             </m.div>
             <Timeline data={data} />
-            {/* Seção de Resultados - Grande Destaque */}
             <div className="relative pt-24 md:pt-32 px-4 md:px-8 lg:px-10 overflow-hidden">
-                {/* Background com gradiente sutil */}
                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
-
-                {/* Título da seção de resultados */}
                 <m.div
                     ref={resultsRef}
                     className="relative z-10 text-center mb-16"
@@ -507,7 +482,6 @@ export default function ThirdSection() {
                 </m.div>
 
                 <div className="relative z-10 px-6 sm:px-8 md:px-12 lg:px-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Card 1 - Negócios Impactados */}
                     <ImpactCard
                         value="30+"
                         label="Negócios Impactados"
@@ -519,8 +493,6 @@ export default function ThirdSection() {
                         }
                         delay={0}
                     />
-
-                    {/* Card 2 - Universitários Capacitados (Card Central - Destaque) */}
                     <ImpactCard
                         value="60+"
                         label="Universitários Capacitados"
@@ -530,8 +502,6 @@ export default function ThirdSection() {
                         delay={0.15}
                         className=""
                     />
-
-                    {/* Card 3 - Impacto Econômico */}
                     <ImpactCard
                         value="15+"
                         label="Prêmios Conquistados"

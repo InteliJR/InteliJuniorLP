@@ -1,15 +1,10 @@
 "use client";
 
-/**
- * Página raiz: orquestra as seções da landing.
- * - Carrega o hero de forma síncrona (FirstSection) para LCP.
- * - Demais seções usam dynamic import com placeholders estáveis para evitar CLS.
- * - SSR habilitado nos dinâmicos para SEO, mantendo hydration consistente.
- */
+
 import dynamic from 'next/dynamic';
 import FirstSection from '@/components/sections/FirstSection';
+import ContactFloatingButton from '@/components/ContactFloatingButton';
 
-// Seções abaixo da dobra carregam de forma preguiçosa, reduzindo o JS inicial
 const SecondSection = dynamic(
   () => import('@/components/sections/SecondSection'),
   {
@@ -58,6 +53,7 @@ export default function Home() {
       <ThirdSection />
       <FourthSection />
       <Footer />
+      <ContactFloatingButton />
     </main>
   );
 }

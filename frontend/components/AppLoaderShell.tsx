@@ -1,11 +1,6 @@
 "use client";
 
-/**
- * Gate de carregamento da aplicação.
- * - Aguarda `document.readyState === "complete"` para garantir assets críticos carregados.
- * - Exibe splash animado (Loading) e só libera a UI quando animação + DOM estão prontos.
- * - Expõe contexto para que seções saibam se ainda é loading (útil para atrasar animações pesadas).
- */
+
 import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import Loading from "@/components/loading/Loading";
 
@@ -47,7 +42,6 @@ const AppLoaderShell = ({ children }: AppLoaderShellProps) => {
             }
         };
 
-        // Microtask evita flash quando o DOM já está pronto ao hidratar
         if (document.readyState === "complete") {
             queueMicrotask(() => setDocumentReady(true));
             return;
@@ -66,7 +60,7 @@ const AppLoaderShell = ({ children }: AppLoaderShellProps) => {
         setAnimationComplete(true);
     }, []);
 
-    const contentVisible = useMemo(() => documentReady && animationComplete, [documentReady, animationComplete]); // Gating duplo: DOM pronto + animação concluída
+    const contentVisible = useMemo(() => documentReady && animationComplete, [documentReady, animationComplete]);
 
     return (
         <AppLoaderContext.Provider

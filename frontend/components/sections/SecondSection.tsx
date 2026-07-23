@@ -1,10 +1,6 @@
 "use client";
 
-/**
- * Seção "Quem Somos" + carrossel de parceiros.
- * - Combina ZoomParallax (linha do tempo visual) e grid bento de cards com CTA.
- * - Carrossel de empresas fica ao final; placeholder evita CLS enquanto ZoomParallax carrega.
- */
+
 import React, { useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import { m, useInView } from "framer-motion";
@@ -22,7 +18,6 @@ import {
 import { CompaniesCarousel } from "../CompaniesCarousel";
 import { TiltCard } from "../TiltCard";
 
-// Dynamic import do ZoomParallax - componente pesado com Framer Motion
 const ZoomParallax = dynamic(
   () =>
     import("@/components/ZoomParallax").then((mod) => ({
@@ -31,7 +26,6 @@ const ZoomParallax = dynamic(
   {
     ssr: true,
     loading: () => (
-      // Placeholder com altura fixa para evitar CLS
       <div className="relative h-[300vh] bg-background" />
     ),
   }
@@ -96,13 +90,11 @@ const companies = [
 ];
 
 export default function DefaultDemo() {
-  // REMOVIDO: Lenis duplicado - já existe um provider global em SmoothScrolling.tsx
 
   const titleRef = React.useRef<HTMLDivElement | null>(null);
   const [hasTriggered, setHasTriggered] = React.useState(false);
   const [playId, setPlayId] = React.useState(0);
 
-  // Trigger do header "Elevando a maturidade" (seção principal após o parallax)
   const [headerTriggered, setHeaderTriggered] = React.useState(false);
   const [headerPlayId, setHeaderPlayId] = React.useState(0);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
@@ -115,11 +107,9 @@ export default function DefaultDemo() {
     }
   }, [headerInView, headerTriggered]);
 
-  // Trigger do bloco "Empresas que confiam" quando entra em viewport
   const [companiesTriggered, setCompaniesTriggered] = React.useState(false);
   const [companiesPlayId, setCompaniesPlayId] = React.useState(0);
 
-  // Estados e funções para o botão CTA
   const [contactPlayId, setContactPlayId] = React.useState(0);
   const contactHoveringRef = useRef(false);
 
@@ -199,7 +189,6 @@ export default function DefaultDemo() {
   ];
   return (
     <main className="min-h-screen w-full">
-      {/* Seção título "3 clusters" com animação */}
       <m.div
         ref={titleRef}
         initial={{ opacity: 0, y: 40 }}
@@ -261,7 +250,6 @@ export default function DefaultDemo() {
         className="relative w-full py-28 overflow-hidden"
       >
         <div className="mx-auto flex flex-col w-full items-center justify-center">
-          {/* Header da seção com animação */}
           <m.div
             ref={headerRef}
             initial={{ opacity: 0, y: 30 }}
@@ -317,7 +305,6 @@ export default function DefaultDemo() {
           </m.div>
 
           <div className="grid w-full grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 px-6 sm:px-8 md:px-16 lg:px-32 mb-20 md:mb-28">
-            {/* Card 1 - Quem Somos / Inteli Júnior */}
             <TiltCard className="order-1 md:order-1 lg:col-span-2" intensity={14} hoverScale={1.01}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
@@ -326,7 +313,6 @@ export default function DefaultDemo() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="min-h-[360px] relative group overflow-visible h-full"
               >
-              {/* SVG Tech Border - diagonal cuts */}
               <div className="absolute inset-0 pointer-events-none z-30">
                 <svg
                   className="w-full h-full"
@@ -340,14 +326,12 @@ export default function DefaultDemo() {
                   />
                 </svg>
               </div>
-              {/* Corner Accents */}
               <svg className="absolute -top-px -left-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
                 <path d="M 0 16 V 0 H 16" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               <svg className="absolute -bottom-px -right-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
                 <path d="M 24 8 V 24 H 8" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
-              {/* Clipped content */}
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{
@@ -394,8 +378,6 @@ export default function DefaultDemo() {
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 2 - Metodologia PBL */}
             <TiltCard className="order-4 md:order-4" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
@@ -456,8 +438,6 @@ export default function DefaultDemo() {
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 3 - Ágil na Prática */}
             <TiltCard className="order-2 md:order-2" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
@@ -508,7 +488,7 @@ export default function DefaultDemo() {
                   <div className="transform transition-all duration-500 group-hover:translate-x-1">
                     <h4 className="text-xl font-semibold mb-2 text-white">Ágil na Prática</h4>
                     <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
-                      Vivemos Scrum de verdade: sprints, dailies, retrospectivas e reviews com os parceiros. 
+                      Vivemos Scrum de verdade: sprints, dailies, retrospectivas e reviews com os parceiros.
                       Git Flow, code review e CI/CD — o que muitos só veem na teoria, nós praticamos desde o primeiro semestre.
                     </p>
                   </div>
@@ -517,8 +497,6 @@ export default function DefaultDemo() {
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 4 - Tecnologia Avançada */}
             <TiltCard className="order-3 md:order-3" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
@@ -569,7 +547,7 @@ export default function DefaultDemo() {
                   <div className="transform transition-all duration-500 group-hover:translate-x-1">
                     <h4 className="text-xl font-semibold mb-2 text-white">Tecnologia de Verdade</h4>
                     <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
-                      Enquanto outras EJs usam no-code, nós implantamos soluções do zero de forma robusta em cloud. 
+                      Enquanto outras EJs usam no-code, nós implantamos soluções do zero de forma robusta em cloud.
                       Infraestrutura escalável, arquiteturas modernas e código de qualidade profissional.
                     </p>
                   </div>
@@ -578,8 +556,6 @@ export default function DefaultDemo() {
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 5 - CTA (ocupa 1 coluna) */}
             <TiltCard className="order-5 md:order-5" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
@@ -675,8 +651,6 @@ export default function DefaultDemo() {
               </m.div>
             </TiltCard>
           </div>
-
-          {/* Título empresas com animação */}
           <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -723,7 +697,6 @@ export default function DefaultDemo() {
               </span>.
             </p>
           </m.div>
-          {/* Carrossel de empresas */}
           <CompaniesCarousel companies={companies} />
         </div>
       </section>

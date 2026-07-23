@@ -42,25 +42,16 @@ export function CompaniesCarousel({ companies, className = '' }: CompaniesCarous
             ref={carouselRef}
             className={`relative w-full group/carousel ${className}`}
         >
-            {/* Tech Container Frame */}
             <div className="absolute inset-0 bg-white/4 backdrop-blur-[1px] border-y border-white/10">
-                {/* Grid Pattern */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] opacity-30" />
-
-                {/* Corner Accents */}
                 <div className="absolute -top-px -left-px w-4 h-4 border-l-2 border-t-2 border-primary/50" />
                 <div className="absolute -top-px -right-px w-4 h-4 border-r-2 border-t-2 border-primary/50" />
                 <div className="absolute -bottom-px -left-px w-4 h-4 border-l-2 border-b-2 border-primary/50" />
                 <div className="absolute -bottom-px -right-px w-4 h-4 border-r-2 border-b-2 border-primary/50" />
-
-                {/* Tech Markers (HUD style) */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-[1px] bg-primary/50" />
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-[1px] bg-primary/50" />
             </div>
-
-            {/* Carousel Content with Mask */}
             <div className="relative flex overflow-hidden py-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-                {/* Primeiro conjunto de logos */}
                 <div
                     className={`flex shrink-0 items-center ${isCarouselVisible ? 'animate-marquee' : ''} group-hover/carousel:paused`}
                 >
@@ -69,7 +60,6 @@ export function CompaniesCarousel({ companies, className = '' }: CompaniesCarous
                             key={`first-${index}`}
                             className="mx-12 flex items-center justify-center group/item min-w-[100px] relative"
                         >
-                            {/* Glow effect - acompanha o tamanho da imagem */}
                             <div className="absolute inset-0 -z-10 bg-primary/0 blur-2xl rounded-full transition-all duration-300 scale-125 group-hover/item:bg-primary/50 group-hover/item:scale-150" />
                             <img
                                 src={company.logo}
@@ -83,7 +73,6 @@ export function CompaniesCarousel({ companies, className = '' }: CompaniesCarous
                         </div>
                     ))}
                 </div>
-                {/* Segundo conjunto de logos (duplicado para loop infinito) */}
                 <div
                     className={`flex shrink-0 items-center ${isCarouselVisible ? 'animate-marquee' : ''} group-hover/carousel:paused`}
                 >
@@ -92,7 +81,6 @@ export function CompaniesCarousel({ companies, className = '' }: CompaniesCarous
                             key={`second-${index}`}
                             className="mx-12 flex items-center justify-center group/item min-w-[100px] relative"
                         >
-                            {/* Glow effect - acompanha o tamanho da imagem */}
                             <div className="absolute inset-0 -z-10 bg-primary/0 blur-2xl rounded-full transition-all duration-300 scale-125 group-hover/item:bg-primary/50 group-hover/item:scale-150" />
                             <img
                                 src={company.logo}

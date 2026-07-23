@@ -1,13 +1,7 @@
 "use client";
 
-/**
- * Seção hero (LCP): texto principal, CTAs e logo 3D.
- * - Background com glassmorfismo leve (CSS puro).
- * - Logo 3D (ImageStructure3D) no lado direito.
- * - TextScramble e animações só disparam após o loader para evitar jank.
- */
+
 import Link from "next/link";
-// import dynamic from 'next/dynamic'; // temporariamente removido para debug
 import { useCallback, useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -16,10 +10,8 @@ import { useAppLoader } from "@/components/AppLoaderShell";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useScrambleTrigger } from "@/hooks/useScrambleTrigger";
 
-// Import direto da Logo 3D (WebGL) para debug
 import ImageStructure3D from "@/components/ImageStructure3D";
 
-// Hook de tilt 3D para elementos com conteúdo interativo por cima
 function useTilt3D(intensity = 1000, throttleDelay = 30) {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -69,20 +61,7 @@ function useTilt3D(intensity = 1000, throttleDelay = 30) {
   return { containerRef, rotate, isHovered };
 }
 
-// Dynamic import comentado para debug
-// const ImageStructure3D = dynamic(
-//     () => import("@/components/ImageStructure3D"),
-//     {
-//         ssr: false,
-//         loading: () => (
-//             <div className="w-full h-full flex items-center justify-center">
-//                 <div className="w-32 h-32 rounded-full bg-primary/10 blur-2xl animate-pulse" />
-//             </div>
-//         ),
-//     }
-// );
 
-// Background com glassmorfismo - leve e elegante
 function GlassmorphismBackground({
   children,
   id,
@@ -92,24 +71,18 @@ function GlassmorphismBackground({
   id?: string;
   className?: string;
 }) {
-  // Hook de tilt 3D para o glass panel - valores mais sutis
-  // Intensidade alta = rotação menor (rotação = deslocamento do mouse / intensidade)
   const { containerRef, rotate, isHovered } = useTilt3D(600, 30);
   const hoverScale = 1.0001;
 
   return (
     <section ref={containerRef} id={id} className={`relative overflow-hidden ${className}`}>
-      {/* Base com degradê vertical */}
       <div
         className="absolute inset-0"
         style={{
           background: "linear-gradient(to bottom, #0b0a0b 0%, #05060f 100%)",
         }}
       />
-
-      {/* Orbs de gradiente para efeito de profundidade */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Orb principal superior */}
         <div
           className="absolute -top-1/4 -right-1/4 w-[60%] h-[60%] rounded-full opacity-30"
           style={{
@@ -119,8 +92,6 @@ function GlassmorphismBackground({
             animation: "float 8s ease-in-out infinite",
           }}
         />
-
-        {/* Orb secundária inferior */}
         <div
           className="absolute -bottom-1/4 -left-1/4 w-[50%] h-[50%] rounded-full opacity-20"
           style={{
@@ -130,8 +101,6 @@ function GlassmorphismBackground({
             animation: "float 10s ease-in-out infinite reverse",
           }}
         />
-
-        {/* Orb de acento central */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] h-[40%] rounded-full opacity-10"
           style={{
@@ -142,16 +111,12 @@ function GlassmorphismBackground({
           }}
         />
       </div>
-
-      {/* Noise texture overlay para efeito premium */}
       <div
         className="absolute inset-0 opacity-[0.015] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
-
-      {/* Glass panel com degradê vermelho, borda completa e tilt sutil */}
       <div
         className="absolute inset-6 will-change-transform"
         style={{
@@ -159,7 +124,6 @@ function GlassmorphismBackground({
           transition: "all 500ms cubic-bezier(0.03, 0.98, 0.52, 0.99) 0s",
         }}
       >
-        {/* Conteúdo com clip-path */}
         <div
           className="relative w-full h-full"
           style={{
@@ -167,7 +131,6 @@ function GlassmorphismBackground({
               "polygon(5% 0%, 100% 0%, 100% 92%, 95% 100%, 0% 100%, 0% 8%)",
           }}
         >
-          {/* Degradê vermelho elegante dentro do clip-path */}
           <div
             className="absolute inset-0"
             style={{
@@ -175,7 +138,6 @@ function GlassmorphismBackground({
                 "linear-gradient(135deg, #0f0f12 0%, #1a0a0a 20%, #2d0d0d 45%, #3a1010 55%, #2d0d0d 70%, #1a0a0a 85%, #0f0f12 100%)",
             }}
           />
-          {/* Overlay sutil de glass */}
           <div
             className="absolute inset-0 backdrop-blur-sm"
             style={{
@@ -183,7 +145,6 @@ function GlassmorphismBackground({
                 "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 50%, rgba(0,0,0,0.05) 100%)",
             }}
           />
-          {/* Borda interna sutil */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -193,8 +154,6 @@ function GlassmorphismBackground({
             }}
           />
         </div>
-
-        {/* SVG Tech Border - completa ao redor do clip-path */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 100 100"
@@ -206,8 +165,6 @@ function GlassmorphismBackground({
             className="stroke-[1.5px] fill-none stroke-white/20"
           />
         </svg>
-
-        {/* Corner Accents - mais visíveis */}
         <svg className="absolute -top-px -left-px w-10 h-10 text-primary opacity-80 pointer-events-none">
           <path
             d="M 0 24 V 0 H 24"
@@ -280,12 +237,10 @@ export default function FirstSection() {
     contactHoveringRef.current = false;
   }, []);
 
-  // Blinking cursor removido - não estava sendo usado
 
   return (
     <GlassmorphismBackground id="home" className="relative min-h-screen w-full">
       <div ref={heroRef} className="relative flex w-full h-screen">
-        {/* Conteúdo de texto - lado esquerdo */}
         <div className="flex-1 flex flex-col items-start justify-end pl-[5%] pb-[8%] px-6 z-10">
           <div className="relative flex flex-col items-start justify-end">
             <div className="">
@@ -326,7 +281,6 @@ export default function FirstSection() {
               </m.p>
             </div>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              {/* Botão Iniciar Projeto - Tech Style */}
               <Link
                 href="#contato"
                 className="z-10 relative group inline-flex items-center justify-center"
@@ -335,7 +289,6 @@ export default function FirstSection() {
                 onFocus={triggerContactScramble}
                 onBlur={resetContactHoverState}
               >
-                {/* Backdrop blur layer */}
                 <div
                   className="absolute inset-0 bg-primary/90 group-hover:bg-primary transition-colors duration-300"
                   style={{
@@ -343,7 +296,6 @@ export default function FirstSection() {
                       "polygon(8% 0%, 100% 0%, 100% 70%, 92% 100%, 0% 100%, 0% 30%)",
                   }}
                 />
-                {/* Border SVG */}
                 <div className="absolute inset-0 pointer-events-none">
                   <svg
                     className="w-full h-full"
@@ -356,7 +308,6 @@ export default function FirstSection() {
                       className="stroke-1 fill-none stroke-white/20 group-hover:stroke-white/40 transition-all duration-300"
                     />
                   </svg>
-                  {/* Corner accents */}
                   <svg className="absolute -top-px -left-px w-4 h-4 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <path
                       d="M 0 12 V 0 H 12"
@@ -374,7 +325,6 @@ export default function FirstSection() {
                     />
                   </svg>
                 </div>
-                {/* Content */}
                 <div className="relative z-10 flex items-center px-8 py-4">
                   <TextScramble
                     as="span"
@@ -393,20 +343,11 @@ export default function FirstSection() {
             </div>
           </div>
         </div>
-
-        {/* Logo 3D - lado direito (apenas desktop, após montagem) */}
         {hasMounted && !isMobile && (
           <div className="absolute right-6 top-6 bottom-6 w-[45%] z-20 pointer-events-auto">
             <ImageStructure3D className="w-full h-full" />
           </div>
         )}
-
-        {/* Logo 3D simplificada para mobile - temporariamente removido para debug */}
-        {/* {hasMounted && isMobile && (
-                <div className="absolute right-4 bottom-32 w-40 h-40 pointer-events-none z-0 opacity-30">
-                    <div className="w-full h-full rounded-full bg-linear-to-br from-primary/20 to-transparent blur-2xl" />
-                </div>
-            )} */}
       </div>
     </GlassmorphismBackground>
   );
