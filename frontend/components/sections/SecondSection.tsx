@@ -139,7 +139,7 @@ export default function DefaultDemo() {
         <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10 xl:gap-14 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
           <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left shrink-0">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
-              A primeira Empresa,
+              A primeira Empresa
               <br />
               Junior a conquistar
             </h2>
