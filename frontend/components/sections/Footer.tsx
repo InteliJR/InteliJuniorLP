@@ -1,11 +1,6 @@
 "use client";
 
-/**
- * Rodapé/Contato.
- * - Abas Formulário vs Agentes com transição animada e altura fixa para evitar jumps.
- * - Valida contato mínimo (email ou telefone) e simula envio; modal global reaproveitado.
- * - Inclui CTA com TextScramble, dados comerciais e links sociais/legais.
- */
+
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { TechCard } from "../ui/TechCard";
@@ -29,7 +24,6 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-// --- DADOS ---
 
 const commercialTeam = [
     {
@@ -57,14 +51,6 @@ const commercialTeam = [
         image: "/images/members/rodrigo_ferraz.webp",
     },
     {
-        name: "Livia Negrini",
-        phone: "(11) 94373-2417",
-        email: "livia.negrini@intelijunior.com",
-        role: "Representante de Vendas",
-        linkedin: "https://www.linkedin.com/in/livianegrini/",
-        image: "/images/members/livia_negrini.webp",
-    },
-    {
         name: "Ana Júlia Ribeiro",
         phone: "(11) 98637-2353",
         email: "ana.ribeiro@intelijunior.com",
@@ -79,6 +65,30 @@ const commercialTeam = [
         role: "Representante de Vendas",
         linkedin: "https://www.linkedin.com/in/lu%C3%ADsa-mangini/",
         image: "/images/members/luisa_mangini.jpg",
+    },
+    {
+        name: "Eduardo Maciel",
+        phone: "(12) 98827-7091",
+        email: "eduardo.maciel@sou.inteli.edu.br",
+        role: "Representante de Vendas",
+        linkedin: "",
+        image: "",
+    },
+    {
+        name: "Igor Rodrigues",
+        phone: "(11) 94634-5650",
+        email: "igor.rodrigues@sou.inteli.edu.br",
+        role: "Representante de Vendas",
+        linkedin: "",
+        image: "",
+    },
+    {
+        name: "João Mari",
+        phone: "(11) 96895-1339",
+        email: "joao.mari@sou.inteli.edu.br",
+        role: "Representante de Vendas",
+        linkedin: "",
+        image: "",
     },
 ];
 
@@ -96,17 +106,31 @@ const products = [
     "Outros"
 ];
 
-// --- COMPONENTE PRINCIPAL ---
+const siteMapLinks = [
+    { label: "Início", href: "#home" },
+    { label: "Quem Somos", href: "#quem-somos" },
+    { label: "Trajetória", href: "#trajetoria" },
+    { label: "Serviços", href: "#servicos" },
+    { label: "Contato", href: "#contato" },
+];
+
+const servicesFooterLinks = [
+    { label: "Análise de Dados", href: "#servicos" },
+    { label: "Identidade Visual", href: "#servicos" },
+    { label: "Landing Pages", href: "#servicos" },
+    { label: "Aplicações Completas", href: "#servicos" },
+    { label: "Inteligência Artificial", href: "#servicos" },
+];
+
 
 export default function Footer() {
     const [isContactOpen, setIsContactOpen] = useState(false);
     const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
     const [formError, setFormError] = useState<string | null>(null);
-    const [activePanel, setActivePanel] = useState<"form" | "agents">("form");
+    const activePanel: "form" | "agents" = "form";
     const [ctaHover, setCtaHover] = useState(false);
     const [ctaPlayId, setCtaPlayId] = useState(0);
 
-    // Controla o TextScramble: dispara uma vez quando o título entra em viewport
     const titleRef = useRef<HTMLDivElement | null>(null);
     const isTitleInView = useInView(titleRef, { once: true, amount: 0.4 });
     const [hasTriggered, setHasTriggered] = useState(false);
@@ -119,18 +143,16 @@ export default function Footer() {
         }
     }, [isTitleInView, hasTriggered]);
 
-    // Auto-reset do formulário após sucesso
     useEffect(() => {
         if (formState === "success") {
             const timer = setTimeout(() => {
                 setFormState("idle");
                 setFormData({ name: "", company: "", email: "", phone: "", products: [], message: "" });
-            }, 5000); // 5 segundos
+            }, 5000);
             return () => clearTimeout(timer);
         }
     }, [formState]);
 
-    // Form States
     const [formData, setFormData] = useState({
         name: "",
         company: "",
@@ -140,7 +162,6 @@ export default function Footer() {
         message: ""
     });
 
-    // Máscara de telefone brasileiro
     const formatPhone = (value: string): string => {
         const digits = value.replace(/\D/g, '').slice(0, 11);
         if (digits.length <= 2) return digits;
@@ -151,13 +172,13 @@ export default function Footer() {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        
+
         if (name === 'phone') {
             setFormData(prev => ({ ...prev, phone: formatPhone(value) }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
         }
-        
+
         if (formError) setFormError(null);
     };
 
@@ -174,10 +195,8 @@ export default function Footer() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Helper para verificar se string tem conteúdo real (não só espaços)
         const hasContent = (str: string) => str.trim().length > 0;
 
-        // Limites de caracteres
         const LIMITS = {
             name: { min: 3, max: 100 },
             company: { max: 100 },
@@ -185,7 +204,6 @@ export default function Footer() {
             message: { max: 1000 }
         };
 
-        // Validação: Nome obrigatório e limites
         const nameTrimmed = formData.name.trim();
         if (!hasContent(formData.name)) {
             setFormError("Por favor, informe seu nome.");
@@ -200,22 +218,19 @@ export default function Footer() {
             return;
         }
 
-        // Validação: Empresa (opcional, mas com limite)
         if (formData.company.trim().length > LIMITS.company.max) {
             setFormError(`O nome da empresa deve ter no máximo ${LIMITS.company.max} caracteres.`);
             return;
         }
 
-        // Validação: Email OU Telefone obrigatórios (com conteúdo real)
         const hasEmail = hasContent(formData.email);
         const hasPhone = hasContent(formData.phone);
-        
+
         if (!hasEmail && !hasPhone) {
             setFormError("É necessário informar ao menos um contato (Email ou Telefone).");
             return;
         }
 
-        // Validação: Email válido (se preenchido)
         if (hasEmail) {
             const emailTrimmed = formData.email.trim();
             if (emailTrimmed.length > LIMITS.email.max) {
@@ -229,7 +244,6 @@ export default function Footer() {
             }
         }
 
-        // Validação: Telefone válido (se preenchido) - mínimo 10 dígitos
         if (hasPhone) {
             const phoneDigits = formData.phone.replace(/\D/g, '');
             if (phoneDigits.length < 10) {
@@ -238,13 +252,11 @@ export default function Footer() {
             }
         }
 
-        // Validação: Pelo menos um produto selecionado
         if (formData.products.length === 0) {
             setFormError("Por favor, selecione pelo menos um produto de interesse.");
             return;
         }
 
-        // Validação: Mensagem (opcional, mas com limite)
         if (formData.message.trim().length > LIMITS.message.max) {
             setFormError(`A mensagem deve ter no máximo ${LIMITS.message.max} caracteres.`);
             return;
@@ -302,11 +314,11 @@ export default function Footer() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="relative w-full flex h-[50vh] items-center -mb-10"
+                    className="relative left-1/2 w-screen -translate-x-1/2 flex min-h-[50vh] items-center py-14 lg:py-0 -mb-10"
                 >
-                    <div className="h-px w-1/9 bg-primary" />
-                    <div className="flex gap-18 w-full items-center justify-center px-10">
-                        <div className="flex flex-col gap-1 items-start relative">
+                    <div className="hidden lg:block h-px w-1/9 bg-primary" />
+                    <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-18 w-full items-center justify-center px-6 sm:px-10">
+                        <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left relative shrink-0">
                             <TextScramble
                                 as="span"
                                 className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
@@ -314,9 +326,9 @@ export default function Footer() {
                                 speed={0.03}
                                 trigger={isTitleInView}
                             >
-                                {"[7. contato]"}
+                                {"[5. contato]"}
                             </TextScramble>
-                            <h2 className="text-4xl md:text-5xl uppercase leading-tight whitespace-nowrap">
+                            <h2 className="text-4xl md:text-5xl uppercase leading-tight lg:whitespace-nowrap">
                                 vamos construir<br />o
                                 <TextScramble
                                     as="span"
@@ -333,23 +345,20 @@ export default function Footer() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={hasTriggered ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className="absolute -right-4 -top-2 flex items-center justify-center mt-2"
+                                className="absolute -right-4 -top-2 hidden lg:flex items-center justify-center mt-2"
                             >
                                 <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
                             </motion.div>
                         </div>
-                        <p className="text-white/70 text-md whitespace-normal">
+                        <p className="text-white/70 text-md whitespace-normal max-w-lg text-center lg:text-left">
                             Nosso time está pronto para entender o seu desafio e construir, junto com você, a melhor solução.
-                            Preencha o formulário ou fale direto com o nosso time de vendas.
+                            Preencha o formulário e nosso time retorna com os próximos passos.
                         </p>
                     </div>
-                    <div className="h-px w-1/9 bg-primary" />
+                    <div className="hidden lg:block h-px w-1/9 bg-primary" />
                 </motion.div>
-
-                {/* MAIN CONTENT GRID - Terminal Style Switcher */}
                 <div className="relative mb-20 px-[5%]">
                     <div className="relative w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_0_50px_rgba(0,0,0,0.7)]">
-                        {/* Top bar */}
                         <div className="h-11 w-full bg-white/5 border-b border-white/10 flex items-center justify-between px-4">
                             <div className="flex items-center gap-3">
                                 <div className="flex gap-1.5">
@@ -370,20 +379,10 @@ export default function Footer() {
                                 </span>
                             </div>
                         </div>
-                        {/* <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                            <div className="flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                                <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-white">Transmissão de Projeto</span>
-                            </div>
-                            <span className="text-[10px] font-mono text-white/50">INTERFACE: INPUT_MODE</span>
-                        </div> */}
-
-                        {/* Tab bar */}
                         <div className="flex items-center justify-between bg-white/5 border-b border-white/10 px-4 py-3">
                             <div className="flex gap-3">
                                 <button
                                     type="button"
-                                    onClick={() => setActivePanel("form")}
                                     className={cn(
                                         "px-3 py-2 text-xs font-bold uppercase tracking-widest border transition-all duration-300",
                                         activePanel === "form"
@@ -394,23 +393,8 @@ export default function Footer() {
                                 >
                                     Formulário
                                 </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setActivePanel("agents")}
-                                    className={cn(
-                                        "px-3 py-2 text-xs font-bold uppercase tracking-widest border transition-all duration-300",
-                                        activePanel === "agents"
-                                            ? "bg-primary text-black border-primary shadow-[0_0_20px_rgba(255,77,58,0.35)]"
-                                            : "text-white/70 border-white/10 hover:text-white hover:border-white/30"
-                                    )}
-                                    aria-pressed={activePanel === "agents"}
-                                >
-                                    Time de vendas
-                                </button>
                             </div>
                         </div>
-
-                        {/* Body */}
                         <div className="relative min-h-[640px]">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,77,58,0.08),transparent_35%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.04),transparent_30%)]" />
 
@@ -425,11 +409,9 @@ export default function Footer() {
                                         className="relative z-10 h-full"
                                     >
                                         {formState === "success" ? (
-                                            /* Tela de sucesso - ocupa todo o container sem borda interna */
+
                                             <div className="relative min-h-[500px] flex flex-col items-center justify-center text-center space-y-6 p-8">
                                                 <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.2),transparent_50%)]" />
-                                                
-                                                {/* Barra de progresso do auto-reset */}
                                                 <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 overflow-hidden">
                                                     <motion.div
                                                         initial={{ width: "100%" }}
@@ -438,8 +420,8 @@ export default function Footer() {
                                                         className="h-full bg-green-500/60"
                                                     />
                                                 </div>
-                                                
-                                                <motion.div 
+
+                                                <motion.div
                                                     initial={{ scale: 0, opacity: 0 }}
                                                     animate={{ scale: 1, opacity: 1 }}
                                                     transition={{ type: "spring", duration: 0.5 }}
@@ -448,8 +430,8 @@ export default function Footer() {
                                                     <div className="absolute inset-0 bg-green-500/30 blur-2xl rounded-full scale-150" />
                                                     <CheckCircle2 className="relative w-20 h-20 text-green-500" />
                                                 </motion.div>
-                                                
-                                                <motion.div 
+
+                                                <motion.div
                                                     initial={{ opacity: 0, y: 20 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ delay: 0.2 }}
@@ -462,7 +444,7 @@ export default function Footer() {
                                                         Sua mensagem foi recebida com sucesso. Nosso time entrará em contato em breve.
                                                     </p>
                                                 </motion.div>
-                                                
+
                                                 <motion.button
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
@@ -472,7 +454,7 @@ export default function Footer() {
                                                 >
                                                     Enviar nova mensagem
                                                 </motion.button>
-                                                
+
                                                 <motion.p
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
@@ -483,7 +465,7 @@ export default function Footer() {
                                                 </motion.p>
                                             </div>
                                         ) : (
-                                            /* Formulário */
+
                                             <div className="relative overflow-hidden border border-white/10 bg-linear-to-b from-black/80 via-primary/10 to-black/90 shadow-[0_0_35px_rgba(255,77,58,0.2)]">
                                                 <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_30%_20%,rgba(255,77,58,0.16),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(255,255,255,0.06),transparent_30%)]" />
                                                 <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
@@ -696,11 +678,10 @@ export default function Footer() {
                                             {commercialTeam.map((member, idx) => (
                                                 <TechCard key={idx} className="bg-white/[0.02] hover:bg-white/[0.05] border-white/[0.06] hover:border-primary/30 transition-all duration-300 group/member">
                                                     <div className="flex flex-col items-center text-center p-5 gap-4">
-                                                        {/* Avatar */}
                                                         <div className="relative flex-none">
                                                             <div className="absolute -inset-1 bg-gradient-to-br from-primary/40 to-transparent rounded-full opacity-0 group-hover/member:opacity-100 blur-md transition-opacity duration-300" />
                                                             {member.image ? (
-                                                                <div 
+                                                                <div
                                                                     className="relative rounded-full overflow-hidden border-2 border-white/10 group-hover/member:border-primary/40 transition-colors duration-300"
                                                                     style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}
                                                                 >
@@ -712,7 +693,7 @@ export default function Footer() {
                                                                     />
                                                                 </div>
                                                             ) : (
-                                                                <div 
+                                                                <div
                                                                     className="relative rounded-full border-2 border-white/10 bg-white/5 flex items-center justify-center text-lg font-semibold text-white/80 group-hover/member:border-primary/40 transition-colors duration-300"
                                                                     style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}
                                                                 >
@@ -720,8 +701,6 @@ export default function Footer() {
                                                                 </div>
                                                             )}
                                                         </div>
-
-                                                        {/* Info */}
                                                         <div className="space-y-1">
                                                             <p className="text-white font-bold text-sm uppercase tracking-wider group-hover/member:text-primary transition-colors duration-300">
                                                                 {member.name}
@@ -730,8 +709,6 @@ export default function Footer() {
                                                                 {member.role}
                                                             </p>
                                                         </div>
-
-                                                        {/* Contatos */}
                                                         <div className="w-full space-y-2 pt-2 border-t border-white/5">
                                                             {member.phone && (
                                                                 <a
@@ -754,18 +731,18 @@ export default function Footer() {
                                                                 <span className="truncate">{member.email}</span>
                                                             </a>
                                                         </div>
-
-                                                        {/* LinkedIn Button */}
-                                                        <a
-                                                            href={member.linkedin}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="flex items-center justify-center gap-2 w-full text-[11px] font-medium uppercase tracking-wider text-white/70 hover:text-primary border border-white/10 hover:border-primary/40 py-3.5 rounded-sm transition-all duration-300 hover:bg-primary/5"
-                                                            aria-label={`LinkedIn de ${member.name}`}
-                                                        >
-                                                            <Linkedin className="w-3.5 h-3.5" />
-                                                            Ver Perfil
-                                                        </a>
+                                                        {member.linkedin && (
+                                                            <a
+                                                                href={member.linkedin}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center justify-center gap-2 w-full text-[11px] font-medium uppercase tracking-wider text-white/70 hover:text-primary border border-white/10 hover:border-primary/40 py-3.5 rounded-sm transition-all duration-300 hover:bg-primary/5"
+                                                                aria-label={`LinkedIn de ${member.name}`}
+                                                            >
+                                                                <Linkedin className="w-3.5 h-3.5" />
+                                                                Ver Perfil
+                                                            </a>
+                                                        )}
                                                     </div>
                                                 </TechCard>
                                             ))}
@@ -830,22 +807,21 @@ export default function Footer() {
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Mapa do site</h3>
                                 <ul className="space-y-3 text-sm text-white/70">
-                                    <li><a className="hover:text-primary transition-colors" href="#home">Início</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#quem-somos">Quem somos</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#trajetoria">Trajetória</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Serviços</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#cases">Portfólio</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#depoimentos">Membros</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#contato">Contato</a></li>
+                                    {siteMapLinks.map((item) => (
+                                        <li key={item.href}>
+                                            <a className="hover:text-primary transition-colors" href={item.href}>{item.label}</a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div>
                                 <h3 className="mb-4 font-bold uppercase tracking-[0.12em] text-white">Serviços</h3>
                                 <ul className="space-y-3 text-sm text-white/70">
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Análise de Dados</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Aplicações Completas</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#servicos">Landing Pages</a></li>
-                                    <li><a className="hover:text-primary transition-colors" href="#cases">Cases em destaque</a></li>
+                                    {servicesFooterLinks.map((item) => (
+                                        <li key={item.label}>
+                                            <a className="hover:text-primary transition-colors" href={item.href}>{item.label}</a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div>
@@ -859,17 +835,30 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="mx-auto w-full px-[5%] pb-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/70 md:flex-row md:items-center md:justify-between relative z-10">
-                        <p className="uppercase tracking-[0.12em]">© 2025 Inteli Júnior. Todos os direitos reservados.</p>
-                        <a
-                            href="https://github.com/souzajv"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-white/70 hover:text-primary transition-colors"
-                            aria-label="GitHub de João Campos"
-                        >
+                        <p className="uppercase tracking-[0.12em]">© 2026 Inteli Júnior. Todos os direitos reservados.</p>
+                        <span className="inline-flex items-center gap-2 text-white/70">
                             <Github className="w-4 h-4" />
-                            Made by João Campos
-                        </a>
+                            Made by{" "}
+                            <a
+                                href="https://github.com/enzopiolcerutti"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary transition-colors"
+                                aria-label="GitHub de Enzo Cerutti"
+                            >
+                                Enzo Cerutti
+                            </a>
+                            {" "}&{" "}
+                            <a
+                                href="https://github.com/souzajv"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary transition-colors"
+                                aria-label="GitHub de João Campos"
+                            >
+                                João Campos
+                            </a>
+                        </span>
                         <div className="flex flex-col gap-4 text-white/70 text-[10px] md:text-xs md:items-end">
                             <a
                                 href="https://share.google/SXZzbHvo95wP7AzUs"
@@ -887,8 +876,6 @@ export default function Footer() {
                     </div>
                 </section>
             </div>
-
-            {/* Modal de Contato (Para botões do topo da página que chamam o modal) */}
             <ContactModal
                 isOpen={isContactOpen}
                 onClose={() => setIsContactOpen(false)}

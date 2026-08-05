@@ -1,33 +1,70 @@
-/**
- * Layout raiz da landing page
- * - Aplica fonte global e tema dark default.
- * - Injeta provedores críticos: LazyMotion (animações), ClientCursor (cursor desktop),
- *   SmoothScrolling (Lenis) e AppLoaderShell (splash + gate de carregamento).
- * - Mantém o <Header /> fixo e envelopa o conteúdo em <main>.
- * Performance: pré-carrega fonte via next/font (swap) e pré-conecta domínio de imagens remotas.
- */
+
 import "./globals.css";
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
 import AppLoaderShell from "@/components/AppLoaderShell";
-import Header from "@/components/ui/Header";
 import SmoothScrolling from "@/components/SmoothScrolling";
-import ClientCursor from "@/components/ClientCursor";
 import LazyMotionProvider from "@/components/LazyMotionProvider";
 
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap", // mantém texto visível com fallback enquanto a fonte carrega
-  preload: true,
-});
+const TITLE =
+  "Inteli Junior | Desenvolvemos automações, sites e consultoria em dados";
+const DESCRIPTION =
+  "A Inteli Junior desenvolve sites, automações e soluções em dados para empresas que querem crescer com tecnologia.";
 
 export const metadata: Metadata = {
-  title: "Inteli Júnior",
-  description: "Criando soluções como futuramente",
+  metadataBase: new URL("https://intelijunior.com"),
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "tecnologia",
+    "automação",
+    "inteligência artificial",
+    "IA",
+    "desenvolvimento web",
+    "dashboard",
+    "consultoria em dados",
+    "análise de dados",
+    "landing page",
+    "empresa júnior",
+    "Inteli Junior",
+  ],
   icons: {
     icon: "/images/logo.svg",
   },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://intelijunior.com",
+    siteName: "Inteli Junior",
+    images: [
+      {
+        url: "/images/og-cover.jpg",
+        width: 1200,
+        height: 900,
+        alt: "Time da Inteli Junior",
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/images/og-cover.jpg"],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Inteli Junior",
+  url: "https://intelijunior.com",
+  logo: "https://intelijunior.com/images/logo.svg",
+  description: DESCRIPTION,
+  sameAs: [
+    "https://www.instagram.com/inteli.jr/",
+    "https://www.linkedin.com/company/inteli-júnior/",
+  ],
 };
 
 export default function RootLayout({
@@ -39,19 +76,18 @@ export default function RootLayout({
     <html lang="pt-br" className="dark">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
-      {/* cursor custom só em desktop; mobile mantém cursor padrão */}
-      <body className={`${jetBrainsMono.variable} antialiased md:cursor-none`}>
+      <body className="antialiased">
         <LazyMotionProvider>
-          <ClientCursor />
           <SmoothScrolling>
             <AppLoaderShell>
-              <>
-                <Header />
-                <main className="relative">
-                  {children}
-                </main>
-              </>
+              <main className="relative">
+                {children}
+              </main>
             </AppLoaderShell>
           </SmoothScrolling>
         </LazyMotionProvider>

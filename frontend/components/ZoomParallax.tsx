@@ -1,10 +1,6 @@
 'use client';
 
-/**
- * ZoomParallax: colagem de imagens com escalas progressivas ligadas ao scroll.
- * - Usa scrollYProgress + useTransform para escalar múltiplas camadas.
- * - Container sticky evita jumps; primeira imagem carrega com prioridade para suavizar a entrada.
- */
+
 import { useScroll, useTransform, m } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
@@ -17,7 +13,7 @@ interface ImageData {
 }
 
 interface ZoomParallaxProps {
-	/** Array of images to be displayed in the parallax effect max 7 images */
+
 	images: ImageData[];
 }
 
@@ -26,7 +22,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const { scrollYProgress } = useScroll({
 		target: container,
 		offset: ['start start', 'end end'],
-	}); // Progress local para controlar escalas sem dependência do scroll global
+	});
 
 	const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
 	const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
@@ -34,7 +30,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
 	const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
 
-	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9]; // Reuso do array mantém ritmo sem recriar transforms
+	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
 	return (
 		<div ref={container} className="relative h-[300vh]">
@@ -51,14 +47,12 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 							<div
 								className="relative h-[25vh] w-[25vw] group overflow-visible pointer-events-auto"
 							>
-								{/* Clipped content container */}
 								<div
 									className="absolute inset-0 overflow-hidden"
 									style={{
 										clipPath: 'polygon(5% 0%, 95% 0%, 100% 8%, 100% 92%, 95% 100%, 5% 100%, 0% 92%, 0% 8%)'
 									}}
 								>
-									{/* Imagem principal (foto7) precisa de alta qualidade pois faz zoom 4x */}
 									<Image
 										src={src}
 										alt={alt || `Parallax image ${index + 1}`}
@@ -69,7 +63,6 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 										priority={index === 0}
 										unoptimized={index === 0}
 									/>
-									{/* Efeito elegante de sombra interna */}
 									<div className="absolute inset-0 pointer-events-none shadow-(--shadow-inner-glass-premium)" />
 									<div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-black/80 opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
 									<div className="absolute inset-0 flex flex-col justify-between p-4">
@@ -87,8 +80,6 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 										)}
 									</div>
 								</div>
-
-								{/* SVG Tech Border - outside clip-path */}
 								<div className="absolute inset-0 pointer-events-none">
 									<svg
 										className="w-full h-full"

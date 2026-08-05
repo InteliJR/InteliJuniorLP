@@ -1,11 +1,6 @@
 "use client";
 
-/**
- * Seção de Serviços (catálogo interativo).
- * - Cards 3D com flip controlado por scroll (useScroll + useMotionValueEvent) para evitar work desnecessário.
- * - Constantes de clip-path e SVG são memoizadas para reduzir re-render.
- * - Ícones e cores vêm de config local; animações usam framer-motion.
- */
+
 import { useState, useCallback, useRef, memo } from "react";
 import { m, useScroll, useSpring, useMotionValueEvent, MotionValue } from "framer-motion";
 import { useScrambleTrigger } from "@/hooks/useScrambleTrigger";
@@ -20,10 +15,10 @@ import {
     MousePointerClick,
     Lock,
     Zap,
-    Cpu
+    Cpu,
+    Bot
 } from "lucide-react";
 
-// Dados dos serviços
 const services = [
     {
         id: 1,
@@ -97,9 +92,26 @@ const services = [
         accentColor: "orange",
         serial: "SYS-04"
     },
+    {
+        id: 5,
+        title: "Inteligência Artificial",
+        subtitle: "Assistentes e agentes para operar melhor",
+        description: "Desenvolvemos assistentes, agentes e automações com IA para qualificar atendimento, acelerar rotinas internas, organizar conhecimento e integrar fluxos com os sistemas que sua operação já usa.",
+        features: ["Agentes Autônomos", "Assistentes Internos", "RAG & Bases de Conhecimento", "Automação de Processos"],
+        icon: Bot,
+        technologies: [
+            { name: "OpenAI", logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/openai.svg" },
+            { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+            { name: "LangChain", logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/langchain.svg" },
+            { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+            { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+            { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        ],
+        accentColor: "cyan",
+        serial: "IA-05"
+    },
 ];
 
-// Mapeamento de cores para classes Tailwind
 const colorMap = {
     cyan: {
         text: "text-cyan-400",
@@ -163,17 +175,15 @@ const colorMap = {
     },
 };
 
-// ClipPath constante para evitar recriação
 const CARD_CLIP_PATH = 'polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 8%)';
 const ICON_CLIP_PATH = 'polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)';
 const BADGE_CLIP_PATH = 'polygon(10% 0%, 100% 0%, 100% 100%, 90% 100%, 0% 100%, 0% 0%)';
 const CTA_CLIP_PATH = 'polygon(8% 0%, 100% 0%, 100% 70%, 92% 100%, 0% 100%, 0% 30%)';
+const SERVICES_WIRE_PATH = 'M 25 0 V 16 H 75 V 34 H 25 V 52 H 75 V 70 H 25 V 88';
 
-// SVG Border Path constante
 const CARD_SVG_PATH = "M 8 0 L 100 0 L 100 92 L 92 100 L 0 100 L 0 8 L 8 0 Z";
 const CTA_SVG_PATH = "M 8 0 L 100 0 L 100 70 L 92 100 L 0 100 L 0 30 L 8 0 Z";
 
-// Componente de Corner Accents memoizado
 const CornerAccents = memo(function CornerAccents({ colorClass, show = false }: { colorClass: string; show?: boolean }) {
     const baseClass = "absolute w-6 h-6 pointer-events-none z-40 transition-opacity duration-300";
     const visibilityClass = show ? "opacity-100" : "opacity-0 group-hover:opacity-100";
@@ -190,7 +200,6 @@ const CornerAccents = memo(function CornerAccents({ colorClass, show = false }: 
     );
 });
 
-// Componente SVG Border memoizado
 const TechBorder = memo(function TechBorder({ strokeClass }: { strokeClass: string }) {
     return (
         <div className="absolute inset-0 pointer-events-none z-30">
@@ -205,7 +214,6 @@ const TechBorder = memo(function TechBorder({ strokeClass }: { strokeClass: stri
     );
 });
 
-// Componente ServiceCard otimizado com memo
 const ServiceCard = memo(function ServiceCard({
     service,
     align,
@@ -220,9 +228,7 @@ const ServiceCard = memo(function ServiceCard({
     const [isFlipped, setIsFlipped] = useState(false);
     const [isActive, setIsActive] = useState(false);
 
-    // Escuta o progresso do scroll para acionar a revelação
     useMotionValueEvent(scrollProgress, "change", (latest) => {
-        // Ativa/desativa baseado no progresso local do scroll para cada card
         if (latest > threshold && !isActive) setIsActive(true);
         else if (latest <= threshold && isActive) setIsActive(false);
     });
@@ -230,9 +236,9 @@ const ServiceCard = memo(function ServiceCard({
     const Icon = service.icon;
     const colors = colorMap[service.accentColor as keyof typeof colorMap];
 
-    const handleClick = useCallback(() => setIsFlipped(prev => !prev), []); // Toggle frente/verso
+    const handleClick = useCallback(() => setIsFlipped(prev => !prev), []);
     const handleMouseLeave = useCallback(() => {
-        setIsFlipped(false); // Volta para frente ao sair para evitar hover stuck
+        setIsFlipped(false);
     }, []);
 
     return (
@@ -244,7 +250,6 @@ const ServiceCard = memo(function ServiceCard({
             onClick={handleClick}
             onMouseLeave={handleMouseLeave}
         >
-            {/* Container 3D - Adicionado will-change-transform para otimização de performance */}
             <div
                 className={cn(
                     "relative w-full h-full transform-3d will-change-transform",
@@ -252,50 +257,35 @@ const ServiceCard = memo(function ServiceCard({
                     isFlipped ? "rotate-y-180" : "rotate-y-0"
                 )}
             >
-                {/* ========== FRENTE DO CARD (2 Estados: Bloqueado vs Desbloqueado) ========== */}
                 <div
                     className={cn(
                         "absolute inset-0 w-full h-full backface-hidden",
                         isFlipped && "pointer-events-none"
                     )}
                 >
-                    {/* Borda SVG */}
                     <TechBorder strokeClass={cn(
                         "transition-all duration-500",
                         isActive ? colors.stroke : "stroke-white/30"
                     )} />
-
-                    {/* Elementos HUD */}
                     <div className="absolute top-3 right-3 z-40 pointer-events-none flex gap-2">
                         <div className={cn(
                             "w-2 h-2 rounded-full transition-all duration-300",
                             isActive ? `${colors.bgHoverClass} shadow-[0_0_10px_currentColor]` : "bg-white/30"
                         )} />
                     </div>
-
-                    {/* Camadas de fundo */}
                     <div className="absolute inset-0 overflow-hidden" style={{ clipPath: CARD_CLIP_PATH }}>
-                        {/* Fundo Escuro Base - OPACO (bg-black) para não mostrar o fio atrás */}
                         <div className="absolute inset-0 bg-black" />
-
-                        {/* Gradiente do Estado Desbloqueado (Ativo) */}
                         <div className={cn(
                             "absolute inset-0 transition-opacity duration-700",
                             isActive ? "opacity-100" : "opacity-0",
                             colors.gradient
                         )} />
-
-                        {/* Padrão do Estado Bloqueado (!Ativo) */}
                         <div className={cn(
                             "absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_50%,transparent_75%,transparent_100%)] bg-size-[20px_20px]",
                             isActive ? "opacity-0" : "opacity-100"
                         )} />
-
-                        {/* Grid */}
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[24px_24px] opacity-50" />
                     </div>
-
-                    {/* CONTEÚDO: ESTADO BLOQUEADO (Idle) */}
                     <div className={cn(
                         "absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 p-8 text-center z-20",
                         isActive ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0"
@@ -313,8 +303,6 @@ const ServiceCard = memo(function ServiceCard({
                             <span className="text-[10px] uppercase tracking-widest text-white/40">Waiting Connection...</span>
                         </div>
                     </div>
-
-                    {/* CONTEÚDO: ESTADO DESBLOQUEADO (Ativo) */}
                     <div className={cn(
                         "absolute inset-0 flex flex-col justify-between p-8 z-20 transition-all duration-500 delay-75",
                         isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
@@ -365,8 +353,6 @@ const ServiceCard = memo(function ServiceCard({
                         </div>
                     </div>
                 </div>
-
-                {/* ========== VERSO DO CARD (Tech Stack) ========== */}
                 <div
                     className={cn(
                         "absolute inset-0 w-full h-full backface-hidden rotate-y-180",
@@ -376,16 +362,11 @@ const ServiceCard = memo(function ServiceCard({
                     <TechBorder strokeClass={cn("stroke-white/20", colors.stroke)} />
 
                     <CornerAccents colorClass={colors.text} show={true} />
-
-                    {/* Background consolidado */}
                     <div className="absolute inset-0 overflow-hidden" style={{ clipPath: CARD_CLIP_PATH }}>
-                        {/* Fundo Escuro Base - OPACO (bg-black) para não mostrar o fio atrás */}
                         <div className="absolute inset-0 bg-black" />
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[20px_20px]" />
                         <div className={cn("absolute inset-0 bg-linear-to-b from-transparent via-black/80 to-black/95", colors.bg)} />
                     </div>
-
-                    {/* Conteúdo */}
                     <div className="relative z-20 h-full flex flex-col p-8">
                         <div className="flex items-center gap-4 mb-6 pb-4 border-b border-white/35">
                             <div className="p-2 border border-white/10 bg-white/5 rounded-md">
@@ -396,7 +377,7 @@ const ServiceCard = memo(function ServiceCard({
                                     {service.title}
                                 </h3>
                                 <span className={cn("text-xs uppercase tracking-widest opacity-80", colors.text)}>
-                                    // Architecture Stack
+                                    Architecture Stack
                                 </span>
                             </div>
                         </div>
@@ -429,8 +410,6 @@ const ServiceCard = memo(function ServiceCard({
                                 ))}
                             </div>
                         </div>
-
-                        {/* Botão CTA */}
                         <a href="#contato" className="relative group/cta mt-6 inline-flex items-center justify-center w-full">
                             <div
                                 className={cn("absolute inset-0 transition-colors duration-300 opacity-90 group-hover/cta:opacity-100", colors.bg)}
@@ -463,36 +442,31 @@ export default function FourthSection() {
         offset: ["start center", "end center"]
     });
 
-    // Suaviza o progresso do scroll - Rigidez/amortecimento ajustados para melhor responsividade
     const smoothProgress = useSpring(scrollYProgress, {
         stiffness: 200,
         damping: 30,
         restDelta: 0.001
     });
 
-    // Limites personalizados para cada card para garantir o tempo correto em relação ao caminho zig-zag
-    const thresholds = [0.05, 0.28, 0.58, 0.88];
+    const thresholds = [0.04, 0.24, 0.44, 0.64, 0.84];
 
     return (
-        <section id="servicos" className="relative py-24 overflow-hidden">
-            {/* Background decorativo */}
+        <section id="servicos" className="relative pt-24 pb-8 md:pb-12 overflow-hidden">
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-primary/2 to-transparent" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-size-[60px_60px]" />
             </div>
-
-            {/* Header da seção */}
             <m.div
                 ref={headerRef}
-                className="w-full flex items-center justify-between mx-auto pb-20 "
+                className="w-full flex items-center justify-between mx-auto pb-14 lg:pb-20 "
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <div className="h-[0.1px] w-1/9 bg-primary"></div>
-                <div className="flex items-center gap-18 px-10">
-                    <div className="flex flex-col">
+                <div className="hidden lg:block h-px w-1/9 bg-primary" />
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-18 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
+                    <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left relative shrink-0">
                         <TextScramble
                             as="span"
                             className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
@@ -501,10 +475,11 @@ export default function FourthSection() {
                             trigger={headerTriggered}
                             playId={headerPlayId}
                         >
-                            {"[4. Nossos Serviços]"}
+                            {"[2. Nossos Serviços]"}
                         </TextScramble>
-                        <h2 className="text-4xl md:text-5xl font-light uppercase leading-tight mb-4 whitespace-nowrap">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
                             nossos <TextScramble
+                                as="span"
                                 className="text-primary font-semibold"
                                 duration={1}
                                 speed={0.03}
@@ -513,17 +488,13 @@ export default function FourthSection() {
                             > serviços</TextScramble>
                         </h2>
                     </div>
-                    <p className="text-muted-foreground text-md">
+                    <p className="text-muted-foreground text-md whitespace-normal max-w-md lg:max-w-lg text-center lg:text-left">
                         De uma ideia ambiciosa a uma <span className="font-semibold text-white/70">referência no ecossistema júnior</span>. Confira os marcos da nossa evolução.
                     </p>
                 </div>
-                <div className="h-[0.1px] w-1/9 bg-primary"></div>
+                <div className="hidden lg:block h-px w-1/9 bg-primary" />
             </m.div>
-
-            {/* Container do Layout Zig-Zag */}
             <div ref={containerRef} className="relative container mx-auto px-4 lg:px-24 flex flex-col">
-
-                {/* Fundo Principal dos Fios Cyber Zigzag - Controlado pelo Scroll */}
                 <div className="absolute inset-0 pointer-events-none z-0 hidden lg:block overflow-visible">
                     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                         <defs>
@@ -531,14 +502,9 @@ export default function FourthSection() {
                                 <stop offset="0%" stopColor="rgba(255,255,255,0.05)" />
                                 <stop offset="100%" stopColor="rgba(255,255,255,0.05)" />
                             </linearGradient>
-
-                            {/* Gradiente do componente correspondente - Adaptado para SVG Estático */}
                             <linearGradient id="wire-gradient-primary" x1="0%" y1="0%" x2="0%" y2="100%">
-                                {/* Cauda (Topo) é fraca mas visível */}
                                 <stop offset="0%" stopColor="var(--primary)" stopOpacity="1" />
-                                {/* Seção média é mediana */}
                                 <stop offset="50%" stopColor="var(--primary)" stopOpacity="1" />
-                                {/* Cabeça (Fundo) é sólida para garantir visibilidade final */}
                                 <stop offset="100%" stopColor="var(--primary)" stopOpacity="1" />
                             </linearGradient>
 
@@ -550,19 +516,15 @@ export default function FourthSection() {
                                 </feMerge>
                             </filter>
                         </defs>
-
-                        {/* Trilho de Fundo (Inativo) */}
                         <path
-                            d="M 25 0 V 20 H 75 V 45 H 25 V 70 H 75 V 100"
+                            d={SERVICES_WIRE_PATH}
                             fill="none"
                             stroke="url(#wire-gradient-bg)"
                             strokeWidth="0.15"
                             className="opacity-50"
                         />
-
-                        {/* Trilho Frontal (Ativo) - Controlado pelo Scroll */}
                         <m.path
-                            d="M 25 0 V 20 H 75 V 45 H 25 V 70 H 75 V 100"
+                            d={SERVICES_WIRE_PATH}
                             fill="none"
                             stroke="url(#wire-gradient-primary)"
                             strokeWidth="0.25"
@@ -577,7 +539,6 @@ export default function FourthSection() {
                     const isEven = index % 2 === 0;
                     const isFirst = index === 0;
 
-                    // Usa limites calculados para tempo de ativação preciso
                     const threshold = thresholds[index];
 
                     return (
@@ -592,8 +553,8 @@ export default function FourthSection() {
                             )}
                             initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.7, delay: index * 0.1 }}
+                            viewport={{ once: true, margin: "-180px" }}
+                            transition={{ duration: 0.45, delay: index * 0.04 }}
                         >
                             <ServiceCard
                                 service={service}

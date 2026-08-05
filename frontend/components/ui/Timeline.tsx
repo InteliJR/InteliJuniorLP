@@ -37,27 +37,27 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       className="w-full md:px-10"
       ref={containerRef}
     >
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-32 md:pb-48">
         {data.map((item, index) => (
           <m.div
             key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
+            className="flex justify-start pt-10 lg:pt-40 lg:gap-10"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
           >
             <m.div
-              className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full"
+              className="sticky flex flex-col lg:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm lg:w-full"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.15 + 0.2 }}
             >
-              <div className="h-10 absolute left-3 md:left-3 w-10 bg-black flex items-center justify-center border border-white/10 rotate-45">
+              <div className="h-10 absolute left-3 lg:left-3 w-10 bg-black flex items-center justify-center border border-white/10 rotate-45">
                 <div className="h-4 w-4 bg-primary/20 border border-primary p-2 shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
               </div>
-              <div className="hidden md:flex items-center gap-4 md:pl-20">
+              <div className="hidden lg:flex items-center gap-4 lg:pl-20">
                 <h3 className="text-xl md:text-5xl font-bold text-white">
                   {item.title}
                 </h3>
@@ -71,13 +71,13 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             </m.div>
 
             <m.div
-              className="relative pl-20 pr-4 md:pl-4 w-full"
+              className="relative pl-20 pr-4 lg:pl-4 w-full"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.15 + 0.3 }}
             >
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-white/20">
+              <h3 className="lg:hidden block text-2xl mb-4 text-left font-bold text-white/20">
                 {item.title}
               </h3>
               {item.content}{" "}

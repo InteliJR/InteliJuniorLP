@@ -1,20 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Source maps desabilitados em produção para reduzir tamanho
   productionBrowserSourceMaps: false,
 
   output: "export",
 
-  // Compressão agressiva
   compress: true,
 
-  // Otimização de imagens para static export
   images: {
-    // Para static export, precisamos desabilitar a otimização server-side
-    // As imagens devem ser pré-otimizadas (use o script convert-images.js)
     unoptimized: true,
-    // Domínios permitidos para imagens externas
     remotePatterns: [
       {
         protocol: 'https',
@@ -33,23 +27,17 @@ const nextConfig: NextConfig = {
         hostname: 'cdn.jsdelivr.net',
       },
     ],
-    // Formatos modernos (para referência, mas imagens devem ser pré-convertidas)
     formats: ['image/avif', 'image/webp'],
-    // Tamanhos de dispositivos para responsividade
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2560, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
-  // Otimizações experimentais
   experimental: {
-    // Otimiza o CSS removendo não utilizado
     optimizeCss: true,
   },
 
-  // Turbopack config (vazio para silenciar aviso)
   turbopack: {},
 
-  // Headers de cache para melhor performance
   async headers() {
     return [
       {

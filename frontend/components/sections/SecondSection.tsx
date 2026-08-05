@@ -1,10 +1,6 @@
 "use client";
 
-/**
- * Seção "Quem Somos" + carrossel de parceiros.
- * - Combina ZoomParallax (linha do tempo visual) e grid bento de cards com CTA.
- * - Carrossel de empresas fica ao final; placeholder evita CLS enquanto ZoomParallax carrega.
- */
+
 import React, { useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import { m, useInView } from "framer-motion";
@@ -19,10 +15,8 @@ import {
   GitBranch,
   Cloud,
 } from "lucide-react";
-import { CompaniesCarousel } from "../CompaniesCarousel";
 import { TiltCard } from "../TiltCard";
 
-// Dynamic import do ZoomParallax - componente pesado com Framer Motion
 const ZoomParallax = dynamic(
   () =>
     import("@/components/ZoomParallax").then((mod) => ({
@@ -31,78 +25,17 @@ const ZoomParallax = dynamic(
   {
     ssr: true,
     loading: () => (
-      // Placeholder com altura fixa para evitar CLS
       <div className="relative h-[300vh] bg-background" />
     ),
   }
 );
 
-const companies = [
-  {
-    name: "BTG Pactual",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Btg-logo-blue.svg",
-    className: "h-14",
-  },
-  {
-    name: "Meta",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
-    className: "h-8",
-  },
-  {
-    name: "BCG",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Boston_Consulting_Group_2020_logo.svg",
-    className: "h-10",
-  },
-  {
-    name: "Dell",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Dell_logo.svg",
-    className: "h-9",
-  },
-  {
-    name: "Banco Pan",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/Bancopanlogo.png",
-    className: "h-18",
-  },
-  {
-    name: "CPTM",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/f/fb/CPTM_%28Logo%29.svg",
-    className: "h-9",
-  },
-  {
-    name: "Uber",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/58/Uber_logo_2018.svg",
-    className: "h-8",
-  },
-  {
-    name: "Ambev",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Ambev_logo.svg",
-    className: "h-10",
-  },
-  {
-    name: "Google",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-    className: "h-10",
-  },
-  {
-    name: "Bank of America",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/20/Bank_of_America_logo.svg",
-    className: "h-8",
-  },
-  {
-    name: "Sírio Libanês",
-    logo: "https://placehold.co/400x200/transparent/ffffff?text=S%C3%ADrio+Liban%C3%AAs",
-    className: "h-26",
-  },
-];
-
 export default function DefaultDemo() {
-  // REMOVIDO: Lenis duplicado - já existe um provider global em SmoothScrolling.tsx
 
   const titleRef = React.useRef<HTMLDivElement | null>(null);
   const [hasTriggered, setHasTriggered] = React.useState(false);
   const [playId, setPlayId] = React.useState(0);
 
-  // Trigger do header "Elevando a maturidade" (seção principal após o parallax)
   const [headerTriggered, setHeaderTriggered] = React.useState(false);
   const [headerPlayId, setHeaderPlayId] = React.useState(0);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
@@ -115,11 +48,6 @@ export default function DefaultDemo() {
     }
   }, [headerInView, headerTriggered]);
 
-  // Trigger do bloco "Empresas que confiam" quando entra em viewport
-  const [companiesTriggered, setCompaniesTriggered] = React.useState(false);
-  const [companiesPlayId, setCompaniesPlayId] = React.useState(0);
-
-  // Estados e funções para o botão CTA
   const [contactPlayId, setContactPlayId] = React.useState(0);
   const contactHoveringRef = useRef(false);
 
@@ -199,52 +127,51 @@ export default function DefaultDemo() {
   ];
   return (
     <main className="min-h-screen w-full">
-      {/* Seção título "3 clusters" com animação */}
       <m.div
         ref={titleRef}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative flex h-[50vh] items-center justify-center -mb-10"
+        className="relative flex min-h-[50vh] lg:h-[50vh] items-center justify-center py-14 lg:py-0 -mb-10"
       >
-        <div className="h-[0.1px] w-1/9 bg-primary"></div>
-        <div className="flex gap-18 whitespace-nowrap w-full items-center justify-center px-10">
-          <div className="flex flex-col gap-1 items-start relative">
-            <h2 className="text-4xl md:text-5xl font-light uppercase leading-tight">
+        <div className="hidden lg:block h-px w-1/9 bg-primary"></div>
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10 xl:gap-14 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
+          <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left shrink-0">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
               A primeira Empresa,
               <br />
               Junior a conquistar
             </h2>
             <TextScramble
               as="span"
-              className="text-4xl md:text-5xl uppercase leading-tight text-primary font-semibold"
+              className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight text-primary font-semibold"
               duration={1}
               speed={0.03}
               trigger={hasTriggered}
               playId={playId}
             >
-              {"4 clusters em 3 anos."}
+              {"5 clusters em 4 anos."}
             </TextScramble>
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={hasTriggered ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="absolute -right-4 -top-2 flex items-center justify-center mt-2"
-            >
-              <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
-              <Trophy
-                className="size-12 text-primary relative z-10"
-                strokeWidth={1.5}
-              />
-            </m.div>
           </div>
-          <p className="text-muted-foreground text-md whitespace-normal">
+          <m.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={hasTriggered ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative flex items-center justify-center shrink-0"
+          >
+            <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
+            <Trophy
+              className="size-12 text-primary relative z-10"
+              strokeWidth={1.5}
+            />
+          </m.div>
+          <p className="text-muted-foreground text-md whitespace-normal max-w-md lg:max-w-lg text-center lg:text-left">
             Mais do que um título, esse marco representa a{" "}
             <span className="text-white/70 font-semibold">
               velocidade da nossa evolução
             </span>
-            . Em apenas 3 anos, atingimos níveis de maturidade que levam tempo
+            . Em apenas 4 anos, atingimos níveis de maturidade que levam tempo
             para serem construídos, provando que{" "}
             <span className="text-white/70 font-semibold">
               unimos a agilidade de uma startup com a responsabilidade de uma
@@ -253,15 +180,14 @@ export default function DefaultDemo() {
             .
           </p>
         </div>
-        <div className="h-[0.1px] w-1/9 bg-primary"></div>
+        <div className="hidden lg:block h-px w-1/9 bg-primary"></div>
       </m.div>
       <ZoomParallax images={images} />
       <section
         id="quem-somos"
-        className="relative w-full py-32 overflow-hidden"
+        className="relative w-full py-28 overflow-hidden"
       >
-        <div className="mx-auto space-y-24 flex flex-col w-full items-center justify-center">
-          {/* Header da seção com animação */}
+        <div className="mx-auto flex flex-col w-full items-center justify-center">
           <m.div
             ref={headerRef}
             initial={{ opacity: 0, y: 30 }}
@@ -269,56 +195,55 @@ export default function DefaultDemo() {
               headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
             }
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full flex flex-col md:flex-row justify-start items-center gap-12"
+            className="w-full flex items-center mb-16 md:mb-24"
           >
-            <div className="h-[0.1px] w-1/12 bg-primary"></div>
-            <div className="space-y-4">
-              <TextScramble
-                as="span"
-                className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
-                duration={1}
-                speed={0.03}
-                trigger={headerTriggered}
-                playId={headerPlayId}
-              >
-                {"[2. Quem somos]"}
-              </TextScramble>
-              <h3 className="text-4xl md:text-5xl font-light uppercase leading-tight whitespace-nowrap">
-                Tecnologia de
+            <div className="hidden lg:block h-px w-1/9 bg-primary" />
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-18 w-full items-center justify-center px-6 sm:px-8 lg:px-10">
+              <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left relative">
                 <TextScramble
-                  className="text-primary font-semibold"
+                  as="span"
+                  className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
                   duration={1}
                   speed={0.03}
                   trigger={headerTriggered}
                   playId={headerPlayId}
                 >
-                  {" verdade"}
+                  {"[3. Quem somos]"}
                 </TextScramble>
-                <br />
-                feita por quem vive o mercado
-              </h3>
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight">
+                  Tecnologia de
+                  <TextScramble
+                    as="span"
+                    className="text-primary font-semibold"
+                    duration={1}
+                    speed={0.03}
+                    trigger={headerTriggered}
+                    playId={headerPlayId}
+                  >
+                    {" verdade"}
+                  </TextScramble>
+                  <br />
+                  feita por quem vive o mercado
+                </h3>
+              </div>
+              <p className="text-white/70 text-md whitespace-normal w-full max-w-lg text-center lg:text-left lg:shrink-0">
+                Nascemos no{" "}
+                <a
+                  href="https://www.inteli.edu.br/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+                >
+                  Inteli
+                </a>
+                , uma faculdade que une tecnologia com liderança desenvolvendo projetos para as maiores empresas do Brasil. Trabalhamos com a metodologia ágil SCRUM e assim garantimos o seu projeto com a melhor entrega do mercado.
+              </p>
             </div>
-            <p className="text-white/80 text-md w-full max-w-lg leading-relaxed">
-              Nascemos no{" "}
-              <a
-                href="https://www.inteli.edu.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
-              >
-                Inteli
-              </a>
-              , uma faculdade de ponta com metodologia inovadora. Nossos membros desenvolvem{" "}
-              <span className="text-white font-semibold">
-                4 projetos reais por ano
-              </span>{" "}
-              para grandes empresas, usando tecnologias de ponta — de Blockchain a IoT.
-            </p>
-            <div className="h-[0.1px] w-1/12 bg-primary"></div>
+            <div className="hidden lg:block h-px w-1/9 bg-primary" />
           </m.div>
-          <div className="grid w-full grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-8 md:px-16 lg:px-32">
-            {/* Card 1 - Quem Somos / Inteli Júnior */}
-            <TiltCard className="md:col-span-2" intensity={14} hoverScale={1.01}>
+
+          <div className="grid w-full grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 px-6 sm:px-8 md:px-16 lg:px-32 mb-20 md:mb-28">
+            <TiltCard className="order-1 md:order-1 lg:col-span-2" intensity={14} hoverScale={1.01}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -326,7 +251,6 @@ export default function DefaultDemo() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="min-h-[360px] relative group overflow-visible h-full"
               >
-              {/* SVG Tech Border - diagonal cuts */}
               <div className="absolute inset-0 pointer-events-none z-30">
                 <svg
                   className="w-full h-full"
@@ -340,14 +264,12 @@ export default function DefaultDemo() {
                   />
                 </svg>
               </div>
-              {/* Corner Accents */}
               <svg className="absolute -top-px -left-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
                 <path d="M 0 16 V 0 H 16" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               <svg className="absolute -bottom-px -right-px w-6 h-6 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40">
                 <path d="M 24 8 V 24 H 8" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
-              {/* Clipped content */}
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{
@@ -381,11 +303,12 @@ export default function DefaultDemo() {
                       <a href="https://www.inteli.edu.br/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">
                         Instituto de Tecnologia e Liderança
                       </a>
-                      . Enquanto no Inteli desenvolvemos MVPs para empresas parceiras, na Inteli Júnior{" "}
+                      , a melhor faculdade de tecnologia do país, conhecida como MIT Brasileiro. Na Inteli Júnior unimos todo o aprendizado dos cursos e entregamos o produto do diagnóstico à implantação do seu projeto.
+                      {" "}
                       <span className="text-white font-semibold">
-                        entregamos o produto completo
+                        Tecnologia aplicada, gestão ágil e entrega de ponta a ponta
                       </span>
-                      : do diagnóstico do problema à implantação robusta em produção.
+                      .
                     </p>
                   </div>
                 </div>
@@ -393,9 +316,7 @@ export default function DefaultDemo() {
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 2 - Metodologia PBL */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-4 md:order-4" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -424,6 +345,18 @@ export default function DefaultDemo() {
                   clipPath: "polygon(8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%, 0% 8%)",
                 }}
               >
+                <div className="absolute inset-0">
+                  <Image
+                    src="/images/foto13-card.jpg"
+                    alt="Metodologia PBL na Inteli Júnior"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    quality={75}
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/70 to-black/50" />
+                </div>
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[20px_20px] z-0 pointer-events-none" />
                 <div className="absolute inset-0 shadow-(--shadow-inner-glass) pointer-events-none" />
                 <div className="pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-white/2" />
@@ -436,17 +369,14 @@ export default function DefaultDemo() {
                   <h4 className="text-lg font-semibold mb-2 text-white">Metodologia PBL</h4>
                   <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
                     No Inteli, cada aluno desenvolve{" "}
-                    <span className="text-primary font-medium">4 projetos por ano</span> para empresas reais. 
-                    De Blockchain a IoT, resolvemos problemas reais com tecnologias de ponta.
+                    <span className="text-primary font-medium">4 projetos por ano</span> para empresas do mercado como Meta, IBM, Google, Bayer, entre outras, aprendemos a desenvolver diversos projetos desde inteligência artificial até Internet of Things (IoT).
                   </p>
                 </div>
               </div>
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 3 - Ágil na Prática */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-2 md:order-2" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -496,7 +426,7 @@ export default function DefaultDemo() {
                   <div className="transform transition-all duration-500 group-hover:translate-x-1">
                     <h4 className="text-xl font-semibold mb-2 text-white">Ágil na Prática</h4>
                     <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
-                      Vivemos Scrum de verdade: sprints, dailies, retrospectivas e reviews com os parceiros. 
+                      Vivemos Scrum de verdade: sprints, dailies, retrospectivas e reviews com os parceiros.
                       Git Flow, code review e CI/CD — o que muitos só veem na teoria, nós praticamos desde o primeiro semestre.
                     </p>
                   </div>
@@ -505,9 +435,7 @@ export default function DefaultDemo() {
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 4 - Tecnologia Avançada */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-3 md:order-3" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -557,7 +485,7 @@ export default function DefaultDemo() {
                   <div className="transform transition-all duration-500 group-hover:translate-x-1">
                     <h4 className="text-xl font-semibold mb-2 text-white">Tecnologia de Verdade</h4>
                     <p className="text-white/80 text-sm leading-relaxed group-hover:text-white/90 transition-colors">
-                      Enquanto outras EJs usam no-code, nós implantamos soluções do zero de forma robusta em cloud. 
+                      Enquanto outras EJs usam no-code, nós implantamos soluções do zero de forma robusta em cloud.
                       Infraestrutura escalável, arquiteturas modernas e código de qualidade profissional.
                     </p>
                   </div>
@@ -566,9 +494,7 @@ export default function DefaultDemo() {
               <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:animate-scan-line pointer-events-none z-50 shadow-[0_0_15px_rgba(255,77,58,0.5)]" />
               </m.div>
             </TiltCard>
-
-            {/* Card 5 - CTA (ocupa 1 coluna) */}
-            <TiltCard intensity={12} hoverScale={1.02}>
+            <TiltCard className="order-5 md:order-5" intensity={12} hoverScale={1.02}>
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -663,54 +589,6 @@ export default function DefaultDemo() {
               </m.div>
             </TiltCard>
           </div>
-          {/* Título empresas com animação */}
-          <m.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex flex-col items-center justify-center gap-4 w-full max-w-4xl text-center px-8"
-            onViewportEnter={() => {
-              if (!companiesTriggered) {
-                setCompaniesTriggered(true);
-                setCompaniesPlayId((prev) => prev + 1);
-              }
-            }}
-          >
-            <TextScramble
-              as="span"
-              className="text-sm font-extralight uppercase text-primary tracking-[0.2em]"
-              duration={1}
-              speed={0.03}
-              trigger={companiesTriggered}
-              playId={companiesPlayId}
-            >
-              {"[Experiência real com o mercado]"}
-            </TextScramble>
-            <h3 className="text-3xl md:text-4xl font-light uppercase leading-tight">
-              Nossos membros já{" "}
-              <TextScramble
-                className="text-primary font-semibold"
-                duration={1}
-                speed={0.03}
-                trigger={companiesTriggered}
-                playId={companiesPlayId}
-              >
-                {"desenvolveram soluções"}
-              </TextScramble>
-              <br />
-              para essas empresas
-            </h3>
-            <p className="text-white/70 text-md max-w-2xl leading-relaxed">
-              Durante a formação no Inteli, nossos membros trabalham em projetos reais com grandes empresas do mercado.
-              Essa experiência prática nos diferencia:{" "}
-              <span className="text-white/90 font-medium">
-                chegamos preparados para entregar resultados de verdade
-              </span>.
-            </p>
-          </m.div>
-          {/* Carrossel de empresas */}
-          <CompaniesCarousel companies={companies} />
         </div>
       </section>
     </main>

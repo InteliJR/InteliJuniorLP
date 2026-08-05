@@ -143,9 +143,6 @@ frontend/
 ├── public/                     # Arquivos estaticos
 │   └── images/                 # Imagens do projeto
 │
-├── scripts/                    # Scripts auxiliares
-│   └── convert-images.js       # Conversão/otimização de imagens
-│
 ├── components.json             # Configuracao do shadcn/ui
 ├── eslint.config.mjs           # Regras de lint
 ├── next.config.ts              # Configuracao do Next.js

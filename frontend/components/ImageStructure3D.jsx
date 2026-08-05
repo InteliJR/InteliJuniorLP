@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-const POINTER_IDLE_TIMEOUT = 1500; // Mais tempo antes de voltar a auto-rodar
-const POINTER_SMOOTHING = 0.04; // Movimento mais suave
-const POINTER_MAX_X = 0.15; // Movimento do mouse bem mais sutil
+const POINTER_IDLE_TIMEOUT = 1500;
+const POINTER_SMOOTHING = 0.04;
+const POINTER_MAX_X = 0.15;
 const POINTER_MAX_Y = 0.1;
 const DRAG_MAX_Y = 0.8;
 const AUTO_ROTATION_SPEED = 0.005;
@@ -13,7 +13,7 @@ const CAMERA_FOV = 56;
 const CAMERA_POSITION = { x: 0, y: 0, z: 12 };
 const CAMERA_FOCUS_POINT = { x: 0, y: 0, z: 0 };
 const STRUCTURE_ROOT_OFFSET = { x: 0, y: 0, z: 0 };
-const DRAG_SENSITIVITY = 0.018; // Sensibilidade para arrastar
+const DRAG_SENSITIVITY = 0.018;
 
 const ImageStructure3D = ({ className = "" }) => {
   const mountRef = useRef(null);
@@ -23,7 +23,8 @@ const ImageStructure3D = ({ className = "" }) => {
   const structureRef = useRef(null);
   const animationFrameIdRef = useRef(null);
 
-  const [isRotating, setIsRotating] = useState(true); // Inicia como true para garantir animação
+  const [isRotating, setIsRotating] = useState(true);
+  const [hasWebGLError, setHasWebGLError] = useState(false);
   const isRotatingRef = useRef(true);
 
   const pointerTargetRef = useRef({ x: 0, y: 0 });
@@ -63,13 +64,11 @@ const ImageStructure3D = ({ className = "" }) => {
       return;
     }
 
-    // Verificar dimensões
     console.log("[ImageStructure3D] Initializing...", {
       width: mountElement.clientWidth,
       height: mountElement.clientHeight,
     });
 
-    // Se dimensões são 0, tentar novamente após um delay
     if (mountElement.clientWidth === 0 || mountElement.clientHeight === 0) {
       console.warn(
         "[ImageStructure3D] Container has no dimensions, skipping init"
@@ -99,11 +98,18 @@ const ImageStructure3D = ({ className = "" }) => {
     );
     cameraRef.current = camera;
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
+    } catch (error) {
+      console.warn("[ImageStructure3D] WebGL unavailable, using fallback.", error);
+      setHasWebGLError(true);
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(mountElement.clientWidth, mountElement.clientHeight);
     renderer.shadowMap.enabled = true;
@@ -117,28 +123,28 @@ const ImageStructure3D = ({ className = "" }) => {
 
     console.log("[ImageStructure3D] Renderer created and appended");
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Luz ambiente branca
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 1.2); // Luz principal branca
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
     mainLight.position.set(5, 8, 6);
     mainLight.castShadow = true;
     mainLight.shadow.mapSize.set(2048, 2048);
     scene.add(mainLight);
 
-    const fillLight = new THREE.DirectionalLight(0xfff8f0, 0.6); // Luz de preenchimento branca creme
+    const fillLight = new THREE.DirectionalLight(0xfff8f0, 0.6);
     fillLight.position.set(-4, 2, 4);
     scene.add(fillLight);
 
-    const redAccent = new THREE.PointLight(0xff2200, 2.2, 22); // Luz vermelha pontual bem mais forte
+    const redAccent = new THREE.PointLight(0xff2200, 2.2, 22);
     redAccent.position.set(-5, -2, 3);
     scene.add(redAccent);
 
-    const redRim = new THREE.DirectionalLight(0xff3311, 8.0); // Rim light vermelha bem mais visível
+    const redRim = new THREE.DirectionalLight(0xff3311, 8.0);
     redRim.position.set(-6, 1, -3);
     scene.add(redRim);
 
-    const redFront = new THREE.PointLight(0xff4422, 1, 300); // Luz vermelha frontal adicional
+    const redFront = new THREE.PointLight(0xff4422, 1, 300);
     redFront.position.set(3, 2, 5);
     scene.add(redFront);
 
@@ -161,10 +167,10 @@ const ImageStructure3D = ({ className = "" }) => {
 
     const regularSphereGeometry = new THREE.SphereGeometry(0.22, 42, 42);
     const largeSphereGeometry = new THREE.SphereGeometry(0.27, 52, 52);
-    const cylinderRadius = 0.15; // Cilindros mais espessos
+    const cylinderRadius = 0.15;
 
     const sphereMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xfff8f0, // Branco creme
+      color: 0xfff8f0,
       metalness: 0.05,
       roughness: 0.15,
       clearcoat: 0.95,
@@ -175,7 +181,7 @@ const ImageStructure3D = ({ className = "" }) => {
     });
 
     const largeSphereMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xfffaf5, // Branco creme mais claro
+      color: 0xfffaf5,
       metalness: 0.02,
       roughness: 0.08,
       clearcoat: 1,
@@ -186,7 +192,7 @@ const ImageStructure3D = ({ className = "" }) => {
     });
 
     const cylinderMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xfff5eb, // Branco creme
+      color: 0xfff5eb,
       metalness: 0.1,
       roughness: 0.2,
       clearcoat: 0.8,
@@ -316,14 +322,12 @@ const ImageStructure3D = ({ className = "" }) => {
       const normY = ((event.clientY - rect.top) / rect.height) * 2 - 1;
 
       if (pointerDownRef.current) {
-        // Arrastar: permite rotação livre e ampla
         const deltaX = event.clientX - pointerLastPositionRef.current.x;
         const deltaY = event.clientY - pointerLastPositionRef.current.y;
 
         pointerLastPositionRef.current.x = event.clientX;
         pointerLastPositionRef.current.y = event.clientY;
 
-        // Rotação livre sem limites para X (permite girar 360°)
         pointerTargetRef.current.x += deltaX * DRAG_SENSITIVITY;
         pointerTargetRef.current.y = THREE.MathUtils.clamp(
           pointerTargetRef.current.y + deltaY * DRAG_SENSITIVITY,
@@ -331,7 +335,6 @@ const ImageStructure3D = ({ className = "" }) => {
           DRAG_MAX_Y
         );
       } else {
-        // Hover: movimento muito sutil baseado na posição do mouse
         pointerTargetRef.current.x =
           THREE.MathUtils.clamp(normX, -1, 1) * POINTER_MAX_X;
         pointerTargetRef.current.y =
@@ -371,7 +374,6 @@ const ImageStructure3D = ({ className = "" }) => {
       const { clientWidth, clientHeight } = mountRef.current;
 
       rendererRef.current.setSize(clientWidth, clientHeight);
-      renderTarget.setSize(clientWidth, clientHeight);
       cameraRef.current.aspect = clientWidth / clientHeight;
       cameraRef.current.updateProjectionMatrix();
       cameraRef.current.lookAt(
@@ -399,7 +401,6 @@ const ImageStructure3D = ({ className = "" }) => {
 
       if (structureGroup && isRotatingRef.current) {
         if (pointerActiveRef.current) {
-          // Quando interagindo: suavização diferente para hover vs drag
           const smoothing = pointerDownRef.current ? 0.15 : POINTER_SMOOTHING;
 
           pointerRotationRef.current.x +=
@@ -409,7 +410,6 @@ const ImageStructure3D = ({ className = "" }) => {
             (pointerTargetRef.current.y - pointerRotationRef.current.y) *
             smoothing;
         } else {
-          // Quando não interagindo: desacelera suavemente e volta a auto-rodar
           pointerRotationRef.current.x *= 0.95;
           pointerRotationRef.current.y *= 0.93;
           autoRotationRef.current += AUTO_ROTATION_SPEED;
@@ -430,7 +430,6 @@ const ImageStructure3D = ({ className = "" }) => {
         );
       }
 
-      // Renderiza diretamente sem efeito glitch
       rendererRef.current.setRenderTarget(null);
       rendererRef.current.render(sceneRef.current, cameraRef.current);
     };
@@ -477,6 +476,21 @@ const ImageStructure3D = ({ className = "" }) => {
       scene.clear();
     };
   }, []);
+
+  if (hasWebGLError) {
+    return (
+      <div
+        className={`isolate flex h-full w-full items-center justify-center ${className}`}
+        style={{ minHeight: "400px" }}
+        aria-hidden="true"
+      >
+        <div className="relative h-48 w-48 rotate-45 border border-primary/70 bg-black/40 shadow-[0_0_40px_rgba(255,77,58,0.22)]">
+          <div className="absolute inset-6 border border-primary/70" />
+          <div className="absolute inset-0 -z-10 bg-primary/20 blur-3xl" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
