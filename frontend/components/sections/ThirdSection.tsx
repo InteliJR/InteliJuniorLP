@@ -426,7 +426,7 @@ export default function ThirdSection() {
                             trigger={headerTriggered}
                             playId={headerPlayId}
                         >
-                            {"[3. De onde viemos]"}
+                            {"[4. De onde viemos]"}
                         </TextScramble>
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
                             Nossa <TextScramble

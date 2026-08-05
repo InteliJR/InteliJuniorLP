@@ -314,11 +314,11 @@ export default function Footer() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="relative left-1/2 w-screen -translate-x-1/2 flex h-[50vh] items-center -mb-10"
+                    className="relative left-1/2 w-screen -translate-x-1/2 flex min-h-[50vh] items-center py-14 lg:py-0 -mb-10"
                 >
-                    <div className="h-px w-1/9 bg-primary" />
-                    <div className="flex gap-18 w-full items-center justify-center px-10">
-                        <div className="flex flex-col gap-1 items-start relative">
+                    <div className="hidden lg:block h-px w-1/9 bg-primary" />
+                    <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-18 w-full items-center justify-center px-6 sm:px-10">
+                        <div className="flex flex-col gap-1 items-center lg:items-start text-center lg:text-left relative shrink-0">
                             <TextScramble
                                 as="span"
                                 className="text-md font-extralight uppercase text-primary tracking-[0.2em]"
@@ -328,7 +328,7 @@ export default function Footer() {
                             >
                                 {"[5. contato]"}
                             </TextScramble>
-                            <h2 className="text-4xl md:text-5xl uppercase leading-tight whitespace-nowrap">
+                            <h2 className="text-4xl md:text-5xl uppercase leading-tight lg:whitespace-nowrap">
                                 vamos construir<br />o
                                 <TextScramble
                                     as="span"
@@ -345,17 +345,17 @@ export default function Footer() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={hasTriggered ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className="absolute -right-4 -top-2 flex items-center justify-center mt-2"
+                                className="absolute -right-4 -top-2 hidden lg:flex items-center justify-center mt-2"
                             >
                                 <div className="absolute inset-0 bg-primary/80 blur-2xl rounded-full scale-150" />
                             </motion.div>
                         </div>
-                        <p className="text-white/70 text-md whitespace-normal">
+                        <p className="text-white/70 text-md whitespace-normal max-w-lg text-center lg:text-left">
                             Nosso time está pronto para entender o seu desafio e construir, junto com você, a melhor solução.
                             Preencha o formulário e nosso time retorna com os próximos passos.
                         </p>
                     </div>
-                    <div className="h-px w-1/9 bg-primary" />
+                    <div className="hidden lg:block h-px w-1/9 bg-primary" />
                 </motion.div>
                 <div className="relative mb-20 px-[5%]">
                     <div className="relative w-full overflow-hidden border border-white/10 bg-[#050505] shadow-[0_0_50px_rgba(0,0,0,0.7)]">

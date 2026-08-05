@@ -5,6 +5,26 @@ import dynamic from 'next/dynamic';
 import FirstSection from '@/components/sections/FirstSection';
 import ContactFloatingButton from '@/components/ContactFloatingButton';
 
+const FourthSection = dynamic(
+  () => import('@/components/sections/FourthSection'),
+  {
+    ssr: false,
+    loading: () => (
+      <section id="servicos" className="relative min-h-screen bg-background" aria-hidden="true" />
+    )
+  }
+);
+
+const CompaniesSection = dynamic(
+  () => import('@/components/sections/CompaniesSection'),
+  {
+    ssr: false,
+    loading: () => (
+      <section id="solucoes" className="relative min-h-[80vh] bg-background" aria-hidden="true" />
+    )
+  }
+);
+
 const SecondSection = dynamic(
   () => import('@/components/sections/SecondSection'),
   {
@@ -25,16 +45,6 @@ const ThirdSection = dynamic(
   }
 );
 
-const FourthSection = dynamic(
-  () => import('@/components/sections/FourthSection'),
-  {
-    ssr: false,
-    loading: () => (
-      <section id="servicos" className="relative min-h-screen bg-background" aria-hidden="true" />
-    )
-  }
-);
-
 const Footer = dynamic(
   () => import('@/components/sections/Footer'),
   {
@@ -49,9 +59,10 @@ export default function Home() {
   return (
     <main>
       <FirstSection />
+      <FourthSection />
+      <CompaniesSection />
       <SecondSection />
       <ThirdSection />
-      <FourthSection />
       <Footer />
       <ContactFloatingButton />
     </main>

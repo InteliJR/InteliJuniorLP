@@ -451,7 +451,7 @@ export default function FourthSection() {
     const thresholds = [0.04, 0.24, 0.44, 0.64, 0.84];
 
     return (
-        <section id="servicos" className="relative py-24 overflow-hidden">
+        <section id="servicos" className="relative pt-24 pb-8 md:pb-12 overflow-hidden">
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-primary/2 to-transparent" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-size-[60px_60px]" />
@@ -475,7 +475,7 @@ export default function FourthSection() {
                             trigger={headerTriggered}
                             playId={headerPlayId}
                         >
-                            {"[4. Nossos Serviços]"}
+                            {"[2. Nossos Serviços]"}
                         </TextScramble>
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight lg:whitespace-nowrap">
                             nossos <TextScramble
